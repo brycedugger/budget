@@ -18,5 +18,11 @@ module.exports = function(sequelize, DataTypes) {
     });
   };
 
+  // BankingAccount.associate = models => {
+  //   BankingAccount.hasMany(models.Transaction, {
+  //     onDelete: "cascade"
+  //   });
+  // };
+
   return BankingAccount;
 };

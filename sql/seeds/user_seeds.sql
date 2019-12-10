@@ -1,10 +1,10 @@
 USE bank;
 
 INSERT INTO users (firstName, lastName)
-VALUES  ("Michael", "Scott"), 
-        ("Dwight", "Schrute"),
-        ("Pam", "Beesly"), 
-        ("Jim", "Halpert");
+VALUES  ("Michael", "Scott", 1), 
+        ("Dwight", "Schrute" , 2),
+        ("Pam", "Beesly", 3), 
+        ("Jim", "Halpert", 4);
 
 -- {
 -- 	"firstName": "Michael",
@@ -17,8 +17,8 @@ VALUES  ("Michael", "Scott"),
 -- }
 
 -- {
--- 	"firstName": "Michael",
--- 	"lastName": "Scott"
+-- 	"firstName": "Pam",
+-- 	"lastName": "Beesly"
 -- }
 
 -- {
