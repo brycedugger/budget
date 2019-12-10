@@ -24,6 +24,9 @@ VALUES
 
 --Michael Checking
 (1, "Transfer to Savings", -600, 12/1/2019,5358305849, "transfer"),
+(2, "Transfer to Savings", -100, 12/2/2019,5358305849,"transfer"),
+(3,"NASB Mortgage", -2300, 12/2/2019,5358305849,"Housing"),
+()
 
 --Dwight Savings
 --Dwight Checking
