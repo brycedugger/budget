@@ -13,7 +13,6 @@ module.exports = function(sequelize, DataTypes) {
   BankingAccount.associate = models => {
     BankingAccount.belongsTo(models.User, {
       foreignKey: {
-        fieldName: "accountOwner",
         defaultValue: null
       }
     });
