@@ -1,7 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
   const BankingAccount = sequelize.define("BankingAccount", {
     accountNumber: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
+      validate: { len: [10, 10] },
       primaryKey: true
     },
     fundsAvailable: {

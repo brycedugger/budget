@@ -10,7 +10,7 @@ module.exports = function(app) {
       ProfileId
     })
       .then(newUser => {
-        res.json(newUser);
+        res.status(200).json(newUser);
       })
       .catch(err => {
         console.log(err);
@@ -27,7 +27,7 @@ module.exports = function(app) {
       UserId
     })
       .then(newAcc => {
-        res.json(newAcc);
+        res.status(200).json(newAcc);
       })
       .catch(err => {
         console.log(err);
@@ -43,7 +43,7 @@ module.exports = function(app) {
       password
     })
       .then(newProfile => {
-        res.json(newProfile);
+        res.status(200).json(newProfile);
       })
       .catch(err => {
         console.log(err);
