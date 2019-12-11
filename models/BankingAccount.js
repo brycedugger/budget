@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   const BankingAccount = sequelize.define("BankingAccount", {
     accountNumber: {
       type: DataTypes.BIGINT,
@@ -19,11 +19,11 @@ module.exports = function(sequelize, DataTypes) {
     });
   };
 
-  // BankingAccount.associate = models => {
-  //   BankingAccount.hasMany(models.Transaction, {
-  //     onDelete: "cascade"
-  //   });
-  // };
+  BankingAccount.associate = models => {
+    BankingAccount.hasMany(models.Transaction, {
+      onDelete: "cascade"
+    });
+  };
 
   return BankingAccount;
 };
