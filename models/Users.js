@@ -20,8 +20,7 @@ module.exports = function(sequelize, DataTypes) {
   User.associate = models => {
     User.belongsTo(models.Profile, {
       foreignKey: {
-        fieldName: "profileId",
-        defaultValue: null
+        defaultValue: false
       }
     });
   };
@@ -31,6 +30,12 @@ module.exports = function(sequelize, DataTypes) {
       onDelete: "cascade"
     });
   };
+
+  // User.associate = models => {
+  //   User.hasMany(models.Budget, {
+  //     onDelete: "cascade"
+  //   });
+  // };
 
   return User;
 };

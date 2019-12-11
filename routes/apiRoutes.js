@@ -1,24 +1,53 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.json(dbExamples);
-    });
+  app.post("/api/users", (req, res) => {
+    const { firstName, lastName } = req.body;
+
+    db.User.create({
+      firstName,
+      lastName,
+      ProfileId
+    })
+      .then(newUser => {
+        res.status(200).json(newUser);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json({ error: err });
+      });
   });
 
-  // Create a new example
-  app.post("/api/examples", function(req, res) {
-    db.Example.create(req.body).then(function(dbExample) {
-      res.json(dbExample);
-    });
+  app.post("/api/accounts", (req, res) => {
+    const { accountNumber, fundsAvailable, UserId } = req.body;
+
+    db.BankingAccount.create({
+      accountNumber,
+      fundsAvailable,
+      UserId
+    })
+      .then(newAcc => {
+        res.status(200).json(newAcc);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json({ error: err });
+      });
   });
 
-  // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.json(dbExample);
-    });
+  app.post("/api/profile", (req, res) => {
+    const { username, password } = req.body;
+
+    db.Profile.create({
+      username,
+      password
+    })
+      .then(newProfile => {
+        res.status(200).json(newProfile);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json({ error: err });
+      });
   });
 };

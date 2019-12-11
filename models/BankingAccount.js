@@ -1,7 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
   const BankingAccount = sequelize.define("BankingAccount", {
     accountNumber: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
+      validate: { len: [10, 10] },
       primaryKey: true
     },
     fundsAvailable: {
@@ -13,11 +14,16 @@ module.exports = function(sequelize, DataTypes) {
   BankingAccount.associate = models => {
     BankingAccount.belongsTo(models.User, {
       foreignKey: {
-        fieldName: "accountOwner",
         defaultValue: null
       }
     });
   };
+
+  // BankingAccount.associate = models => {
+  //   BankingAccount.hasMany(models.Transaction, {
+  //     onDelete: "cascade"
+  //   });
+  // };
 
   return BankingAccount;
 };
