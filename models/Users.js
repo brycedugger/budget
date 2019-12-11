@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
   User.associate = models => {
     User.belongsTo(models.Profile, {
       foreignKey: {
-        defaultValue: false
+        defaultValue: null
       }
     });
   };
