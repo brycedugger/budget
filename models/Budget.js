@@ -1,12 +1,9 @@
 module.exports = function (sequelize, DataTypes) {
     const Budget = sequelize.define("Budget", {
         amount: {
-            //decimcals cant be passed into integer. 
-            //can decimal be an integer?
-            //DataTypes.DECIMAL?
-            type: DataTypes.INTEGER,
+            type: DataTypes.DECIMAL,
             allowNull: false,
-            validate: { min: 1 }
+            defaultValue: 0
         }
     });
 
