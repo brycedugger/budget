@@ -12,19 +12,10 @@ module.exports = function (sequelize, DataTypes) {
             validate: { len: [1, 50] }
         },
         amount: {
-            //decimcals cant be passed into integer. 
-            //can decimal be an integer?
-            //DataTypes.DECIMAL?
-            type: DataTypes.INTEGER,
+            type: DataTypes.DECIMAL,
             allowNull: false,
-            validate: { min: 1 }
+            defaultValue: 0
         },
-        day: {
-            //can slashes be passed into integers or xx/xx/xxxx?
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: { min: 6 }
-        }
     });
 
     Transaction.associate = models => {
