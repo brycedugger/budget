@@ -12,24 +12,10 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Goal.associate = models => {
-    Goal.belongsTo(models.User, {
-      foreignKey: {
-        defaultValue: null
-      }
-    });
-  };
-
-  Goal.associate = models => {
     Goal.belongsTo(models.Category, {
       foreignKey: {
         defaultValue: null
       }
-    });
-  };
-
-  Goal.associate = models => {
-    Goal.hasMany(models.Transaction, {
-      onDelete: "cascade"
     });
   };
 

@@ -13,15 +13,20 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Category.associate = models => {
-    Category.hasMany(models.Transaction, {
-      onDelete: null
+    Category.belongsTo(models.User, {
+      foreignKey: {
+        defaultValue: null
+      }
     });
   };
 
   Category.associate = models => {
-    Category.hasMany(models.Goal, {
+    Category.hasMany(models.Transaction, {
       onDelete: null
-    });
+    }),
+      Category.hasMany(models.Goal, {
+        onDelete: null
+      });
   };
 
   return Category;
