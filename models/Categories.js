@@ -1,7 +1,4 @@
 module.exports = function(sequelize, DataTypes) {
-  const TransactionCategory = sequelize.define("TransactionCategory", {
-    role: DataTypes.STRING
-  });
   const Category = sequelize.define("Category", {
     id: {
       type: DataTypes.INTEGER,
@@ -16,13 +13,15 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Category.associate = models => {
-    Category.belongsToMany(
-      models.Transaction,
-      { through: TransactionCategory },
-      {
-        onDelete: null
-      }
-    );
+    Category.hasMany(models.Transaction, {
+      onDelete: null
+    });
+  };
+
+  Category.associate = models => {
+    Category.hasMany(models.Goal, {
+      onDelete: null
+    });
   };
 
   return Category;
