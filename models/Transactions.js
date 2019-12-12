@@ -8,7 +8,6 @@ module.exports = function(sequelize, DataTypes) {
     description: {
       type: DataTypes.STRING,
       allowNull: false,
-      //Reevaluate length after html completed.
       validate: { len: [1, 50] }
     },
     amount: {
@@ -19,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Transaction.associate = models => {
-    Transaction.belongsTo(models.BankingAccount, {
+    Transaction.belongsTo(models.Goal, {
       foreignKey: {
         defaultValue: null
       }

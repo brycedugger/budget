@@ -14,25 +14,29 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: { len: [1, 20] }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: { len: [1, 20] }
+    },
+    pwd: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: { min: 6 }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    income: {
+      type: DataTypes.DECIMAL,
+      defaultValue: 0
     }
   });
 
   User.associate = models => {
-    User.belongsTo(models.Profile, {
-      foreignKey: {
-        defaultValue: null
-      }
-    });
-  };
-
-  User.associate = models => {
-    User.hasMany(models.BankingAccount, {
-      onDelete: "cascade"
-    });
-  };
-
-  User.associate = models => {
-    User.hasMany(models.Budget, {
+    User.hasMany(models.Goal, {
       onDelete: "cascade"
     });
   };
