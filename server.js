@@ -45,11 +45,11 @@ require("./routes/userRoutes")(app);
 require("./routes/categoryRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-// Auth Routes
-var authRoute = require("./app/routes/auth.js")(app, passport);
+// // Auth Routes
+// var authRoute = require("./routes/auth")(app, passport);
 
-// Load Passport Strategies
-require("./app/config/passport/passport.js")(passport, db.user);
+// // Load Passport Strategies
+// require("./config/passport/passport.js").default(passport, db.user);
 
 var syncOptions = { force: false };
 
