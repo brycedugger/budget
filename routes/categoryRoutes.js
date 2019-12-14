@@ -2,8 +2,23 @@ var db = require("../models");
 
 module.exports = function(app) {
   // get all the Category's (with transactions and goals) belonging to the user's id (from req.params.id)
+  app.get("/api/category/all/:id", (req, res) => {
+    db.Category.findAll({
+      include: [db.Transaction, db.Goal],
+      where: { UserId: req.params.id }
+    })
+      .then(data => {
+        res.status(200).json(data);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json({ error: err });
+      });
+  });
+
+  // get all catergories belonging to the user
   app.get("/api/category/:id", (req, res) => {
-    db.Category.findAll({ include: [db.Transaction, db.Goal], where: { UserId: req.params.id } })
+    db.Category.findAll({ where: { UserId: req.params.id } })
       .then(data => {
         res.status(200).json(data);
       })

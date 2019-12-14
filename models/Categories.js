@@ -24,9 +24,9 @@ module.exports = function(sequelize, DataTypes) {
     Category.hasMany(models.Transaction, {
       onDelete: null
     }),
-      Category.hasMany(models.Goal, {
-        onDelete: null
-      });
+    Category.hasMany(models.Goal, {
+      onDelete: null
+    });
   };
 
   return Category;
