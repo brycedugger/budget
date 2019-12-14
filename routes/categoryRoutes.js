@@ -1,10 +1,10 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // get all the Category's (with transactions and goals) belonging to the user's id (from req.params.id)
+  // get all the Category's (with expenses and goals) belonging to the user's id (from req.params.id)
   app.get("/api/category/all/:id", (req, res) => {
     db.Category.findAll({
-      include: [db.Transaction, db.Goal],
+      include: [db.Expense, db.Goal],
       where: { UserId: req.params.id }
     })
       .then(data => {
