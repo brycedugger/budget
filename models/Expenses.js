@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  const Transaction = sequelize.define("Transaction", {
+  const Expense = sequelize.define("Expense", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -17,13 +17,13 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  Transaction.associate = models => {
-    Transaction.belongsTo(models.Category, {
+  Expense.associate = models => {
+    Expense.belongsTo(models.Category, {
       foreignKey: {
         defaultValue: null
       }
     });
   };
 
-  return Transaction;
+  return Expense;
 };
