@@ -32,6 +32,7 @@ module.exports = function(app) {
   app.post("/api/category/:id", (req, res) => {
     const { name } = req.body;
     const { id } = req.params;
+    console.log("name: " + name);
 
     db.Category.create({
       name,
