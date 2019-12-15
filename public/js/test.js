@@ -5,11 +5,9 @@
  */
 const renderDropDownButton = (optionText, id) => {
   // create the element
-  return $("<option>", {
-    class: "text-dark bg-light",
-    value: optionText,
-    id: `category-${id}`
-  }).text(optionText);
+  return $("<option>", { class: `text-dark bg-light category-${id}`, value: optionText }).text(
+    optionText
+  );
 };
 
 /**
@@ -29,8 +27,9 @@ const renderDropDown = id => {
  * function to get all categories and append a dropdown the the parent element
  * @param {integer} id the id of this element
  * @param {string} parentElement the element to append this to
+ * @param {string} def the default value for the dropdown
  */
-const getCategories = (id, parentElement) => {
+const getCategories = (id, parentElement, def) => {
   // send get request to retrieve all categories
   axios.get(`/api/category/${id}`).then(res => {
     // render dropdown button
@@ -40,6 +39,11 @@ const getCategories = (id, parentElement) => {
     res.data.forEach(row => {
       dropdown.append(renderDropDownButton(row.name, row.id));
     });
+
+    // set defaults for the value if one is defined
+    if (def !== undefined) {
+      dropdown.val(def);
+    }
 
     // append it to the modal
     $(parentElement).append(dropdown);
@@ -94,8 +98,9 @@ const renderModalFormFields = (type, id, text) => {
  * @param {string} id the id of the element
  * @param {string} desc the description of the expense
  * @param {integer} amt the amount of the expense
+ * @param {string} cat the category of the expense
  */
-const renderModal = (id, desc, amt) => {
+const renderModal = (id, desc, amt, cat) => {
   // create the elements
   const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
@@ -114,7 +119,7 @@ const renderModal = (id, desc, amt) => {
   }).text("Submit");
 
   //   render categories and append it to .modal-body
-  getCategories(1, ".modal-body");
+  getCategories(1, ".modal-body", cat);
 
   // append and render the elements
   $(".container").prepend(modalFade);
@@ -161,9 +166,10 @@ function editClicked() {
   const editId = parseInt($(this).attr("editId"));
   const description = $(`.description-${editId}`).text();
   const amount = $(`.amount-${editId}`).text();
+  const category = $(`.category-${editId}`).text();
 
   // render the modal using the data
-  renderModal(editId, description, amount);
+  renderModal(editId, description, amount, category);
 }
 
 // function to listen for clicks on the delete button
