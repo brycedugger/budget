@@ -1,4 +1,55 @@
 /**
+ * function to render list of categories
+ * @param {string} optionText the name of each category
+ * @param {object} the dom element containing the category
+ */
+const renderDropDownButton = (optionText, id) => {
+  // create the element
+  return $("<option>", {
+    class: "text-dark bg-light",
+    value: optionText,
+    id: `category-${id}`
+  }).text(optionText);
+};
+
+/**
+ * function to render the drop down filter
+ * @param {string} id the id of this element
+ * @return {object} the dom element containing the category dropdown
+ */
+const renderDropDown = id => {
+  // create the element
+  return $("<select>", {
+    class: "form-control w-100 mt-3 bg-primary text-light",
+    id: id
+  });
+};
+
+/**
+ * function to get all categories and append a dropdown the the parent element
+ * @param {integer} id the id of this element
+ * @param {string} parentElement the element to append this to
+ */
+const getCategories = (id, parentElement) => {
+  // send get request to retrieve all categories
+  axios.get(`/api/category/${id}`).then(res => {
+    // render dropdown button
+    const dropdown = renderDropDown("categories");
+
+    // for each category, create a dropdown option
+    res.data.forEach(row => {
+      dropdown.append(renderDropDownButton(row.name, row.id));
+    });
+
+    // append it to the modal
+    $(parentElement).append(dropdown);
+  }),
+    err => {
+      console.log(err);
+    };
+};
+
+/**
  * function to update the expense sending a put request
  * @param {integer} id the id of the expense
  * @param {string} description the description of the expense
@@ -62,6 +113,9 @@ const renderModal = (id, desc, amt) => {
     id: "modal-submit"
   }).text("Submit");
 
+  //   render categories and append it to .modal-body
+  getCategories(1, ".modal-body");
+
   // append and render the elements
   $(".container").prepend(modalFade);
   modalFade.append(modalDiaglogue);
@@ -105,8 +159,8 @@ const listenForModal = () => {
 function editClicked() {
   // grab data from the expense
   const editId = parseInt($(this).attr("editId"));
-  const description = $(`.description-${deleteId}`).text();
-  const amount = $(`.amount-${deleteId}`).text();
+  const description = $(`.description-${editId}`).text();
+  const amount = $(`.amount-${editId}`).text();
 
   // render the modal using the data
   renderModal(editId, description, amount);
