@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     income: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10,2),
       defaultValue: 0
     }
   });
