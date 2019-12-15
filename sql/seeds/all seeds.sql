@@ -6,6 +6,7 @@ VALUES  ("Brennon", "Morris", "bmorris", "pokemon@1", "bmorris@amazon.com", "687
 USE bank;
 
 INSERT INTO categories (name, goal, createdAt, updatedAt, UserId)
+
 VALUES  ("Home & Utilities", "100.00", "2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
         ("Transportation", "200.00", "2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
         ("Groceries", "200.00", "2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
@@ -16,6 +17,7 @@ VALUES  ("Home & Utilities", "100.00", "2019-12-10T05:22:35.657", "2019-12-10T05
 USE bank;
 
 INSERT INTO expenses (description, amount, createdAt, updatedAt, CategoryId)
+
 VALUES  ("CenturyLink","99.51","2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
         ("Spotify USA","10.50","2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
         ("Rent","775","2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),

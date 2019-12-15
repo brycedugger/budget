@@ -1,7 +1,6 @@
 var db = require("../models");
 
 module.exports = function(app) {
-
   // get all expenses belonging to the category
   app.get("/api/expense/:id", (req, res) => {
     db.Expense.findAll({ where: { CategoryId: req.params.id } })
@@ -36,6 +35,10 @@ module.exports = function(app) {
   app.put("/api/expense/:id", (req, res) => {
     const { amount, description } = req.body;
     const { id } = req.params;
+
+    console.log("id :", id);
+    console.log("description :", description);
+    console.log("amount :", amount);
 
     db.Expense.update(
       {
