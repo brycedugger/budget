@@ -1,4 +1,4 @@
-const renderModal = (title, num) => {
+const renderModal = (title, num, id) => {
   // create the elements
   const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
@@ -16,9 +16,21 @@ const renderModal = (title, num) => {
     id: "modal-submit"
   }).text("Submit");
 
-  //   render categories and append it to .modal-body if they're making an expense
-  if (num === 1) {
-    getCategories(id, ".modal-body");
+  switch (num) {
+    case 0:
+      modalBody.append(
+        renderModalFormFields("Category Name", "modal-category", ""),
+        renderModalFormFields("Goal", "modal-goal", "")
+      );
+      break;
+    case 1:
+      //   render categories and append it to .modal-body if they're making an expense
+      getCategories(id, ".modal-body");
+      modalBody.append(
+        renderModalFormFields("Description", "modal-description", ""),
+        renderModalFormFields("Amount", "modal-amount", "")
+      );
+      break;
   }
 
   // append and render the elements
@@ -27,10 +39,6 @@ const renderModal = (title, num) => {
   modalDiaglogue.append(modalContent);
   modalContent.append(modalHeader, modalBody, modalprefooter);
   modalHeader.append(modalTitle);
-  modalBody.append(
-    renderModalFormFields("Description", "modal-description", desc),
-    renderModalFormFields("Amount", "modal-amount", amt)
-  );
   modalprefooter.append(button, submit);
 
   // listen when to close the modal
@@ -49,9 +57,15 @@ const renderModal = (title, num) => {
   });
 };
 
-const createExpense = () => {};
+const createExpense = () => {
+  renderModal("Create Expense", 1, 1);
+  // TODO CHANGE ID PARAMETER FOR RENDER MODAL
+};
 
-const createCategory = () => {};
+const createCategory = () => {
+  renderModal("Create Category", 0, 1);
+  // TODO CHANGE ID PARAMETER FOR RENDER MODAL
+};
 
 /**
  * function to delete a single expense
