@@ -8,14 +8,14 @@ VALUES  ("Michael", "Scott", "mscott", "abc", "a@gmail.com", 0, "2019-12-10T05:2
 
 USE bank;
 
-INSERT INTO categories (name, createdAt, updatedAt, UserId)
+INSERT INTO categories (name, goal, createdAt, updatedAt, UserId)
 VALUES  ("Shopping", "100", "2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
         ("Bills & Utilities", "200", "2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
         ("Dining", "300", "2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1);
 
 USE bank;
 
-INSERT INTO EXPENSES (description, amount, createdAt, updatedAt, CategoryId)
+INSERT INTO expenses (description, amount, createdAt, updatedAt, CategoryId)
 VALUES  ("Transfer from Checking Account",600,"2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
         ("Transfer from Checking Account",600,"2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",1),
         ("Transfer from Checking Account",600,"2019-12-10T05:22:35.657", "2019-12-10T05:22:35.657",2),
