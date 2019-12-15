@@ -36,10 +36,6 @@ module.exports = function(app) {
     const { amount, description } = req.body;
     const { id } = req.params;
 
-    console.log("id :", id);
-    console.log("description :", description);
-    console.log("amount :", amount);
-
     db.Expense.update(
       {
         amount,

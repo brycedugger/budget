@@ -3,6 +3,9 @@ var path = require("path");
 
 module.exports = function(app) {
   // Load index page
+  app.get("/home", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/HTML/test.html"));
+
   app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/index.html"));
   });
@@ -20,6 +23,7 @@ module.exports = function(app) {
   });
   app.get("/signup", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
+
   });
   // // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
