@@ -5,7 +5,6 @@ module.exports = function(app) {
   // Load index page
   app.get("/home", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/test.html"));
-    // res.send('hello')
   });
 
   // // Render 404 page for any unmatched routes
