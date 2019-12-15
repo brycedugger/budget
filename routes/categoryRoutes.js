@@ -1,10 +1,10 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // get all the Category's (with transactions and goals) belonging to the user's id (from req.params.id)
+  // get all the Category's (with expenses) belonging to the user's id (from req.params.id)
   app.get("/api/category/all/:id", (req, res) => {
     db.Category.findAll({
-      include: [db.Transaction, db.Goal],
+      include: [db.Expense],
       where: { UserId: req.params.id }
     })
       .then(data => {
@@ -16,7 +16,7 @@ module.exports = function(app) {
       });
   });
 
-  // get all catergories belonging to the user
+  // get all catergories and their goals belonging to the user
   app.get("/api/category/:id", (req, res) => {
     db.Category.findAll({ where: { UserId: req.params.id } })
       .then(data => {
@@ -28,13 +28,14 @@ module.exports = function(app) {
       });
   });
 
-  // create a single Category
+  // create a single Category and goal
   app.post("/api/category/:id", (req, res) => {
-    const { name } = req.body;
+    const { name, goal } = req.body;
     const { id } = req.params;
 
     db.Category.create({
       name,
+      goal,
       UserId: id
     })
       .then(newCategory => {
@@ -46,14 +47,15 @@ module.exports = function(app) {
       });
   });
 
-  // update a single Category
+  // update a single Category and its goal
   app.put("/api/category/:id", (req, res) => {
-    const { name } = req.body;
+    const { name, goal } = req.body;
     const { id } = req.params;
 
     db.Category.update(
       {
-        name
+        name,
+        goal
       },
       {
         where: { id }
@@ -68,7 +70,7 @@ module.exports = function(app) {
       });
   });
 
-  // delete a single Category by id
+  // delete a single Category, its goal, and associated transactions by id
   app.delete("/api/category/:id", (req, res) => {
     db.Category.destroy({
       where: { id: req.params.id }

@@ -9,6 +9,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: { len: [1, 20] }
+    },
+    goal: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   });
 
@@ -21,12 +25,9 @@ module.exports = function(sequelize, DataTypes) {
   };
 
   Category.associate = models => {
-    Category.hasMany(models.Transaction, {
-      onDelete: null
-    }),
-    Category.hasMany(models.Goal, {
-      onDelete: null
-    });
+    Category.hasMany(models.Expense, {
+      onDelete: "cascade"
+    })
   };
 
   return Category;
