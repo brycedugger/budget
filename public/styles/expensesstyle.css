@@ -53,3 +53,32 @@
     font-family: 'Amatic SC', cursive;
     font-size: 29px;
 }
+
+.table-container {
+    margin-left: 80px;
+    margin-right: 120px;
+}
+
+.expense-category-name, .expense-category-total, .expense-total, .expense-total-amount {
+    font-weight: bold;
+    font-size: 16px;
+    color: #004d40 !important;
+}
+
+.spending-header {
+    font-size: 20px;
+    color: #B2DFDB !important;
+}
+
+.category-amount, .category-description {
+    color: #616161;
+    align-content: center;
+}
+
+.create-expense-button, .edit-expense-button {
+    margin-left: 20px;
+}
+
+.waves-effect .waves-light btn {
+    margin-left: 30px;
+}
