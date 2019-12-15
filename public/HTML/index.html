@@ -12,35 +12,31 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <title>Moolah</title>
-    </head>
 
+    </head>
+    
+    <!-- Navbar -->
     <nav class="nav-extended">
-        <div class="nav-wrapper">
-            <span id="nav-icon" class="brand-logo"></i>Moolah</span>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="#"><i id="profile-icon" class="large material-icons">account_circle</i></a></li>
+      <div class="nav-wrapper">
+          <span id="nav-icon" class="brand-logo"></i>Moolah</span>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#"><i id="profile-icon" class="large material-icons">account_circle</i></a></li>
+        </ul>
+      </div>
+
+      <div class="nav-content">
+          <ul class="tabs">
+            <li class="tab"><a href="../HTML/index.html">Home</a></li>
+            <li class="tab"><a href="../HTML/expenses.html">Expenses</a></li>
+            <li class="tab"><a href="budget.html">Budget Tracking</a></li>
           </ul>
         </div>
-
-        <div class="nav-wrapper">
-            <ul class="tabs">
-              <li class="tab"><a href="../HTML/index.html">Home</a></li>
-              <li class="tab"><a class="dropdown-trigger" href="#" data-target="dropdown1">Expenses<i class="material-icons right">arrow_drop_down</i></a></li>
-              <li class="tab"><a href="budget.html">Budget Tracking</a></li>
-            </ul>
-          </div>
-    </nav>
-
-    <!-- Dropdown Structure -->
-    <ul id="dropdown1" class="dropdown-content">
-      <li><a href="#!">Show Itimized Expenses</a></li>
-      <li><a href="#!">Add A New Expense</a></li>
-      <li><a href="#!">Edit/Update Expense</a></li>
-    </ul>
-    
-    <div class="nav-wrapper">
-        <span class="title">Dashboard</span>
-    </div>
+  </nav>
+  
+   <!-- Title of Page -->
+  <div class="nav-content">
+      <span class="title">Dashboard</span>
+  </div>
 
     <body>
         <div class="container">
@@ -78,6 +74,7 @@
             <div id="donutchart" style="width: 900px; height: 450px;"></div>
         </div>
         
+    <!-- Footer -->
     <footer class="page-footer" id="footer-body">
         <div class="container">
         </div>
@@ -89,7 +86,9 @@
     </footer>
 
       <!--JavaScript at end of body for optimized loading-->
+      <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
       <script type="text/javascript" src="../js/materialize.min.js"></script>
+      <script type="text/javascript" src="../js/index.js"></script>
     </body>
 </html>
         
