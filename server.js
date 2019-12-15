@@ -24,20 +24,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // For Passport
-app.use(
-  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
-); // session secret
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-// Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
-);
-app.set("view engine", "handlebars");
+// Static directory
+app.use(express.static("public"));
 
 // Routes
 require("./routes/apiRoutes")(app);
