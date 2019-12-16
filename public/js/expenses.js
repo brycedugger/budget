@@ -20,15 +20,15 @@ $(document).ready(function() {
     const tdExpenseAmount = $("<td>", { class: "amount-" + expenseData.id }).text(
       expenseData.amount
     );
-    const editButton = $("<a>", {
+    const editButton = $("<div>", {
       class: "btn btn-primary mx-1 mt-2 text-white edit-button",
       editId: expenseData.id,
-      expenseCategoryValue: categoryName
+      categoryValue: categoryName
     }).text("Edit");
-    const deleteButton = $("<a>", {
+    const deleteButton = $("<div>", {
       class: "btn btn-primary mx-1 mt-2 text-white delete-button",
       deleteId: expenseData.id,
-      expenseCategoryValue: categoryName
+      categoryValue: categoryName
     }).text("Delete");
     $("#table").append(newTr);
     newTr.append(tdExpenseName, tdExpenseAmount, editButton, deleteButton);
@@ -50,13 +50,19 @@ $(document).ready(function() {
     const tdCategoryTotal = $("<td>", { class: "expense-category-" + categoryData.goal }).text(
       totalExpenseCat
     );
-    // const editButton = $("<a>", {class: "btn btn-primary mx-1 mt-2 edit-button", editId:categoryData.id, categoryId: categoryData.Id,
-    // categoryValue:categoryData.name }).text("Edit");
-    // const deleteButton = $("<a>", {class: "btn btn-primary mx-1 mt-2 delete-button", deleteId: categoryData.id, categoryId: categoryData.Id,
-    // categoryValue:categoryData.name}).text("Delete");
+    const categoryEditButton = $("<div>", {
+      class: "btn btn-white mx-1 mt-2 edit-category-button",
+      editId: categoryData.id,
+      categoryValue: categoryData.name
+    }).text("Edit");
+    const categoryDeleteButton = $("<div>", {
+      class: "btn btn-white mx-1 mt-2 delete-category-button",
+      deleteId: categoryData.id,
+      categoryValue: categoryData.name
+    }).text("Delete");
 
     $("#table").append(newTBody, newTr);
-    newTr.append(tdCategoryName, tdCategoryTotal /*, editButton, deleteButton*/);
+    newTr.append(tdCategoryName, tdCategoryTotal, categoryEditButton, categoryDeleteButton);
   }
 
   function getCategories() {

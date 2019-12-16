@@ -1,36 +1,4 @@
 /**
- * function to create a new category
- * @param {integer} userId the id of the user
- * @param {string} name the name of the category
- * @param {string} goal the goal of the category
- */
-const postCategory = (userId, name, goal) => {
-  // send post request to create a single category
-  axios.post(`/api/category/${userId}`, { name, goal }).then(res => {
-    location.reload();
-  }),
-    err => {
-      console.log(err);
-    };
-};
-
-/**
- * function to create a new expense
- * @param {string} amount the expense amount
- * @param {string} description the expense description
- * @param {integer} CategoryId the id of the category
- */
-const postExpense = (amount, description, CategoryId) => {
-  // send post request to create a single expense
-  axios.post(`/api/expense/`, { amount, description, CategoryId }).then(res => {
-    location.reload();
-  }),
-    err => {
-      console.log(err);
-    };
-};
-
-/**
  * function to render a modal (used for both creating expenses and goals)
  * @param {string} title the title to go in the modal
  * @param {integer} num indicates if this modal is for an expense (1) or a goal (0)
@@ -114,20 +82,6 @@ const createExpense = () => {
 };
 
 /**
- * function to delete a single expense
- * @param {integer} expenseId the id of the expense to be deleted
- */
-const deleteExpense = expenseId => {
-  // send delete request to delete a single expense
-  axios.delete(`/api/expense/${expenseId}`).then(res => {
-    location.reload();
-  }),
-    err => {
-      console.log(err);
-    };
-};
-
-/**
  * function to render list of categories
  * @param {string} text the name of each category
  * @param {object} elementId the dom element containing the category
@@ -152,53 +106,6 @@ const renderDropdown = elementId => {
     class: "form-control w-100 mt-3 bg-primary text-white",
     id: elementId
   });
-};
-
-/**
- * function to get all categories and append a dropdown the the parent element
- * @param {integer} userId the id of the user
- * @param {string} parentElement the element to append this to
- * @param {string} defaultValue the default value for the dropdown
- */
-const getCategories = (userId, parentElement, defaultValue) => {
-  // send get request to retrieve all categories
-  axios.get(`/api/category/${userId}`).then(res => {
-    // render dropdown button
-    const dropdown = renderDropdown("categories");
-
-    // for each category, create a dropdown option
-    res.data.forEach(row => {
-      dropdown.append(renderDropdownCategories(row.name, row.id));
-    });
-
-    // set defaults for the value if one is defined
-    if (defaultValue !== undefined) {
-      dropdown.val(defaultValue);
-    }
-
-    // append it to the modal
-    $(parentElement).append(dropdown);
-  }),
-    err => {
-      console.log(err);
-    };
-};
-
-/**
- * function to update the expense by sending a put request
- * @param {integer} expenseId the id of the expense
- * @param {string} description the description of the expense
- * @param {integer} amount the amount of the expense
- * @param {integer} CategoryId the id of the category
- */
-const updateExpense = (expenseId, description, amount, CategoryId) => {
-  // make put request to update a single expense
-  axios.put(`/api/expense/${expenseId}`, { description, amount, CategoryId }).then(res => {
-    location.reload();
-  }),
-    err => {
-      console.log(err);
-    };
 };
 
 /**
@@ -294,27 +201,41 @@ const listenForModalClick = () => {
 };
 
 // function to listen for clicks on the edit button
-function editClicked() {
+function editExpenseClicked() {
   // grab data from the expense
   const editId = parseInt($(this).attr("editId")); // get the edit button id
   const description = $(`.description-${editId}`).text(); // get the description
   const amount = $(`.amount-${editId}`).text(); // get the amount
   const userId = parseInt($(this).attr("......")); // TODO: dynamically get the correct ID
-  const expenseCategoryValue = $(this).attr("expenseCategoryValue"); // get the category text
+  const categoryValue = $(this).attr("categoryValue"); // get the category text
 
   // render the modal using the data
-  renderUpdateExpenseModal(1, description, amount, expenseCategoryValue, editId); // TODO: set first parameter to userId
+  renderUpdateExpenseModal(1, description, amount, categoryValue, editId); // TODO: set first parameter to userId
 }
 
 // function to listen for clicks on the delete button
-function deleteClicked() {
+function deleteExpenseClicked() {
   const deleteId = parseInt($(this).attr("deleteId"));
   deleteExpense(deleteId);
 }
 
+// function to listen for clicks on the edit button
+function editCategoryClicked() {
+  const editId = parseInt($(this).attr("editId")); // get the edit button id
+  console.log("edit category clicked with ID:", editId);
+}
+
+// function to listen for clicks on the delete button
+function deleteCategoryClicked() {
+  const deleteId = parseInt($(this).attr("deleteId"));
+  deleteCategory(deleteId);
+}
+
 window.onload = () => {
-  $(document).on("click", ".edit-button", editClicked);
-  $(document).on("click", ".delete-button", deleteClicked);
+  $(document).on("click", ".edit-category-button", editCategoryClicked);
+  $(document).on("click", ".delete-category-button", deleteCategoryClicked);
+  $(document).on("click", ".edit-button", editExpenseClicked);
+  $(document).on("click", ".delete-button", deleteExpenseClicked);
   $(document).on("click", ".create-category", createCategory);
   $(document).on("click", ".create-expense", createExpense);
 };
