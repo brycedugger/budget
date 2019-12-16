@@ -1,13 +1,12 @@
 /**
- * function to update the expense by sending a put request
- * @param {integer} categoryId the id of the expense
- * @param {string} description the description of the expense
- * @param {integer} amount the amount of the expense
- * @param {integer} CategoryId the id of the category
+ * function update a category
+ * @param {integer} id the id of the category
+ * @param {string} name the description of the category
+ * @param {integer} goal the amount of the category
  */
-const updateCategory = (categoryId, description, amount, CategoryId) => {
-  // make put request to update a single expense
-  axios.put(`/api/expense/${categoryId}`, { description, amount, CategoryId }).then(res => {
+const updateCategory = (id, name, goal) => {
+  // make put request to update a single category
+  axios.put(`/api/category/`, { id, name, goal }).then(res => {
     location.reload();
   }),
     err => {

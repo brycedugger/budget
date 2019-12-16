@@ -15,7 +15,7 @@ function appendTotalExpenses(totalExpensesValue) {
 
 /**
  * function to render an expense row
- * @param {object} expenseData the expense object`
+ * @param {object} expenseData the expense object
  * @param {integer} categoryName the name of the category
  */
 function createExpenseRow(expenseData, categoryName) {
@@ -31,8 +31,7 @@ function createExpenseRow(expenseData, categoryName) {
   }).text("Edit");
   const deleteButton = $("<div>", {
     class: "btn btn-primary mx-1 mt-2 text-white delete-button",
-    deleteId: expenseData.id,
-    categoryValue: categoryName
+    deleteId: expenseData.id
   }).text("Delete");
 
   // append to html
@@ -64,12 +63,12 @@ function createCategoryRow(categoryData, totalExpenseCat) {
   const categoryEditButton = $("<div>", {
     class: "btn btn-white mx-1 mt-2 edit-category-button",
     editId: categoryData.id,
-    categoryValue: categoryData.name
+    categoryValue: categoryData.name,
+    goalValue: categoryData.goal
   }).text("Edit");
   const categoryDeleteButton = $("<div>", {
     class: "btn btn-white mx-1 mt-2 delete-category-button",
-    deleteId: categoryData.id,
-    categoryValue: categoryData.name
+    deleteId: categoryData.id
   }).text("Delete");
 
   // append to html
