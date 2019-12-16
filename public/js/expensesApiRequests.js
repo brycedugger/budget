@@ -125,19 +125,21 @@ const getCategoriesAll = () => {
   $.get("/api/category/all/1", function(data) {
     // TODO: pass the user's ID in the URL
     let grandTotal = 0;
+    let goalTotal = 0;
     data.forEach(function(row) {
       let total = 0;
+      goalTotal += parseFloat(row.goal);
       row.Expenses.forEach(function(expense) {
         total += parseFloat(expense.amount);
       });
       grandTotal += total;
-      createCategoryRow(row, total.toFixed(2));
+      renderCategoryRow(row, total.toFixed(2));
       row.Expenses.forEach(function(expense) {
         total += parseFloat(expense.amount);
-        createExpenseRow(expense, row.name);
+        renderExpenseRow(expense, row.name);
       });
     });
-
-    appendTotalExpenses(grandTotal.toFixed(2));
+    console.log(goalTotal);
+    appendTotalExpenses(grandTotal.toFixed(2), goalTotal.toFixed(2));
   });
 };

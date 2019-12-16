@@ -1,88 +1,94 @@
 /* Custom Stylesheet */
 
 .nav-extended {
-    color: #424242 !important;
-    background-color: whitesmoke !important;
+  color: #424242 !important;
+  background-color: whitesmoke !important;
 }
 
 .nav-content {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 #profile-icon {
-    color: #004d40 !important;
-    font-size: 30px;
-    margin-top: 20px;
-    margin-right: 40px;
-    font-weight: 30px;
+  color: #004d40 !important;
+  font-size: 30px;
+  margin-top: 20px;
+  margin-right: 40px;
+  font-weight: 30px;
 }
 
 #nav-icon {
-    margin-top: 20px;
-    margin-left: 30px;
-    color: #004d40 !important;
-    font-weight: bold;
-    font-size: 60px;
-    font-family: 'Amatic SC', cursive;
+  margin-top: 20px;
+  margin-left: 30px;
+  color: #004d40 !important;
+  font-weight: bold;
+  font-size: 60px;
+  font-family: "Amatic SC", cursive;
 }
 
 .title {
-    color: #004d40 !important;
-    font-family: 'Amatic SC', cursive;
-    font-size: 50px;
-    font-weight: bold;
-    margin-left: 80px;
+  color: #004d40 !important;
+  font-family: "Amatic SC", cursive;
+  font-size: 50px;
+  font-weight: bold;
+  margin-left: 80px;
 }
 
-.footer-copyright, .page-footer {
-    background-color: #004d40 !important;
-    color: whitesmoke;
+.footer-copyright,
+.page-footer {
+  background-color: #004d40 !important;
+  color: whitesmoke;
 }
 
 #footer-body {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: right;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: right;
 }
 
 .tabs .tab a {
-    color: #B2DFDB !important;
-    font-weight: bolder;
-    font-family: 'Amatic SC', cursive;
-    font-size: 29px;
+  color: #b2dfdb !important;
+  font-weight: bolder;
+  font-family: "Amatic SC", cursive;
+  font-size: 29px;
 }
 
 .table-container {
-    margin-left: 80px;
-    margin-right: 120px;
+  margin-left: 80px;
+  margin-right: 120px;
 }
 
-.expense-category-name, .expense-category-total, .expense-total, .expense-total-amount {
-    font-weight: bold;
-    font-size: 16px;
-    color: #004d40 !important;
+.expense-category-name,
+.expense-category-total,
+.expense-total,
+.expense-total-amount {
+  font-weight: bold;
+  font-size: 16px;
+  color: #004d40 !important;
 }
 
 .spending-header {
-    font-size: 20px;
-    color: #B2DFDB !important;
+  font-size: 20px;
+  color: #b2dfdb !important;
 }
 
-.category-amount, .category-description {
-    color: #616161;
-    align-content: center;
+.category-amount,
+.category-description {
+  color: #616161;
+  align-content: center;
 }
 
-.create-expense-button, .edit-expense-button {
-    margin-left: 20px;
+.create-expense-button,
+.edit-expense-button {
+  margin-left: 20px;
 }
 
 .waves-effect .waves-light btn {
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
-.category- {
-    font-weight: bold;
+.bold {
+  font-weight: bold;
 }
