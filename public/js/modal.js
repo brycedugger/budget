@@ -9,6 +9,7 @@ const postCategory = (id, name, goal) => {
   axios.post(`/api/category/${id}`, { name, goal }).then(res => {
     console.log("Post Success.");
     //  TODO: reload page?
+    // location.reload();
   }),
     err => {
       console.log(err);
@@ -26,6 +27,7 @@ const postExpense = (amount, description, CategoryId) => {
   axios.post(`/api/expense/`, { amount, description, CategoryId }).then(res => {
     console.log("Post Success.");
     //  TODO: reload page?
+    // location.reload();
   }),
     err => {
       console.log(err);
@@ -40,7 +42,7 @@ const postExpense = (amount, description, CategoryId) => {
  */
 const renderModal = (title, num, id) => {
   // create the elements
-  const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
+  const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
   const modalContent = $("<div>", { class: "modal-content" });
   const modalHeader = $("<div>", { class: "modal-header" });
@@ -91,11 +93,13 @@ const renderModal = (title, num, id) => {
         const name = $("#modal-category").val();
         const goal = $("#modal-goal").val();
         postCategory(id, name, goal);
+
         break;
       case 1:
         const description = $("#modal-description").val();
         const amount = $("#modal-amount").val();
         const category = $("#categories option:selected").attr("categoryId");
+
         postExpense(amount, description, category);
         break;
     }
@@ -149,7 +153,7 @@ const renderDropdownCategories = (optionText, id) => {
 const renderDropdown = id => {
   // create the element
   return $("<select>", {
-    class: "form-control w-100 mt-3 bg-primary text-light",
+    class: "form-control w-100 mt-3 bg-primary text-white",
     id: id
   });
 };
@@ -190,15 +194,10 @@ const getCategories = (id, parentElement, def) => {
  * @param {string} description the description of the expense
  * @param {integer} amount the amount of the expense
  */
-const updateExpense = (id, description, amount) => {
-  console.log("id :", id);
-  console.log("description :", description);
-  console.log("amount :", amount);
-
-  // make put request
-  axios.put(`/api/expense/${id}`, { description, amount }).then(res => {
-    console.log("Profile successsfully created.");
-    // reload page?
+const updateExpense = (id, description, amount, CategoryId) => {
+  // make put request to update a single expense
+  axios.put(`/api/expense/${id}`, { description, amount, CategoryId }).then(res => {
+    location.reload();
   }),
     err => {
       console.log(err);
@@ -233,12 +232,14 @@ const renderModalFormFields = (type, id, text) => {
  */
 const renderUpdateExpenseModal = (id, desc, amt, cat) => {
   // create the elements
-  const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
+  const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
   const modalContent = $("<div>", { class: "modal-content" });
   const modalHeader = $("<div>", { class: "modal-header" });
   const modalBody = $("<div>", { class: "modal-body" });
-  const modalTitle = $("<h5>", { class: "modal-title" }).text("Edit Expense and Click Submit");
+  const modalTitle = $("<h5>", { class: "modal-title text-primary" }).text(
+    "Edit Expense and Click Submit"
+  );
   const modalprefooter = $("<div>", { class: "modal-footer" });
   const button = $("<button>", {
     class: "btn btn-primary",
@@ -253,7 +254,7 @@ const renderUpdateExpenseModal = (id, desc, amt, cat) => {
   getCategories(id, ".modal-body", cat);
 
   // append and render the elements
-  $(".container").prepend(modalFade);
+  $("#main").prepend(modalFade);
   modalFade.append(modalDiaglogue);
   modalDiaglogue.append(modalContent);
   modalContent.append(modalHeader, modalBody, modalprefooter);
@@ -269,7 +270,11 @@ const renderUpdateExpenseModal = (id, desc, amt, cat) => {
 
   // listen for form submission
   $("#modal-submit").click(() => {
-    updateExpense(id, "test", "10"); // TODO: add category selection and fix passing in descriptions with spaces
+    const description = $("#modal-description").val();
+    const amount = parseFloat($("#modal-amount").val());
+    const category = $("#categories option:selected").attr("categoryId");
+
+    updateExpense(id, description, amount, category); // TODO: add category selection and fix passing in descriptions with spaces
   });
 };
 
@@ -280,13 +285,11 @@ const listenForModal = () => {
 
   // when the user clicks the close button in the modal, close modal
   $("#modal-button").click(() => {
-    console.log('clicked')
     $("#modal").remove();
   });
 
   // when the user clicks anywhere outside of the modal, close modal
   window.onclick = e => {
-    console.log('clicked outside')
     if (e.target == modal) {
       $("#modal").remove();
     }
@@ -301,11 +304,6 @@ function editClicked() {
   const amount = $(`.amount-${editId}`).text();
   const userId = parseInt($(this).attr("categoryId")); // TODO: dynamically get the correct ID
   const categoryValue = $(this).attr("categoryValue");
-  console.log('editId', editId)
-  console.log('descriptiopn', description)
-  console.log('amount', amount);
-  console.log('categoryId', userId);
-  console.log('categoryValue', categoryValue)
 
   // render the modal using the data
   renderUpdateExpenseModal(1, description, amount, categoryValue); // TODO: set first parameter to userId
