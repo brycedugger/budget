@@ -1,9 +1,93 @@
+const renderModal = (title, num, id) => {
+  // create the elements
+  const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
+  const modalDiaglogue = $("<div>", { class: "modal-dialog" });
+  const modalContent = $("<div>", { class: "modal-content" });
+  const modalHeader = $("<div>", { class: "modal-header" });
+  const modalBody = $("<div>", { class: "modal-body" });
+  const modalTitle = $("<h5>", { class: "modal-title" }).text(title);
+  const modalprefooter = $("<div>", { class: "modal-footer" });
+  const button = $("<button>", {
+    class: "btn btn-primary",
+    id: "modal-button"
+  }).text("Cancel");
+  const submit = $("<button>", {
+    class: "btn btn-primary",
+    id: "modal-submit"
+  }).text("Submit");
+
+  switch (num) {
+    case 0:
+      modalBody.append(
+        renderModalFormFields("Category Name", "modal-category", ""),
+        renderModalFormFields("Goal", "modal-goal", "")
+      );
+      break;
+    case 1:
+      //   render categories and append it to .modal-body if they're making an expense
+      getCategories(id, ".modal-body");
+      modalBody.append(
+        renderModalFormFields("Description", "modal-description", ""),
+        renderModalFormFields("Amount", "modal-amount", "")
+      );
+      break;
+  }
+
+  // append and render the elements
+  $(".container").prepend(modalFade);
+  modalFade.append(modalDiaglogue);
+  modalDiaglogue.append(modalContent);
+  modalContent.append(modalHeader, modalBody, modalprefooter);
+  modalHeader.append(modalTitle);
+  modalprefooter.append(button, submit);
+
+  // listen when to close the modal
+  listenForModal();
+
+  // listen for form submission
+  $("#modal-submit").click(() => {
+    switch (num) {
+      case 0:
+        // TODO: create category
+        break;
+      case 1:
+        // TODO: create expense
+        break;
+    }
+  });
+};
+
+const createExpense = () => {
+  renderModal("Create Expense", 1, 1);
+  // TODO CHANGE ID PARAMETER FOR RENDER MODAL
+};
+
+const createCategory = () => {
+  renderModal("Create Category", 0, 1);
+  // TODO CHANGE ID PARAMETER FOR RENDER MODAL
+};
+
+/**
+ * function to delete a single expense
+ * @param {integer} id the id of the expense to be deleted
+ */
+const deleteExpense = id => {
+  // send delete request to delete a single expense
+  axios.delete(`/api/expense/${id}`).then(res => {
+    console.log("Delete Success.");
+    //  TODO: reload page?
+  }),
+    err => {
+      console.log(err);
+    };
+};
+
 /**
  * function to render list of categories
  * @param {string} optionText the name of each category
- * @param {object} the dom element containing the category
+ * @param {object} id the dom element containing the category
  */
-const renderDropDownButton = (optionText, id) => {
+const renderDropdownCategories = (optionText, id) => {
   // create the element
   return $("<option>", { class: `text-dark bg-light category-${id}`, value: optionText }).text(
     optionText
@@ -15,7 +99,7 @@ const renderDropDownButton = (optionText, id) => {
  * @param {string} id the id of this element
  * @return {object} the dom element containing the category dropdown
  */
-const renderDropDown = id => {
+const renderDropdown = id => {
   // create the element
   return $("<select>", {
     class: "form-control w-100 mt-3 bg-primary text-light",
@@ -25,7 +109,7 @@ const renderDropDown = id => {
 
 /**
  * function to get all categories and append a dropdown the the parent element
- * @param {integer} id the id of this element
+ * @param {integer} id the id of the user
  * @param {string} parentElement the element to append this to
  * @param {string} def the default value for the dropdown
  */
@@ -33,11 +117,11 @@ const getCategories = (id, parentElement, def) => {
   // send get request to retrieve all categories
   axios.get(`/api/category/${id}`).then(res => {
     // render dropdown button
-    const dropdown = renderDropDown("categories");
+    const dropdown = renderDropdown("categories");
 
     // for each category, create a dropdown option
     res.data.forEach(row => {
-      dropdown.append(renderDropDownButton(row.name, row.id));
+      dropdown.append(renderDropdownCategories(row.name, row.id));
     });
 
     // set defaults for the value if one is defined
@@ -100,7 +184,7 @@ const renderModalFormFields = (type, id, text) => {
  * @param {integer} amt the amount of the expense
  * @param {string} cat the category of the expense
  */
-const renderModal = (id, desc, amt, cat) => {
+const renderUpdateExpenseModal = (id, desc, amt, cat) => {
   // create the elements
   const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
@@ -119,7 +203,7 @@ const renderModal = (id, desc, amt, cat) => {
   }).text("Submit");
 
   //   render categories and append it to .modal-body
-  getCategories(1, ".modal-body", cat);
+  getCategories(id, ".modal-body", cat);
 
   // append and render the elements
   $(".container").prepend(modalFade);
@@ -166,16 +250,17 @@ function editClicked() {
   const editId = parseInt($(this).attr("editId"));
   const description = $(`.description-${editId}`).text();
   const amount = $(`.amount-${editId}`).text();
-  const category = $(`.category-${editId}`).text();
+  const categoryId = parseInt($(this).attr("categoryId")); // TODO: dynamically get the correct ID
+  const categoryValue = $(this).attr("categoryValue");
 
   // render the modal using the data
-  renderModal(editId, description, amount, category);
+  renderUpdateExpenseModal(categoryId, description, amount, categoryValue);
 }
 
 // function to listen for clicks on the delete button
 function deleteClicked() {
   const deleteId = parseInt($(this).attr("deleteId"));
-  console.log("deleteId :", deleteId);
+  deleteExpense(deleteId);
 }
 
 window.onload = () => {
@@ -183,4 +268,6 @@ window.onload = () => {
 
   $(document).on("click", ".edit-button", editClicked);
   $(document).on("click", ".delete-button", deleteClicked);
+  $(document).on("click", ".create-category", createCategory);
+  $(document).on("click", ".create-expense", createExpense);
 };
