@@ -7,9 +7,7 @@
 const postCategory = (id, name, goal) => {
   // send post request to create a single category
   axios.post(`/api/category/${id}`, { name, goal }).then(res => {
-    console.log("Post Success.");
-    //  TODO: reload page?
-    // location.reload();
+    location.reload();
   }),
     err => {
       console.log(err);
@@ -25,9 +23,7 @@ const postCategory = (id, name, goal) => {
 const postExpense = (amount, description, CategoryId) => {
   // send post request to create a single expense
   axios.post(`/api/expense/`, { amount, description, CategoryId }).then(res => {
-    console.log("Post Success.");
-    //  TODO: reload page?
-    // location.reload();
+    location.reload();
   }),
     err => {
       console.log(err);
@@ -123,8 +119,7 @@ const createCategory = () => {
 const deleteExpense = id => {
   // send delete request to delete a single expense
   axios.delete(`/api/expense/${id}`).then(res => {
-    console.log("Delete Success.");
-    //  TODO: reload page?
+    location.reload();
   }),
     err => {
       console.log(err);
@@ -190,13 +185,13 @@ const getCategories = (id, parentElement, def) => {
 
 /**
  * function to update the expense sending a put request
- * @param {integer} id the id of the expense
+ * @param {integer} expId the id of the expense
  * @param {string} description the description of the expense
  * @param {integer} amount the amount of the expense
  */
-const updateExpense = (id, description, amount, CategoryId) => {
+const updateExpense = (expId, description, amount, CategoryId) => {
   // make put request to update a single expense
-  axios.put(`/api/expense/${id}`, { description, amount, CategoryId }).then(res => {
+  axios.put(`/api/expense/${expId}`, { description, amount, CategoryId }).then(res => {
     location.reload();
   }),
     err => {
@@ -225,12 +220,12 @@ const renderModalFormFields = (type, id, text) => {
 
 /**
  * function to render the modal used to edit expensees
- * @param {string} id the id of the the user
+ * @param {string} userId the id of the the user
  * @param {string} desc the description of the expense
  * @param {integer} amt the amount of the expense
  * @param {string} cat the category of the expense
  */
-const renderUpdateExpenseModal = (id, desc, amt, cat) => {
+const renderUpdateExpenseModal = (userId, desc, amt, cat, expId) => {
   // create the elements
   const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
@@ -251,7 +246,7 @@ const renderUpdateExpenseModal = (id, desc, amt, cat) => {
   }).text("Submit");
 
   //   render categories and append it to .modal-body
-  getCategories(id, ".modal-body", cat);
+  getCategories(userId, ".modal-body", cat);
 
   // append and render the elements
   $("#main").prepend(modalFade);
@@ -274,7 +269,7 @@ const renderUpdateExpenseModal = (id, desc, amt, cat) => {
     const amount = parseFloat($("#modal-amount").val());
     const category = $("#categories option:selected").attr("categoryId");
 
-    updateExpense(id, description, amount, category); // TODO: add category selection and fix passing in descriptions with spaces
+    updateExpense(expId, description, amount, category); // TODO: add category selection and fix passing in descriptions with spaces
   });
 };
 
@@ -306,7 +301,7 @@ function editClicked() {
   const categoryValue = $(this).attr("categoryValue");
 
   // render the modal using the data
-  renderUpdateExpenseModal(1, description, amount, categoryValue); // TODO: set first parameter to userId
+  renderUpdateExpenseModal(1, description, amount, categoryValue, editId); // TODO: set first parameter to userId
 }
 
 // function to listen for clicks on the delete button
