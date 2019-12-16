@@ -5,7 +5,7 @@
  * @param {integer} amount the amount of the expense
  * @param {integer} CategoryId the id of the category
  */
-const updateExpense = (categoryId, description, amount, CategoryId) => {
+const updateCategory = (categoryId, description, amount, CategoryId) => {
   // make put request to update a single expense
   axios.put(`/api/expense/${categoryId}`, { description, amount, CategoryId }).then(res => {
     location.reload();
@@ -120,4 +120,25 @@ const postExpense = (amount, description, CategoryId) => {
     err => {
       console.log(err);
     };
+};
+
+const getCategoriesAll = () => {
+  $.get("/api/category/all/1", function(data) {
+    // TODO: pass the user's ID in the URL
+    let grandTotal = 0;
+    data.forEach(function(row) {
+      let total = 0;
+      row.Expenses.forEach(function(expense) {
+        total += parseFloat(expense.amount);
+      });
+      grandTotal += total;
+      createCategoryRow(row, total.toFixed(2));
+      row.Expenses.forEach(function(expense) {
+        total += parseFloat(expense.amount);
+        createExpenseRow(expense, row.name);
+      });
+    });
+
+    appendTotalExpenses(grandTotal.toFixed(2));
+  });
 };

@@ -231,11 +231,11 @@ function deleteCategoryClicked() {
   deleteCategory(deleteId);
 }
 
-window.onload = () => {
+$(document).ready(() => {
   $(document).on("click", ".edit-category-button", editCategoryClicked);
   $(document).on("click", ".delete-category-button", deleteCategoryClicked);
   $(document).on("click", ".edit-button", editExpenseClicked);
   $(document).on("click", ".delete-button", deleteExpenseClicked);
   $(document).on("click", ".create-category", createCategory);
   $(document).on("click", ".create-expense", createExpense);
-};
+});
