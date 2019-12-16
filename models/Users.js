@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  const User = sequelize.define("User", {
+  const User = sequelize.define("user", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -32,6 +32,13 @@ module.exports = function(sequelize, DataTypes) {
     income: {
       type: DataTypes.DECIMAL(10,2),
       defaultValue: 0
+    },
+    last_login: {
+      type: Sequelize.DATE
+    },
+    status: {
+      type: DataTypes.ENUM("active", "inactive"),
+      defaultValue: "active"
     }
   });
 
