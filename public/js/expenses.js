@@ -23,14 +23,12 @@ $(document).ready(function() {
     const editButton = $("<a>", {
       class: "btn btn-primary mx-1 mt-2 text-white edit-button",
       editId: expenseData.id,
-      categoryId: categoryId,
-      categoryValue: categoryName
+      expenseCategoryValue: categoryName
     }).text("Edit");
     const deleteButton = $("<a>", {
       class: "btn btn-primary mx-1 mt-2 text-white delete-button",
       deleteId: expenseData.id,
-      categoryId: categoryId,
-      categoryValue: categoryName
+      expenseCategoryValue: categoryName
     }).text("Delete");
     $("#table").append(newTr);
     newTr.append(tdExpenseName, tdExpenseAmount, editButton, deleteButton);
