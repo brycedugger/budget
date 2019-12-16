@@ -1,6 +1,5 @@
 require("dotenv").config();
 var express = require("express");
-var exphbs = require("express-handlebars");
 
 var db = require("./models");
 
@@ -37,6 +36,8 @@ require("./routes/userRoutes")(app);
 require("./routes/categoryRoutes")(app);
 require("./routes/expenseRoutes")(app);
 require("./routes/htmlRoutes")(app);
+
+
 
 // // Auth Routes
 // var authRoute = require("./routes/auth")(app, passport);
