@@ -1,6 +1,13 @@
 var db = require("../models");
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
+  app.post(
+    "/signup",
+    passport.authenticate("local-signup", {
+      successRedirect: "/",
+      failureRedirect: "/signup"
+    })
+  );
   // app.post("/api/accounts", (req, res) => {
   //   const { accountNumber, fundsAvailable, UserId } = req.body;
   //   db.BankingAccount.create({

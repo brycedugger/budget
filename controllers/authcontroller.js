@@ -2,7 +2,7 @@ var exports = (module.exports = {});
 
 // For sign up
 exports.signup = function(req, res) {
-  res.render("signup");
+  res.sendFile(path.join(__dirname, "./public/HTML/signup.html"));
 };
 
 // // For sign in
