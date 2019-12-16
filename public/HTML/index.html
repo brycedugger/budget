@@ -53,6 +53,23 @@
                   ['Entertainment', 2],
                   ['Groceries', 7]
                 ]);
+
+                
+                
+    // Get data for a given user from categories table in DB.
+    // GET * FROM categories WHERE UserId == {the id of whoever is logged in} you can start with hardcoded 1
+    // This will result in categories with ids. e.x. (1, 2, 3, 4, etc.)
+
+    // for each entry category returned from DB
+    // save a var with the name of the category 'var catName = this.name'
+    // save a var to track the 'total', initiate it with a value of 0.
+
+    // Get * from expense table for a given categoryID 
+    // for each entry returned in this category
+        // get the amount add it to 'total'
+    ////
+    // DashboardEntries.push([catNAme, total])
+    ////
         
                 var options = {
                   title: 'Total Spending',
@@ -70,6 +87,12 @@
                 var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
                 chart.draw(data, options);
               }
+            </script>
+            <script type="text/javascript" src="../js/index.js">
+
+                var what = whatever();
+                console.log("this is printing: " + what);
+
             </script>
             <div id="donutchart" style="width: 900px; height: 450px;"></div>
         </div>
