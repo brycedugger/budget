@@ -13,14 +13,12 @@ function appendTotalExpenses(totalExpensesValue) {
     newTr.append(tdTotalExpenses, tdTotalExpenseAmount);
 }
 
-function createExpenseRow(expenseData, categoryId) {
+function createExpenseRow(expenseData, categoryId, categoryName) {
     const newTr = $('<tr>')
     const tdExpenseName = $('<td>', {class: 'description-' + expenseData.id}).text(expenseData.description)
     const tdExpenseAmount = $('<td>', {class: 'amount-' + expenseData.id}).text(expenseData.amount)
-    const editButton = $("<a>", {class: "waves-effect waves-light btn edit-button", editId: expenseData.id, expenseId: expenseData.Id,
-    expenseValue: expenseData.name }).text("Edit");
-    const deleteButton = $("<a>", {class: "waves-effect waves-light btn delete-button", deleteId: expenseData.id, expenseId: expenseData.Id,
-    expenseValue: expenseData.name}).text("Delete");
+    const editButton = $("<a>", {class: "btn btn-primary edit-button", editId: expenseData.id, categoryId: categoryId , categoryValue: categoryName }).text("Edit");
+    const deleteButton = $("<a>", {class: "btn btn-primary delete-button", deleteId: expenseData.id, categoryId: categoryId, categoryValue: categoryName}).text("Delete");
     $('#table').append(newTr);
     newTr.append(tdExpenseName, tdExpenseAmount, editButton, deleteButton);
 }
@@ -30,13 +28,13 @@ function createCategoryRow(categoryData, totalExpenseCat) {
     const newTr = $("<tr>", {class: 'category-' + categoryData.id, categoryId: categoryData.id, categoryValue: categoryData.name});
     const tdCategoryName = $('<td>', {name: "expense-category-" + categoryData.name}).text(categoryData.name);
     const tdCategoryTotal = $('<td>',{class: "expense-category-" + categoryData.goal}).text(totalExpenseCat);
-    const editButton = $("<a>", {class: "waves-effect waves-light btn edit-button", editId:categoryData.id, categoryId:categoryData.Id,
-    categoryValue:categoryData.name }).text("Edit");
-    const deleteButton = $("<a>", {class: "waves-effect waves-light btn delete-button", deleteId: categoryData.id, categoryId:categoryData.Id,
-    categoryValue:categoryData.name}).text("Delete");
+    // const editButton = $("<a>", {class: "btn btn-primary edit-button", editId:categoryData.id, categoryId: categoryData.Id,
+    // categoryValue:categoryData.name }).text("Edit");
+    // const deleteButton = $("<a>", {class: "btn btn-primary delete-button", deleteId: categoryData.id, categoryId: categoryData.Id,
+    // categoryValue:categoryData.name}).text("Delete");
 
     $('#table').append(newTBody, newTr);
-    newTr.append(tdCategoryName, tdCategoryTotal, editButton, deleteButton);
+    newTr.append(tdCategoryName, tdCategoryTotal/*, editButton, deleteButton*/);
   }
 
     function getCategories() {
@@ -52,7 +50,7 @@ function createCategoryRow(categoryData, totalExpenseCat) {
                 createCategoryRow(row, total.toFixed(2));
                 row.Expenses.forEach(function (expense) {
                     total += parseFloat(expense.amount);
-                    createExpenseRow(expense, row.id);
+                    createExpenseRow(expense, row.id, row.name);
                 })
             })
 

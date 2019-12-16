@@ -226,7 +226,7 @@ const renderModalFormFields = (type, id, text) => {
 
 /**
  * function to render the modal used to edit expensees
- * @param {string} id the id of the element
+ * @param {string} id the id of the the user
  * @param {string} desc the description of the expense
  * @param {integer} amt the amount of the expense
  * @param {string} cat the category of the expense
@@ -269,7 +269,7 @@ const renderUpdateExpenseModal = (id, desc, amt, cat) => {
 
   // listen for form submission
   $("#modal-submit").click(() => {
-    updateExpense(id, `[${desc}]`, amt); // TODO: add category selection and fix passing in descriptions with spaces
+    updateExpense(id, "test", "10"); // TODO: add category selection and fix passing in descriptions with spaces
   });
 };
 
@@ -280,11 +280,13 @@ const listenForModal = () => {
 
   // when the user clicks the close button in the modal, close modal
   $("#modal-button").click(() => {
+    console.log('clicked')
     $("#modal").remove();
   });
 
   // when the user clicks anywhere outside of the modal, close modal
   window.onclick = e => {
+    console.log('clicked outside')
     if (e.target == modal) {
       $("#modal").remove();
     }
@@ -297,11 +299,16 @@ function editClicked() {
   const editId = parseInt($(this).attr("editId"));
   const description = $(`.description-${editId}`).text();
   const amount = $(`.amount-${editId}`).text();
-  const categoryId = parseInt($(this).attr("categoryId")); // TODO: dynamically get the correct ID
+  const userId = parseInt($(this).attr("categoryId")); // TODO: dynamically get the correct ID
   const categoryValue = $(this).attr("categoryValue");
+  console.log('editId', editId)
+  console.log('descriptiopn', description)
+  console.log('amount', amount);
+  console.log('categoryId', userId);
+  console.log('categoryValue', categoryValue)
 
   // render the modal using the data
-  renderUpdateExpenseModal(categoryId, description, amount, categoryValue);
+  renderUpdateExpenseModal(1, description, amount, categoryValue); // TODO: set first parameter to userId
 }
 
 // function to listen for clicks on the delete button
