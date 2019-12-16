@@ -63,6 +63,28 @@ module.exports = function(app) {
       });
   });
 
+    // update a single user's income
+    app.put("/api/user/income/:id", (req, res) => {
+      const { income } = req.body;
+  
+      // needs validation for updated fields on front end
+      db.User.update(
+        {
+          income
+        },
+        {
+          where: { id: req.params.id }
+        }
+      )
+        .then(data => {
+          res.status(200).json(data);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(400).json({ error: err });
+        });
+    });
+
   // delete a single user by id
   app.delete("/api/user/:id", (req, res) => {
     db.User.destroy({
