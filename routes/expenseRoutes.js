@@ -35,7 +35,9 @@ module.exports = function(app) {
   app.put("/api/expense/:id", (req, res) => {
     const { amount, description } = req.body;
     const { id } = req.params;
-
+console.log('amount',typeof  amount)
+console.log('description',typeof  description)
+console.log('id', typeof id)
     db.Expense.update(
       {
         amount,
