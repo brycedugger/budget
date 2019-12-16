@@ -1,3 +1,43 @@
+/**
+ * function to create a new category
+ * @param {integer} id the id of the user
+ * @param {string} name the name of the category
+ * @param {string} goal the goal of the category
+ */
+const postCategory = (id, name, goal) => {
+  // send post request to create a single category
+  axios.post(`/api/category/${id}`, { name, goal }).then(res => {
+    console.log("Post Success.");
+    //  TODO: reload page?
+  }),
+    err => {
+      console.log(err);
+    };
+};
+
+/**
+ * function to create a new expense
+ * @param {string} amount the expense amount
+ * @param {string} description the expense description
+ * @param {integer} CategoryId the id of the category
+ */
+const postExpense = (amount, description, CategoryId) => {
+  // send post request to create a single expense
+  axios.post(`/api/expense/`, { amount, description, CategoryId }).then(res => {
+    console.log("Post Success.");
+    //  TODO: reload page?
+  }),
+    err => {
+      console.log(err);
+    };
+};
+
+/**
+ * function to render a modal (used for both creating expenses and goals)
+ * @param {string} title the title to go in the modal
+ * @param {integer} num indicates if this modal is for an expense (1) or a goal (0)
+ * @param {integer} id the id of the user
+ */
 const renderModal = (title, num, id) => {
   // create the elements
   const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
@@ -48,10 +88,15 @@ const renderModal = (title, num, id) => {
   $("#modal-submit").click(() => {
     switch (num) {
       case 0:
-        // TODO: create category
+        const name = $("#modal-category").val();
+        const goal = $("#modal-goal").val();
+        postCategory(id, name, goal);
         break;
       case 1:
-        // TODO: create expense
+        const description = $("#modal-description").val();
+        const amount = $("#modal-amount").val();
+        const category = $("#categories option:selected").attr("categoryId");
+        postExpense(amount, description, category);
         break;
     }
   });
@@ -59,12 +104,12 @@ const renderModal = (title, num, id) => {
 
 const createExpense = () => {
   renderModal("Create Expense", 1, 1);
-  // TODO CHANGE ID PARAMETER FOR RENDER MODAL
+  // TODO CHANGE ID PARAMETER TO USER'S ID FOR RENDER MODAL
 };
 
 const createCategory = () => {
   renderModal("Create Category", 0, 1);
-  // TODO CHANGE ID PARAMETER FOR RENDER MODAL
+  // TODO CHANGE ID PARAMETER TO USER'S ID FOR RENDER MODAL
 };
 
 /**
@@ -89,9 +134,11 @@ const deleteExpense = id => {
  */
 const renderDropdownCategories = (optionText, id) => {
   // create the element
-  return $("<option>", { class: `text-dark bg-light category-${id}`, value: optionText }).text(
-    optionText
-  );
+  return $("<option>", {
+    class: `text-dark bg-light`,
+    categoryId: id,
+    value: optionText
+  }).text(optionText);
 };
 
 /**
