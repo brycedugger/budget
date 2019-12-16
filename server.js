@@ -39,7 +39,6 @@ require("./routes/categoryRoutes")(app);
 require("./routes/expenseRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-
 // // Auth Routes
 // var authRoute = require("./routes/auth.js")(app);
 
