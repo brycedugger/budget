@@ -139,7 +139,7 @@ const getCategoriesAll = () => {
         renderExpenseRow(expense, row.name);
       });
     });
-    console.log(goalTotal);
+
     appendTotalExpenses(grandTotal.toFixed(2), goalTotal.toFixed(2));
   });
 };

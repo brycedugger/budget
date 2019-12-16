@@ -34,11 +34,11 @@ function renderExpenseRow(expenseData, categoryName) {
   const deleteButton = $("<div>", {
     class: "btn btn-primary mx-1 mt-2 float-right text-white delete-button",
     deleteId: expenseData.id
-  }).text("Delete");
+  }).text("Del.");
 
   // append to html
   $("#table").append(newTr);
-  newTr.append(tdExpenseName, td, tdExpenseAmount, editButton, deleteButton);
+  newTr.append(tdExpenseName, td, tdExpenseAmount, deleteButton, editButton);
 }
 
 /**
@@ -75,7 +75,7 @@ function renderCategoryRow(categoryData, totalExpenseCat) {
   const categoryDeleteButton = $("<div>", {
     class: "btn btn-white mx-1 mt-2 float-right delete-category-button",
     deleteId: categoryData.id
-  }).text("Delete");
+  }).text("Del.");
 
   // append to html
   $("#table").append(newTBody, newTr);
@@ -83,8 +83,8 @@ function renderCategoryRow(categoryData, totalExpenseCat) {
     tdCategoryName,
     tdCategoryGoal,
     tdCategoryTotal,
-    categoryEditButton,
-    categoryDeleteButton
+    categoryDeleteButton,
+    categoryEditButton
   );
 }
 
