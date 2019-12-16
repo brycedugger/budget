@@ -21,9 +21,9 @@ module.exports = function(app) {
   app.get("/login", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/login.html"));
   });
-  // app.get("/signup", function(req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
-  // });
+  app.get("/signup", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
+  });
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.send("404");
