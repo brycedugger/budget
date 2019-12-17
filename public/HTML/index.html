@@ -96,6 +96,62 @@
             </script>
             <div id="donutchart" style="width: 900px; height: 450px;"></div>
         </div>
+
+        <button class="this-button" onclick="clickButton()">Click to run</button>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script class="someScript">
+    function clickButton() {
+
+        // Getting the categries data for a user in the sql db where userId is 1
+        var userId = [1];
+        var responseCategory = $.ajax({
+            type: "GET",
+            url: "api/category/all/" + userId,
+            success: function(data) {
+               console.log(data);
+               return JSON.stringify(data);
+           }
+        }).then(categories => categories.forEach(category => console.log(category)));
+
+        // Getting the expenses belonging to the categories at id of 1
+        var CategoryId = 1;
+        var responseExpenses = $.ajax({
+          type: "GET",
+          url: "api/expense/" + CategoryId,
+          success: function(data) {
+            console.log(data);
+            return JSON.stringify(data);
+          }
+        }).then(expenses => expenses.forEach(expense => console.log(expense)));
+        
+
+        // Creating a function to take all category names and returns it to the Google matrix
+        var categoryNames = function() {
+          
+        }
+
+        // Function takes all "category names"
+          // var categoryNames = this.name
+          // it tallies "expenses amount" for each -- var trackingExpenses = 0; initiate it with a value of 0
+            // returns it into the matrix
+
+    // for each entry category returned from DB (data)
+    // save a var with the name of the category 'var categoryName = this.name'
+
+    // Get * from expense table for a given categoryID 
+    // for each entry returned in this category
+        // get the amount add it to 'total'
+    ////
+    // DashboardEntries.push([catNAme, total])
+    ////
+
+    };
+
+</script>
+
+<br>
+
         
     <!-- Footer -->
     <footer class="page-footer" id="footer-body">
