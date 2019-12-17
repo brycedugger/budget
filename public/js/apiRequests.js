@@ -131,6 +131,7 @@ const postExpense = (amount, description, CategoryId) => {
     };
 };
 
+// function to render categories and expenses
 const getCategoriesAll = () => {
   axios.get("/api/category/all/1").then(res => {
     // TODO: pass the user's ID in the URL
@@ -196,7 +197,7 @@ const getRemainder = (userId = 1) => {
   //todo: replace 1 with where user infomation is stored
   axios.get(`/api/remainder/${userId}`).then(res => {
     res.data.forEach(remainder => {
-      createRemainderRow(remainder);
+      renderRemainderRow(remainder);
     });
   });
 };
