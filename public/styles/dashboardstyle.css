@@ -53,3 +53,8 @@
     font-family: 'Amatic SC', cursive;
     font-size: 29px;
 }
+
+img {
+   height: 350px;
+   display: block;
+}
