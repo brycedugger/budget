@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  const User = sequelize.define("User", {
+  const User = sequelize.define("user", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: { len: [1, 20] }
     },
-    username: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: { len: [1, 20] }
@@ -33,6 +33,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL(10,2),
       defaultValue: 0
     }
+    // last_login: {
+    //   type: DataTypes.DATE
+    // },
+    // status: {
+    //   type: DataTypes.ENUM("active", "inactive"),
+    //   defaultValue: "active"
+    // }
   });
 
   User.associate = models => {

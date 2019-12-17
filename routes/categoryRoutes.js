@@ -48,9 +48,8 @@ module.exports = function(app) {
   });
 
   // update a single Category and its goal
-  app.put("/api/category/:id", (req, res) => {
-    const { name, goal } = req.body;
-    const { id } = req.params;
+  app.put("/api/category/", (req, res) => {
+    const { name, goal, id } = req.body;
 
     db.Category.update(
       {

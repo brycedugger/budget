@@ -1,9 +1,9 @@
-// var exports = (module.exports = {});
+var exports = (module.exports = {});
 
-// // For sign up
-// exports.signup = function(req, res) {
-//   res.render("signup");
-// };
+// For sign up
+exports.signup = function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/HTML/signup.html"));
+};
 
 // // For sign in
 // exports.signin = function(req, res) {

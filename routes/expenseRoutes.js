@@ -33,13 +33,14 @@ module.exports = function(app) {
 
   // update a single Expense
   app.put("/api/expense/:id", (req, res) => {
-    const { amount, description } = req.body;
+    let { amount, description, CategoryId } = req.body;
     const { id } = req.params;
 
     db.Expense.update(
       {
         amount,
-        description
+        description,
+        CategoryId
       },
       {
         where: { id }

@@ -19,26 +19,18 @@
         <div class="nav-wrapper">
             <span id="nav-icon" class="brand-logo"></i>Moolah</span>
             <ul class="right hide-on-med-and-down">
-                <li><a href="#"><i id="profile-icon" class="large material-icons">account_circle</i></a></li>
+                <li><a href="profile"><i id="profile-icon" class="large material-icons">account_circle</i></a></li>
             </ul>
         </div>
     
         <div class="nav-wrapper">
             <ul class="tabs">
-                <li class="tab"><a href="../HTML/index.html">Home</a></li>
-                <li class="tab"><a class="dropdown-trigger" href="#" data-target="dropdown1">Expenses<i
-                            class="material-icons right">arrow_drop_down</i></a></li>
-                <li class="tab"><a href="budget.html">Budget Tracking</a></li>
+                <li class="tab"><a href="/">Home</a></li>
+                <li class="tab"><a href="expenses">Expenses</a></li>   
+                <li class="tab"><a href="budget">Budget Tracking</a></li>
             </ul>
         </div>
     </nav>
-    
-    <!-- Dropdown Structure -->
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#!">Show Itimized Expenses</a></li>
-        <li><a href="#!">Add A New Expense</a></li>
-        <li><a href="#!">Edit/Update Expense</a></li>
-    </ul>
 
 <div class="nav-content">
     <span class="title">Budget</span>
@@ -49,11 +41,9 @@
         <div class="col s4">
             <div class="table-container">
                 <table class="highlight" class="budget">
-                    <thead>
+                    <thead id="income">
                         <tr>
-                            <th class="header">Income</th>
-                            <td class="income">4000</td>
-                            <td class="updateIncome"><button data-target="modal1" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
+                            <!-- information from script here -->
                         </tr>
                     </thead>
                 </table>
@@ -75,19 +65,8 @@
                     <th class="header">Over/Under Budget</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td class="expense-category-name">Rent & Utilties</td>
-                    <td class="budgetedAmount">$800</td>
-                    <td class="amountSpent">1000</td>
-                    <td class="over/underBudget">-200</td>
-                </tr>
-                <tr>
-                    <td class="expense-category-name">Total </td>
-                    <td class="budgetedAmount">$800</td>
-                    <td class="amountSpent">1000</td>
-                    <td class="over/underBudget">-200</td>
-                </tr>
+            <tbody id="main">
+                <!-- information from script here -->
             </tbody>
         </table>
     </div>
@@ -122,7 +101,12 @@
     <!--JavaScript at end of body for optimized loading-->
 
     <script type="text/javascript" src="../js/materialize.min.js"></script>
-
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/budget.js"></script>
 </body>
 
 </html>
