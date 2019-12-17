@@ -40,10 +40,6 @@ require("./routes/categoryRoutes")(app);
 require("./routes/expenseRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-// // Auth Routes
-// var authRoute = require("./routes/auth.js")(app);
-
-
 var syncOptions = { force: false };
 
 // If running a test, set syncOptions.force to true
