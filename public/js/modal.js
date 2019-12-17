@@ -85,7 +85,7 @@ const renderModal = (title, num, userId, obj) => {
   switch (num) {
     case 0:
       // render categories and append it to .modal-body
-      getCategories(userId, ".modal-body", obj.categoryValue);
+      getBudgetCategories(userId, ".modal-body", obj.categoryValue);
       modalBody.append(
         renderModalFormFields("Description", "modal-description", obj.description),
         renderModalFormFields("Amount", "modal-amount", obj.amount)
@@ -105,11 +105,13 @@ const renderModal = (title, num, userId, obj) => {
       break;
     case 3:
       // render categories and append it to .modal-body if they're making an expense
-      getCategories(userId, ".modal-body");
+      getBudgetCategories(userId, ".modal-body");
       modalBody.append(
         renderModalFormFields("Description", "modal-description", ""),
         renderModalFormFields("Amount", "modal-amount", "")
       );
+    case 4:
+      modalBody.append(renderModalFormFields("Income", "modal-income", obj.userIncome));
       break;
     default:
       break;
@@ -154,6 +156,9 @@ const renderModal = (title, num, userId, obj) => {
         const newCategory = $("#categories option:selected").attr("categoryId");
         postExpense(newAmount, newDescription, newCategory);
         break;
+      case 4:
+        const income = $("#modal-income").val();
+        updateUserIncome(userId, income);
       default:
         break;
     }
@@ -211,7 +216,14 @@ function deleteCategoryClicked() {
   deleteCategory(deleteId);
 }
 
+function editIncomeClicked() {
+  const userId = parseInt($(this).attr("userId"));
+  const userIncome = parseInt($(this).attr("userIncome"));
+  renderModal("Edit Income", 4, 1, { userId, userIncome });
+}
+
 $(document).ready(() => {
+  $(document).on("click", ".edit-income-button", editIncomeClicked);
   $(document).on("click", ".edit-category-button", editCategoryClicked);
   $(document).on("click", ".delete-category-button", deleteCategoryClicked);
   $(document).on("click", ".edit-button", editExpenseClicked);
