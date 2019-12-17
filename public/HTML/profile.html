@@ -42,35 +42,42 @@
 <div class="nav-wrapper">
     <span class="title">Profile</span>
 </div>
-<div>
-    <table>
-        <tbody>
-            <tr>
-                <td class="firstName">Name</td>
-                <td> <button data-target="modal1" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
-            </tr>
-            <tr>
-                <td class="userEmail">Email</td>
-                <td> <button data-target="modal1" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
-            </tr>
-            <tr>
-                <td class="username">Username</td>
-                <td> <button data-target="modal1" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
-            </tr>
-            <tr>
-                <td class="userPassword"> Password</td>
-                <td> <button data-target="modal1" class="btn modal-trigger"><i class="material-icons">edit</i></button></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a class="waves-effect waves-light btn">Delete Account</a>
-
-</div>
-
 
 <body>
+    <div>
+        <table>
+            <tbody class="profileTable">
+                <tr>
+                    <td class="firstName" id="firstName">First Name</td>
+                    <td> <button data-target="modal1" class="btn modal-trigger"><i
+                                class="material-icons">edit</i></button></td>
+                </tr>
+                <tr>
+                    <td class="lastName" id="lastName">Last Name</td>
+                    <td> <button data-target="modal1" class="btn modal-trigger"><i
+                                class="material-icons">edit</i></button></td>
+                </tr>
+                <tr>
+                    <td class="userEmail" id="userEmail">Email</td>
+                    <td> <button data-target="modal1" class="btn modal-trigger"><i
+                                class="material-icons">edit</i></button></td>
+                </tr>
+                <tr>
+                    <td class="username" id="username">Username</td>
+                    <td> <button data-target="modal1" class="btn modal-trigger"><i
+                                class="material-icons">edit</i></button></td>
+                </tr>
+                <tr>
+                    <td class="userPassword" id="userPassword"> Password</td>
+                    <td> <button data-target="modal1" class="btn modal-trigger"><i
+                                class="material-icons">edit</i></button></td>
+                </tr>
+            </tbody>
+        </table>
 
+        <a class="waves-effect waves-light btn">Delete Account</a>
+
+    </div>
 
     <footer class="page-footer" id="footer-body">
         <div class="container">
@@ -84,6 +91,7 @@
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <script type="text/javascript" src="../js/profile.js"></script>
 </body>
 
 </html>
