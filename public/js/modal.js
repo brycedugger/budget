@@ -208,8 +208,7 @@ const listenForModalSubmission = (option, userId, obj) => {
 
     case "Edit Income":
       // grab the form fields from the modal
-      const income = $("#modal-income").val();
-      console.log("income :", income);
+      const income = parseFloat($("#modal-income").val());
       updateUserIncome(userId, income);
 
     default:
@@ -252,8 +251,7 @@ function deleteCategoryClicked() {
 // function to pass current data to a modal
 function editIncomeClicked() {
   const userId = parseInt($(this).attr("userId"));
-  const userIncome = $(this).attr("userIncome");
-  console.log("userIncome :", userIncome);
+  const userIncome = parseFloat($(this).attr("userIncome"));
   renderModal("Edit Income", 1, { userId, userIncome }); // TODO: set second parameter to userId
 }
 

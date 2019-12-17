@@ -1,6 +1,6 @@
 const updateUserIncome = (id, income) => {
   // make put request to update a single category
-  axios.put(`/api/user/income/${id}`, { income: parseInt(income) }).then(res => {
+  axios.put(`/api/user/income/${id}`, { income }).then(res => {
     location.reload();
   }),
     err => {
