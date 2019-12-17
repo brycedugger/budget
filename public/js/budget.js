@@ -1,11 +1,7 @@
-function createIncomeRow(userData) {
-  const newTr = $("<tr>", {
-    class: "user-" + userData.id,
-    userId: userData.id,
-    userValue: userData.name
-  });
-  const tdIncomeHeader = $("<th>", { name: "user-income-header-" + userData.name }).text("Income");
-  const tdIncome = $("<td>", { name: "user-income-" + userData.name }).text("$" + userData.income);
+function renderIncomeRow(userData) {
+  const newTr = $("<tr>");
+  const tdIncomeHeader = $("<th>").text("Income");
+  const tdIncome = $("<td>").text("$" + userData.income);
   const editButton = $("<div>", {
     class: "btn btn-white text-white mx-1 mt-2 edit-income-button",
     userId: userData.id,
@@ -16,13 +12,9 @@ function createIncomeRow(userData) {
   newTr.append(tdIncomeHeader, tdIncome, editButton);
 }
 
-function createCategoryRow(categoryData, totalExpenseCat) {
+function renderCategoryRow(categoryData, totalExpenseCat) {
   var overUnder = categoryData.goal - totalExpenseCat;
-  const newTr = $("<tr>", {
-    categoryId: categoryData.id,
-    categoryValue: categoryData.name,
-    goalValue: categoryData.goal
-  });
+  const newTr = $("<tr>");
   const tdCategoryName = $("<td>", { name: "category-name-" + categoryData.name }).text(
     categoryData.name
   );
@@ -71,7 +63,7 @@ function getBudgetCategories() {
       row.Expenses.forEach(function(expense) {
         total += parseFloat(expense.amount);
       });
-      createCategoryRow(row, total.toFixed(2));
+      renderCategoryRow(row, total.toFixed(2));
       row.Expenses.forEach(function(expense) {
         total += parseFloat(expense.amount);
       });
@@ -82,7 +74,7 @@ function getBudgetCategories() {
 function getIncome() {
   //todo: replace 1 with where user infomation is stored
   $.get("/api/user/1", function(data) {
-    createIncomeRow(data);
+    renderIncomeRow(data);
   });
 }
 
