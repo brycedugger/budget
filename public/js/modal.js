@@ -85,7 +85,7 @@ const renderModal = (title, num, userId, obj) => {
   switch (num) {
     case 0:
       // render categories and append it to .modal-body
-      getBudgetCategories(userId, ".modal-body", obj.categoryValue);
+      getCategories(userId, ".modal-body", obj.categoryValue);
       modalBody.append(
         renderModalFormFields("Description", "modal-description", obj.description),
         renderModalFormFields("Amount", "modal-amount", obj.amount)
@@ -104,12 +104,13 @@ const renderModal = (title, num, userId, obj) => {
       );
       break;
     case 3:
+      getCategories(userId, ".modal-body");
       // render categories and append it to .modal-body if they're making an expense
-      getBudgetCategories(userId, ".modal-body");
       modalBody.append(
         renderModalFormFields("Description", "modal-description", ""),
         renderModalFormFields("Amount", "modal-amount", "")
       );
+      break;
     case 4:
       modalBody.append(renderModalFormFields("Income", "modal-income", obj.userIncome));
       break;
@@ -207,6 +208,11 @@ function editCategoryClicked() {
   const editId = parseInt($(this).attr("editId")); // get the edit button id
   const categoryValue = $(this).attr("categoryValue"); // get the category text
   const goalValue = $(this).attr("goalValue"); // get the goal value
+
+  console.log("editId :", editId);
+  console.log("categoryValue :", categoryValue);
+  console.log("goalValue :", goalValue);
+
   renderModal("Edit Category", 1, 1, { categoryValue, goalValue, editId });
 }
 
