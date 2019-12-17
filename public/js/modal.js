@@ -121,6 +121,7 @@ const renderModal = (title, userId, obj) => {
 
     case "Edit Income":
       // render form fields with prefilled text
+      console.log("obj.userIncome :", obj.userIncome);
       modalBody.append(renderModalFormFields("Income", "modal-income", obj.userIncome));
       break;
 
@@ -203,7 +204,8 @@ const listenForModalSubmission = (option, userId, obj) => {
 
     case "Edit Income":
       // grab the form fields from the modal
-      const income = parseFloat($("#modal-income").val());
+      const income = $("#modal-income").val();
+      console.log("income :", income);
       updateUserIncome(userId, income);
 
     default:
@@ -246,8 +248,8 @@ function deleteCategoryClicked() {
 // function to pass current data to a modal
 function editIncomeClicked() {
   const userId = parseInt($(this).attr("userId"));
-  const userIncome = parseFloat($(this).attr("userIncome"));
-
+  const userIncome = $(this).attr("userIncome");
+  console.log("userIncome :", userIncome);
   renderModal("Edit Income", 1, { userId, userIncome }); // TODO: set second parameter to userId
 }
 

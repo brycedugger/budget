@@ -71,22 +71,6 @@ function getBudgetCategories() {
   });
 }
 
-function getIncome() {
-  //todo: replace 1 with where user infomation is stored
-  $.get("/api/user/1", function(data) {
-    renderIncomeRow(data);
-  });
-}
-
-function getRemainder() {
-  //todo: replace 1 with where user infomation is stored
-  $.get("/api/remainder/1", function(data) {
-    data.forEach(function(remainder) {
-      createRemainderRow(remainder);
-    });
-  });
-}
-
 $(document).ready(function() {
   getBudgetCategories();
   getIncome();
