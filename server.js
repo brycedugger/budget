@@ -23,7 +23,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // For Passport
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true })); // session secret
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -31,19 +33,17 @@ app.use(passport.session()); // persistent login sessions
 app.use(express.static("public"));
 
 // Routes
-require("./routes/apiRoutes")(app);
+require("./routes/apiRoutes")(app, passport);
 require("./routes/userRoutes")(app);
 require("./routes/categoryRoutes")(app);
 require("./routes/expenseRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-
-
 // // Auth Routes
-// var authRoute = require("./routes/auth")(app, passport);
+// var authRoute = require("./routes/auth.js")(app);
 
-// // Load Passport Strategies
-// require("./config/passport/passport.js").default(passport, db.user);
+// Load Passport Strategies
+require("./config/passport/passport.js")(passport, db.user);
 
 var syncOptions = { force: false };
 
