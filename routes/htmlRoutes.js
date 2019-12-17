@@ -1,4 +1,3 @@
-var db = require("../models");
 var path = require("path");
 
 // Requiring our custom middleware for checking if a user is logged in
@@ -9,32 +8,39 @@ module.exports = function(app) {
   app.get("/test", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/test.html"));
   });
+
   app.get("/", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/index.html"));
   });
+
   app.get("/budget", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/budget.html"));
   });
+
   app.get("/expenses", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/expenses.html"));
   });
+
   app.get("/profile", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/profile.html"));
   });
+
   app.get("/login", function(req, res) {
     if (req.user) {
       res.redirect("/");
     }
     res.sendFile(path.join(__dirname, "../public/HTML/login.html"));
   });
+
   app.get("/signup", function(req, res) {
     if (req.user) {
       res.redirect("/");
     }
     res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
+
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
-    res.send("404");
+    res.sendFile(path.join(__dirname, "../public/HTML/404.html"));
   });
 };
