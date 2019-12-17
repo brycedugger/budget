@@ -157,16 +157,44 @@ const getCategoriesAll = () => {
     };
 };
 
-const getIncome = () => {
+/**
+ * function to get all budget categories
+ * @param {integer} userId the user's id
+ */
+const getBudgetCategories = (userId = 1) => {
+  axios.get(`/api/category/all/${userId}`).then(res => {
+    //todo: replace 1 with where user infomation is stored
+    res.data.forEach(function(row) {
+      let total = 0;
+      row.Expenses.forEach(function(expense) {
+        total += parseFloat(expense.amount);
+      });
+      renderCategoryRow(row, total.toFixed(2));
+      row.Expenses.forEach(function(expense) {
+        total += parseFloat(expense.amount);
+      });
+    });
+  });
+};
+
+/**
+ * function to calculate and render the income
+ * @param {integer} userId the user's id
+ */
+const getIncome = (userId = 1) => {
   //todo: replace 1 with where user infomation is stored
-  axios.get("/api/user/1").then(res => {
+  axios.get(`/api/user/${userId}`).then(res => {
     renderIncomeRow(res.data);
   });
 };
 
-const getRemainder = () => {
+/**
+ * function to calculate and render the remainder
+ * @param {integer} userId the user's id
+ */
+const getRemainder = (userId = 1) => {
   //todo: replace 1 with where user infomation is stored
-  axios.get("/api/remainder/1").then(res => {
+  axios.get(`/api/remainder/${userId}`).then(res => {
     res.data.forEach(remainder => {
       createRemainderRow(remainder);
     });

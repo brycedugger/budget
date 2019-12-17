@@ -55,22 +55,6 @@ function createRemainderRow(remainderData) {
 
 //-----------------------------------------------
 
-function getBudgetCategories() {
-  $.get("/api/category/all/1", function(data) {
-    //todo: replace 1 with where user infomation is stored
-    data.forEach(function(row) {
-      let total = 0;
-      row.Expenses.forEach(function(expense) {
-        total += parseFloat(expense.amount);
-      });
-      renderCategoryRow(row, total.toFixed(2));
-      row.Expenses.forEach(function(expense) {
-        total += parseFloat(expense.amount);
-      });
-    });
-  });
-}
-
 $(document).ready(function() {
   getBudgetCategories();
   getIncome();
