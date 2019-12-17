@@ -9,7 +9,7 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/HTML/test.html"));
   });
 
-  app.get("/", isAuthenticated, function(req, res) {
+  app.get("/:id", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/index.html"));
   });
 
