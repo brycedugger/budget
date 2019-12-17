@@ -35,6 +35,7 @@ app.use(express.static("public"));
 // Routes
 require("./routes/apiRoutes")(app, passport);
 require("./routes/userRoutes")(app);
+require("./routes/remainderRoutes")(app);
 require("./routes/categoryRoutes")(app);
 require("./routes/expenseRoutes")(app);
 require("./routes/htmlRoutes")(app);
@@ -43,7 +44,7 @@ require("./routes/htmlRoutes")(app);
 // var authRoute = require("./routes/auth.js")(app);
 
 // Load Passport Strategies
-require("./config/passport/passport.js")(passport, db.user);
+// require("./config/passport/passport.js")(passport, db.user);
 
 var syncOptions = { force: false };
 

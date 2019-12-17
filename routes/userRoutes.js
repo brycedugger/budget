@@ -3,7 +3,7 @@ var db = require("../models");
 module.exports = function(app) {
   // get all the user's info passing in the id
   app.get("/api/user/:id", (req, res) => {
-    db.User.findAll({
+    db.User.findOne({
       where: { id: req.params.id }
     })
       .then(data => {
