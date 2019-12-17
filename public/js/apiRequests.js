@@ -1,6 +1,6 @@
 const updateUserIncome = (id, income) => {
   // make put request to update a single category
-  axios.put(`/api/user/income/${id}`, { income: parseInt(income) }).then(res => {
+  axios.put(`/api/user/income/${id}`, { income }).then(res => {
     location.reload();
   }),
     err => {
@@ -131,25 +131,73 @@ const postExpense = (amount, description, CategoryId) => {
     };
 };
 
+// function to render categories and expenses
 const getCategoriesAll = () => {
-  $.get("/api/category/all/1", function(data) {
+  axios.get("/api/category/all/1").then(res => {
     // TODO: pass the user's ID in the URL
     let grandTotal = 0;
     let goalTotal = 0;
-    data.forEach(function(row) {
+    res.data.forEach(row => {
       let total = 0;
       goalTotal += parseFloat(row.goal);
-      row.Expenses.forEach(function(expense) {
+      row.Expenses.forEach(expense => {
         total += parseFloat(expense.amount);
       });
       grandTotal += total;
       renderCategoryRow(row, total.toFixed(2));
-      row.Expenses.forEach(function(expense) {
+      row.Expenses.forEach(expense => {
         total += parseFloat(expense.amount);
         renderExpenseRow(expense, row.name);
       });
     });
 
     appendTotalExpenses(grandTotal.toFixed(2), goalTotal.toFixed(2));
+  }),
+    err => {
+      console.log(err);
+    };
+};
+
+/**
+ * function to get all budget categories
+ * @param {integer} userId the user's id
+ */
+const getBudgetCategories = (userId = 1) => {
+  axios.get(`/api/category/all/${userId}`).then(res => {
+    //todo: replace 1 with where user infomation is stored
+    res.data.forEach(function(row) {
+      let total = 0;
+      row.Expenses.forEach(function(expense) {
+        total += parseFloat(expense.amount);
+      });
+      renderCategoryRow(row, total.toFixed(2));
+      row.Expenses.forEach(function(expense) {
+        total += parseFloat(expense.amount);
+      });
+    });
+  });
+};
+
+/**
+ * function to calculate and render the income
+ * @param {integer} userId the user's id
+ */
+const getIncome = (userId = 1) => {
+  //todo: replace 1 with where user infomation is stored
+  axios.get(`/api/user/${userId}`).then(res => {
+    renderIncomeRow(res.data);
+  });
+};
+
+/**
+ * function to calculate and render the remainder
+ * @param {integer} userId the user's id
+ */
+const getRemainder = (userId = 1) => {
+  //todo: replace 1 with where user infomation is stored
+  axios.get(`/api/remainder/${userId}`).then(res => {
+    res.data.forEach(remainder => {
+      renderRemainderRow(remainder);
+    });
   });
 };
