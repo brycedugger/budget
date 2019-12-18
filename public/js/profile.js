@@ -24,7 +24,7 @@ const getUserInfo = userId => {
     renderFormField("First name:", "text", "fname", res.data.firstName);
     renderFormField("Last name:", "text", "lname", res.data.lastName);
     renderFormField("Email:", "text", "email", res.data.email);
-    renderFormField("Password:", "password", "pwd", res.data.pwd);
+    // renderFormField("Password:", "password", "pwd", res.data.pwd);
   }),
     err => {
       console.log(err);
