@@ -15,7 +15,7 @@ const updateUser = (userId, firstName, lastName, email) => {
 };
 
 /**
- *
+ * function to get the user's information
  * @param {number} userId the user's id
  */
 const getUserInfo = userId => {
