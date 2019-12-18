@@ -1,44 +1,32 @@
-function createUserInfoRow(userData) {
-  const newTBody = $("<tbody>", { userId: userData.id, categoryValue: userData.name });
-  const newTr = $("<tr>", {
-    class: "category-" + userData.id,
-    userId: userData.id,
-    categoryValue: userData.name
-  });
-  const tdCategoryName = $("<td>", { name: "expense-category-" + userData.name }).text(
-    userData.name
-  );
-
-  const editButton = $("<a>", {
-    class: "waves-effect waves-light btn edit-button",
-    editId: userData.id,
-    userId: userData.Id,
-    categoryValue: userData.name
-  }).text("Edit");
-
-  const deleteButton = $("<a>", {
-    class: "waves-effect waves-light btn delete-button",
-    deleteId: userData.id,
-    userId: userData.Id,
-    categoryValue: userData.name
-  }).text("Delete");
-
-  $("#table").append(newTBody, newTr);
-  newTr.append(tdCategoryName, tdCategoryTotal, editButton, deleteButton);
+function getUserInfo(userId) {
+  axios.get(`/api/user/${userId}`).then(res => {
+    console.log("user info:", res.data);
+    renderFormField("First name:", "text", "fname", res.data.firstName);
+    renderFormField("Last name:", "text", "lname", res.data.lastName);
+    renderFormField("Email:", "text", "email", res.data.email);
+    renderFormField("Password:", "text", "pwd", res.data.pwd);
+  }),
+    err => {
+      console.log(err);
+    };
 }
 
-function getUserInfo(userId = 1) {
-  $.get("/api/user/${userId}", function(data) {
-    data.forEach(function(row) {
-      createUserInfoRow(row);
-      row.User.forEach(function(expense) {
-        createExpenseRow(expense, row.id);
-      });
-    });
-  });
-}
+const renderFormField = (text, type, valueType, id) => {
+  const formGroup = $("<div>", { class: "form-group" });
+  const label = $("<label>", { class: "col-lg-3 control-label" }).text(text);
+  const col = $("<div>", { class: "col-lg-8" });
+  const input = $("<input>", { class: "form-control value-for-" + valueType, type: type, id });
+
+  $("#form").append(formGroup);
+  formGroup.append(label, col);
+  col.append(input);
+};
 
 $(document).ready(function() {
-  var userId = 1;
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
   getUserInfo(userId);
+
+  renderFormField("First name:", "text", "fname", "John");
 });
