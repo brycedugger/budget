@@ -45,55 +45,12 @@
               google.charts.load("current", {packages:["corechart"]});
               google.charts.setOnLoadCallback(drawChart);
               function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                  ['Expenses', 'Spend'],
-                  ['Mortgage',   11],
-                  ['Utilities', 6],
-                  ['Gas',   2],
-                  ['Entertainment', 2],
-                  ['Groceries', 7]
-                ]);
-
-
-            
-    // Get data for a given user from categories table in DB.
-    // GET * FROM categories WHERE UserId == {the id of whoever is logged in} you can start with hardcoded 1
-    // This will result in categories with ids. e.x. (1, 2, 3, 4, etc.)
-
-    // for each entry category returned from DB
-    // save a var with the name of the category 'var catName = this.name'
-    // save a var to track the 'total', initiate it with a value of 0.
-
-    // Get * from expense table for a given categoryID 
-    // for each entry returned in this category
-        // get the amount add it to 'total'
-    ////
-    // DashboardEntries.push([catNAme, total])
-    ////
-        
-                var options = {
-                  title: 'Total Spending',
-                  pieHole: 0.5,
-                  slices: {
-                        0: { color: '#ff5252'},
-                        1: { color: '#e0440e' },
-                        2: { color: '#e6693e' },
-                        3: { color: '#ec8f6e' },
-                        4: { color: '#f3b49f' },
-                        5: { color: '#f6c7b6' }
-                    }
-                };
-        
-                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                var data = google.visualization.arrayToDataTable([['Expenses', 'Spend']]);
+                var chart = new google.visualization.PieChart(document.getElementById('chart-container'));
                 chart.draw(data, options);
               }
             </script>
-            <script type="text/javascript" src="../js/index.js">
-
-                var what = whatever();
-                console.log("this is printing: " + what);
-
-            </script>
+            <script type="text/javascript" src="../js/index.js"></script>
             <div id="donutchart" style="width: 900px; height: 450px;"></div>
         </div>
 
@@ -103,56 +60,43 @@
 <script class="someScript">
     function clickButton() {
 
-        // Getting the categries data for a user in the sql db where userId is 1
+        // Getting the categories data for a user in the sql db where userId is 1
         var userId = [1];
+        
+        let chartDataArray = [];
+        chartDataArray.push(['Expenses', 'Spend']);
+
         var responseCategory = $.ajax({
             type: "GET",
             url: "api/category/all/" + userId,
-            success: function(data) {
-               console.log(data);
-               return JSON.stringify(data);
-           }
-        }).then(categories => categories.forEach(category => console.log(category)));
+        }).then(categories => categories.forEach(category => totalOfExpensesInCategory(category)));
 
-        // Getting the expenses belonging to the categories at id of 1
-        var CategoryId = 1;
-        var responseExpenses = $.ajax({
-          type: "GET",
-          url: "api/expense/" + CategoryId,
-          success: function(data) {
-            console.log(data);
-            return JSON.stringify(data);
-          }
-        }).then(expenses => expenses.forEach(expense => console.log(expense)));
+        function totalOfExpensesInCategory(category) {
+          var responseExpenses = $.ajax({
+            type: "GET",
+            url: "api/expense/" + category.id,
+          }).then(expenses => putExpenseTotalsOnChart(category, expenses));
+        };
         
+        function putExpenseTotalsOnChart(category, expenses) {
+          var total = 0;
+          expenses.forEach(expense => total = total + parseFloat(expense.amount));
+          chartDataArray.push([category.name, total]);
+          redrawChart(chartDataArray);
+        };
 
-        // Creating a function to take all category names and returns it to the Google matrix
-        var categoryNames = function() {
-          
-        }
-
-        // Function takes all "category names"
-          // var categoryNames = this.name
-          // it tallies "expenses amount" for each -- var trackingExpenses = 0; initiate it with a value of 0
-            // returns it into the matrix
-
-    // for each entry category returned from DB (data)
-    // save a var with the name of the category 'var categoryName = this.name'
-
-    // Get * from expense table for a given categoryID 
-    // for each entry returned in this category
-        // get the amount add it to 'total'
-    ////
-    // DashboardEntries.push([catNAme, total])
-    ////
-
+        function redrawChart(array) {
+          var data = google.visualization.arrayToDataTable(array);
+            var options = {
+              title: 'Total Spending',
+              pieHole: 0.5
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('chart-container'));
+            chart.draw(data, options);
+        };
     };
-
 </script>
-
-<br>
-
-        
+   
     <!-- Footer -->
     <footer class="page-footer" id="footer-body">
         <div class="container">
