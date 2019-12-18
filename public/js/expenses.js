@@ -1,6 +1,6 @@
 /**
  * function to render the total expenses of all categories
- * @param {integer} totalExpensesValue the total expense
+ * @param {number} totalExpensesValue the total expense
  */
 function appendTotalExpenses(totalExpensesValue, totalExpenseGoal) {
   const tr = $("<tr>");
@@ -15,7 +15,7 @@ function appendTotalExpenses(totalExpensesValue, totalExpenseGoal) {
 /**
  * function to render an expense row
  * @param {object} expenseData the expense object
- * @param {integer} categoryName the name of the category
+ * @param {number} categoryName the name of the category
  */
 function renderExpenseRow(expenseData, categoryName) {
   const tr = $("<tr>");
@@ -42,7 +42,7 @@ function renderExpenseRow(expenseData, categoryName) {
 /**
  * function to render category rows
  * @param {object} categoryData an object that contains the category data from the response
- * @param {integer} totalExpenseCat the total expense of the category
+ * @param {number} totalExpenseCat the total expense of the category
  */
 function renderCategoryRow(categoryData, totalExpenseCat) {
   const tBody = $("<tbody>");
