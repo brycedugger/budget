@@ -31,12 +31,12 @@ app.use(passport.session()); // persistent login sessions
 app.use(express.static("public"));
 
 // Routes
-require("./routes/apiRoutes")(app, passport);
-require("./routes/userRoutes")(app);
-require("./routes/remainderRoutes")(app);
-require("./routes/categoryRoutes")(app);
-require("./routes/expenseRoutes")(app);
-require("./routes/htmlRoutes")(app);
+require("./routes/api")(app, passport);
+require("./routes/users")(app);
+require("./routes/remainder")(app);
+require("./routes/categories")(app);
+require("./routes/expenses")(app);
+require("./routes/html")(app);
 
 var syncOptions = { force: false };
 
