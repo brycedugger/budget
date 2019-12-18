@@ -19,7 +19,7 @@ const renderIncomeRow = userData => {
 /**
  * function to render category rows
  * @param {object} categoryData an object that contains the category data from the response
- * @param {integer} totalExpenseCat the total expense for the category
+ * @param {number} totalExpenseCat the total expense for the category
  */
 const renderCategoryRow = (categoryData, totalExpenseCat) => {
   const overUnder = categoryData.goal - totalExpenseCat;
@@ -41,25 +41,45 @@ const renderCategoryRow = (categoryData, totalExpenseCat) => {
 };
 
 /**
+ * function to render the category and expense total
+ * @param {number} categoryTotal the category total
+ * @param {number} expenseTotal the expense total
+ */
+const renderTotals = (categoryTotal, expenseTotal) => {
+  const overUnder = categoryTotal - expenseTotal;
+  const tr = $("<tr>");
+  const tdCategoryName = $("<td>").text("Totals");
+  const tdCategoryGoalTotal = $("<td>").text("$" + categoryTotal);
+  const tdExpenseTotal = $("<td>").text("$" + expenseTotal);
+  const tdOverUnder = $("<td>").text("$" + parseFloat(overUnder).toFixed(2));
+
+  $("#main").append(tr);
+  tr.append(tdCategoryName, tdCategoryGoalTotal, tdExpenseTotal, tdOverUnder);
+};
+
+/**
  * function to render a row containing the remainder
  * @param {object} remainderData the response from the API containing the remainder
  */
 const renderRemainderRow = remainderData => {
   const tr = $("<tr>");
   const tdIncomeLeft = $("<td>").text("Income Left");
-  const blank0 = $("<td>").text("");
-  const blank1 = $("<td>").text("");
-  const blank2 = $("<td>").text("");
+
   const tdRemainder = $("<td>").text(
     "$" + (parseFloat(remainderData.income) - parseFloat(remainderData.remainder)).toFixed(2)
   );
 
   $("#main").append(tr);
-  tr.append(tdIncomeLeft, blank0, tdRemainder, blank1, blank2);
+  tr.append(tdIncomeLeft, tdRemainder);
 };
 
 $(document).ready(() => {
-  getBudgetCategories();
-  getIncome();
-  getRemainder();
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+
+  getIncome(userId);
+  getBudgetCategories(userId);
+  getBudgetCategoriesTotals(userId);
+  getRemainder(userId);
 });

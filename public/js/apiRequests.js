@@ -10,9 +10,9 @@ const updateUserIncome = (id, income) => {
 
 /**
  * function update a category
- * @param {integer} id the id of the category
+ * @param {number} id the id of the category
  * @param {string} name the description of the category
- * @param {integer} goal the amount of the category
+ * @param {number} goal the amount of the category
  */
 const updateCategory = (id, name, goal) => {
   // make put request to update a single category
@@ -26,7 +26,7 @@ const updateCategory = (id, name, goal) => {
 
 /**
  * function to delete a single category
- * @param {integer} categoryId the id of the expense to be deleted
+ * @param {number} categoryId the id of the expense to be deleted
  */
 const deleteCategory = categoryId => {
   // send delete request to delete a single expense
@@ -40,7 +40,7 @@ const deleteCategory = categoryId => {
 
 /**
  * function to create a new category
- * @param {integer} userId the id of the user
+ * @param {number} userId the id of the user
  * @param {string} name the name of the category
  * @param {string} goal the goal of the category
  */
@@ -56,7 +56,7 @@ const postCategory = (userId, name, goal) => {
 
 /**
  * function to delete a single expense
- * @param {integer} expenseId the id of the expense to be deleted
+ * @param {number} expenseId the id of the expense to be deleted
  */
 const deleteExpense = expenseId => {
   // send delete request to delete a single expense
@@ -70,7 +70,7 @@ const deleteExpense = expenseId => {
 
 /**
  * function to get all categories and append a dropdown the the parent element
- * @param {integer} userId the id of the user
+ * @param {number} userId the id of the user
  * @param {string} parentElement the element to append this to
  * @param {string} defaultValue the default value for the dropdown
  */
@@ -100,10 +100,10 @@ const getCategories = (userId, parentElement, defaultValue) => {
 
 /**
  * function to update the expense by sending a put request
- * @param {integer} expenseId the id of the expense
+ * @param {number} expenseId the id of the expense
  * @param {string} description the description of the expense
- * @param {integer} amount the amount of the expense
- * @param {integer} CategoryId the id of the category
+ * @param {number} amount the amount of the expense
+ * @param {number} CategoryId the id of the category
  */
 const updateExpense = (expenseId, description, amount, CategoryId) => {
   // make put request to update a single expense
@@ -119,7 +119,7 @@ const updateExpense = (expenseId, description, amount, CategoryId) => {
  * function to create a new expense
  * @param {string} amount the expense amount
  * @param {string} description the expense description
- * @param {integer} CategoryId the id of the category
+ * @param {number} CategoryId the id of the category
  */
 const postExpense = (amount, description, CategoryId) => {
   // send post request to create a single expense
@@ -132,8 +132,8 @@ const postExpense = (amount, description, CategoryId) => {
 };
 
 // function to render categories and expenses
-const getCategoriesAll = () => {
-  axios.get("/api/category/all/1").then(res => {
+const getCategoriesAll = userId => {
+  axios.get(`/api/category/all/${userId}`).then(res => {
     // TODO: pass the user's ID in the URL
     let grandTotal = 0;
     let goalTotal = 0;
@@ -159,42 +159,55 @@ const getCategoriesAll = () => {
 };
 
 /**
- * function to get all budget categories
- * @param {integer} userId the user's id
- */
-const getBudgetCategories = (userId = 1) => {
-  axios.get(`/api/category/all/${userId}`).then(res => {
-    //todo: replace 1 with where user infomation is stored
-    res.data.forEach(function(row) {
-      let total = 0;
-      row.Expenses.forEach(function(expense) {
-        total += parseFloat(expense.amount);
-      });
-      renderCategoryRow(row, total.toFixed(2));
-      row.Expenses.forEach(function(expense) {
-        total += parseFloat(expense.amount);
-      });
-    });
-  });
-};
-
-/**
  * function to calculate and render the income
- * @param {integer} userId the user's id
+ * @param {number} userId the user's id
  */
-const getIncome = (userId = 1) => {
-  //todo: replace 1 with where user infomation is stored
+const getIncome = userId => {
   axios.get(`/api/user/${userId}`).then(res => {
     renderIncomeRow(res.data);
   });
 };
 
 /**
- * function to calculate and render the remainder
- * @param {integer} userId the user's id
+ * function to get all category and expense totals
+ * @param {number} userId the user's id
  */
-const getRemainder = (userId = 1) => {
-  //todo: replace 1 with where user infomation is stored
+const getBudgetCategories = userId => {
+  axios.get(`/api/category/all/${userId}`).then(res => {
+    res.data.forEach(category => {
+      let categoryTotal = 0;
+      // calculate the sum of expenses for each category
+      category.Expenses.forEach(expense => {
+        categoryTotal += parseFloat(expense.amount);
+      });
+      renderCategoryRow(category, categoryTotal.toFixed(2));
+    });
+  });
+};
+
+/**
+ * function to get total category goal and total expense
+ * @param {number} userId the user's id
+ */
+const getBudgetCategoriesTotals = userId => {
+  let expenseTotal = 0;
+  let categoryTotal = 0;
+  axios.get(`/api/category/all/${userId}`).then(res => {
+    res.data.forEach(category => {
+      categoryTotal += parseFloat(category.goal);
+      category.Expenses.forEach(expense => {
+        expenseTotal += parseFloat(expense.amount);
+      });
+    });
+    renderTotals(categoryTotal, expenseTotal.toFixed(2));
+  });
+};
+
+/**
+ * function to calculate and render the remainder
+ * @param {number} userId the user's id
+ */
+const getRemainder = userId => {
   axios.get(`/api/remainder/${userId}`).then(res => {
     res.data.forEach(remainder => {
       renderRemainderRow(remainder);

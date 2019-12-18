@@ -7,7 +7,7 @@ module.exports = function(app, passport) {
      Otherwise the user will be sent an error */
   app.post("/signin", passport.authenticate("local"), function(req, res) {
     console.log(req.user.id);
-    res.redirect("/" + req.user.id);
+    res.redirect("/dashboard/" + req.user.id);
   });
 
   /* Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -36,4 +36,4 @@ module.exports = function(app, passport) {
     req.logout();
     res.redirect("/login");
   });
-};
+

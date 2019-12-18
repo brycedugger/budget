@@ -1,0 +1,21 @@
+/**
+ * function to render nav links
+ * @param {string} title the text to show on the link
+ * @param {string} page the html page name
+ * @param {number} userId the user's id
+ * @param {string} parentElement the class or id name to append this to
+ */
+const renderNavLinks = (title, page, userId, parentElement) => {
+  const li = $("<li>", { class: "tab" });
+  const a = $("<a>", { href: `/${page}/${userId}` }).text(title);
+  $(parentElement).append(li);
+  li.append(a);
+};
+
+$(document).ready(() => {
+  const userId = window.location.href.split("/")[window.location.href.split("/").length - 1];
+
+  renderNavLinks("Home", "dashboard", userId, ".tabs");
+  renderNavLinks("Expenses", "expenses", userId, ".tabs");
+  renderNavLinks("Budget", "budget", userId, ".tabs");
+});

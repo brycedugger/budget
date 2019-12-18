@@ -4,24 +4,19 @@ var path = require("path");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
-  // Load index page
-  app.get("/test", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/HTML/test.html"));
-  });
-
-  app.get("/", isAuthenticated, function(req, res) {
+  app.get("/dashboard/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/index.html"));
   });
 
-  app.get("/budget", function(req, res) {
+  app.get("/budget/:userId", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/budget.html"));
   });
 
-  app.get("/expenses", function(req, res) {
+  app.get("/expenses/:userId", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/expenses.html"));
   });
 
-  app.get("/profile", function(req, res) {
+  app.get("/profile/:userId", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/profile.html"));
   });
 

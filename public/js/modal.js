@@ -1,13 +1,19 @@
 // function to create a cateogry
 const createCategory = () => {
-  renderModal("Create Category", 1);
-  // TODO CHANGE ID PARAMETER TO USER'S ID (THIRD PARAMETER) FOR RENDER MODAL
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+
+  renderModal("Create Category", userId);
 };
 
 // function to create an expense
 const createExpense = () => {
-  renderModal("Create Expense", 1);
-  // TODO CHANGE ID PARAMETER TO USER'S ID (THIRD PARAMETER) FOR RENDER MODAL
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+
+  renderModal("Create Expense", userId);
 };
 
 /**
@@ -84,6 +90,33 @@ const renderModal = (title, userId, obj) => {
     id: "modal-submit"
   }).text("Submit");
 
+  // append and render the elements
+  $("#main").prepend(modalFade);
+  modalFade.append(modalDiaglogue);
+  modalDiaglogue.append(modalContent);
+  modalContent.append(modalHeader, modalBody, modalprefooter);
+  modalHeader.append(modalTitle);
+  modalprefooter.append(button, submit);
+
+  renderModalContent(title, userId, obj, modalBody);
+
+  // listen when to close the modal
+  listenForModalClick();
+
+  // listen for form submission
+  $("#modal-submit").click(() => {
+    listenForModalSubmission(title, userId, obj);
+  });
+};
+
+/**
+ * function to render the modal form and append it to the modal
+ * @param {string} title the title to go in the modal
+ * @param {string} userId the id of the the user
+ * @param {object} obj the object containing required fields for preforming crud operations on the table
+ * @param {object} modalBody the object to append this to
+ */
+const renderModalContent = (title, userId, obj, modalBody) => {
   // determine the form to render in the modal body
   switch (title) {
     case "Edit Expense":
@@ -132,22 +165,6 @@ const renderModal = (title, userId, obj) => {
     default:
       break;
   }
-
-  // append and render the elements
-  $("#main").prepend(modalFade);
-  modalFade.append(modalDiaglogue);
-  modalDiaglogue.append(modalContent);
-  modalContent.append(modalHeader, modalBody, modalprefooter);
-  modalHeader.append(modalTitle);
-  modalprefooter.append(button, submit);
-
-  // listen when to close the modal
-  listenForModalClick();
-
-  // listen for form submission
-  $("#modal-submit").click(() => {
-    listenForModalSubmission(title, userId, obj);
-  });
 };
 
 // function to close the modal
@@ -159,13 +176,6 @@ const listenForModalClick = () => {
   $("#modal-button").click(() => {
     $("#modal").remove();
   });
-
-  // when the user clicks anywhere outside of the modal, close modal
-  window.onclick = e => {
-    if (e.target == modal) {
-      $("#modal").remove();
-    }
-  };
 };
 
 /**
@@ -221,10 +231,12 @@ function editExpenseClicked() {
   const editId = parseInt($(this).attr("editId")); // get the edit button id
   const description = $(`.description-${editId}`).text(); // get the description
   const amount = parseFloat($(`.amount-${editId}`).text()); // get the amount
-  const userId = parseInt($(this).attr("......")); // TODO: dynamically get the correct ID
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
   const categoryValue = $(this).attr("categoryValue"); // get the category text
 
-  renderModal("Edit Expense", 1, { description, amount, categoryValue, editId }); // TODO: set second parameter to userId
+  renderModal("Edit Expense", userId, { description, amount, categoryValue, editId });
 }
 
 // function to pass current data to a modal
@@ -238,8 +250,11 @@ function editCategoryClicked() {
   const editId = parseInt($(this).attr("editId")); // get the edit button id
   const categoryValue = $(this).attr("categoryValue"); // get the category text
   const goalValue = parseFloat($(this).attr("goalValue")); // get the goal value
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
 
-  renderModal("Edit Category", 1, { categoryValue, goalValue, editId }); // TODO: set second parameter to userId
+  renderModal("Edit Category", userId, { categoryValue, goalValue, editId });
 }
 
 // function to pass current data to a modal
@@ -250,9 +265,12 @@ function deleteCategoryClicked() {
 
 // function to pass current data to a modal
 function editIncomeClicked() {
-  const userId = parseInt($(this).attr("userId"));
   const userIncome = parseFloat($(this).attr("userIncome"));
-  renderModal("Edit Income", 1, { userId, userIncome }); // TODO: set second parameter to userId
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+
+  renderModal("Edit Income", userId, { userId, userIncome });
 }
 
 $(document).ready(() => {
