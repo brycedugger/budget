@@ -73,5 +73,8 @@ function renderCategoryRow(categoryData, totalExpenseCat) {
 }
 
 $(document).ready(() => {
-  getCategoriesAll();
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+  getCategoriesAll(userId);
 });

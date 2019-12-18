@@ -132,8 +132,8 @@ const postExpense = (amount, description, CategoryId) => {
 };
 
 // function to render categories and expenses
-const getCategoriesAll = () => {
-  axios.get("/api/category/all/1").then(res => {
+const getCategoriesAll = userId => {
+  axios.get(`/api/category/all/${userId}`).then(res => {
     // TODO: pass the user's ID in the URL
     let grandTotal = 0;
     let goalTotal = 0;
@@ -162,9 +162,8 @@ const getCategoriesAll = () => {
  * function to get all budget categories
  * @param {integer} userId the user's id
  */
-const getBudgetCategories = (userId = 1) => {
+const getBudgetCategories = userId => {
   axios.get(`/api/category/all/${userId}`).then(res => {
-    //todo: replace 1 with where user infomation is stored
     res.data.forEach(function(row) {
       let total = 0;
       row.Expenses.forEach(function(expense) {
@@ -182,9 +181,9 @@ const getBudgetCategories = (userId = 1) => {
  * function to calculate and render the income
  * @param {integer} userId the user's id
  */
-const getIncome = (userId = 1) => {
-  //todo: replace 1 with where user infomation is stored
+const getIncome = userId => {
   axios.get(`/api/user/${userId}`).then(res => {
+    console.log(res.data);
     renderIncomeRow(res.data);
   });
 };
@@ -193,10 +192,10 @@ const getIncome = (userId = 1) => {
  * function to calculate and render the remainder
  * @param {integer} userId the user's id
  */
-const getRemainder = (userId = 1) => {
-  //todo: replace 1 with where user infomation is stored
+const getRemainder = userId => {
   axios.get(`/api/remainder/${userId}`).then(res => {
     res.data.forEach(remainder => {
+      console.log(remainder);
       renderRemainderRow(remainder);
     });
   });

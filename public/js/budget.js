@@ -59,7 +59,10 @@ const renderRemainderRow = remainderData => {
 };
 
 $(document).ready(() => {
-  getBudgetCategories();
-  getIncome();
-  getRemainder();
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+  getBudgetCategories(userId);
+  getIncome(userId);
+  getRemainder(userId);
 });
