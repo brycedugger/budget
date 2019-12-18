@@ -165,7 +165,10 @@ const getCategoriesAll = userId => {
 const getIncome = userId => {
   axios.get(`/api/user/${userId}`).then(res => {
     renderIncomeRow(res.data);
-  });
+  }),
+    err => {
+      console.log(err);
+    };
 };
 
 /**
@@ -183,7 +186,10 @@ const getBudgetCategories = userId => {
       renderCategoryRow(category, categoryTotal.toFixed(2));
     });
     getBudgetCategoriesTotals(userId);
-  });
+  }),
+    err => {
+      console.log(err);
+    };
 };
 
 /**
@@ -202,7 +208,10 @@ const getBudgetCategoriesTotals = userId => {
     });
     renderTotals(parseFloat(categoryTotal).toFixed(2), expenseTotal.toFixed(2));
     getRemainder(userId);
-  });
+  }),
+    err => {
+      console.log(err);
+    };
 };
 
 /**
@@ -214,5 +223,8 @@ const getRemainder = userId => {
     res.data.forEach(remainder => {
       renderRemainderRow(remainder);
     });
-  });
+  }),
+    err => {
+      console.log(err);
+    };
 };
