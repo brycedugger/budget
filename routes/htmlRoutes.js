@@ -12,15 +12,15 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
   });
 
-  app.get("/budget/:userId", function(req, res) {
+  app.get("/budget/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/budget.html"));
   });
 
-  app.get("/expenses/:userId", function(req, res) {
+  app.get("/expenses/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/expenses.html"));
   });
 
-  app.get("/profile/:userId", function(req, res) {
+  app.get("/profile/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/profile.html"));
   });
 
