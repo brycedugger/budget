@@ -73,24 +73,4 @@ $(document).ready(function getAccountData() {
         var categories = db.Category.findAll({attributes: ['id', 'name'], where: {userId: 1}});
         console.log("categories returen = " + categories);
     };
-
-                
-
-    // Get data for a given user from categories table in DB.
-    // GET * FROM categories WHERE UserId == {the id of whoever is logged in} you can start with hardcoded 1
-    // This will result in categories with ids. e.x. (1, 2, 3, 4, etc.)
-
-    // for each entry category returned from DB
-    // save a var with the name of the category 'var catName = this.name'
-    // save a var to track the 'total', initiate it with a value of 0.
-
-    // Get * from expense table for a given categoryID 
-    // for each entry returned in this category
-        // get the amount add it to 'total'
-    ////
-    // DashboardEntries.push([catNAme, total])
-    ////
-
-        // return DashboardEntries
-
-}
+};
