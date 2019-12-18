@@ -9,7 +9,7 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/HTML/test.html"));
   });
 
-  app.get("/:id", isAuthenticated, function(req, res) {
+  app.get("/", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/index.html"));
   });
 
@@ -26,15 +26,17 @@ module.exports = function(app) {
   });
 
   app.get("/login", function(req, res) {
+    // Checking if user is authenticated. If so, by pass the login page
     if (req.user) {
-      res.redirect("/");
+      res.redirect("/" + req.user.id);
     }
     res.sendFile(path.join(__dirname, "../public/HTML/login.html"));
   });
 
   app.get("/signup", function(req, res) {
+    // Checking if user is authenticated. If so, by pass the signup page
     if (req.user) {
-      res.redirect("/");
+      res.redirect("/" + req.user.id);
     }
     res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
