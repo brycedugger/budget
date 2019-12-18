@@ -30,10 +30,10 @@ module.exports = function(app, passport) {
         res.json(err);
       });
   });
-  //
+
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/login");
   });
-
+};
