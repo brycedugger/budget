@@ -1,3 +1,15 @@
+const renderSettingsLink = (page, userId, parentElement) => {
+  const li = $("<li>");
+  const a = $("<a>", { href: `/${page}/${userId}` });
+  const icon = $("<i>", { class: "large material-icons", id: "profile-icon" }).text(
+    "account_circle"
+  );
+
+  $(parentElement).append(li);
+  li.append(a);
+  a.append(icon);
+};
+
 /**
  * function to render nav links
  * @param {string} title the text to show on the link
@@ -18,4 +30,5 @@ $(document).ready(() => {
   renderNavLinks("Home", "dashboard", userId, ".tabs");
   renderNavLinks("Expenses", "expenses", userId, ".tabs");
   renderNavLinks("Budget", "budget", userId, ".tabs");
+  renderSettingsLink("profile", userId, ".hide-on-med-and-down");
 });
