@@ -1,13 +1,58 @@
+/**
+ * function to render a confirmation modal when delete is clicked
+ * @param {string} title the title to go in the modal
+ * @param {function} callback the function to be executed when submit is clicked
+ */
+const renderConfirmationModal = (title, callback) => {
+  // create the elements
+  const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
+  const modalDiaglogue = $("<div>", { class: "modal-dialog" });
+  const modalContent = $("<div>", { class: "modal-content" });
+  const modalHeader = $("<div>", { class: "modal-header" });
+  const modalTitle = $("<h5>", { class: "modal-title text-primary" }).text(title);
+  const modalprefooter = $("<div>", { class: "modal-footer" });
+  const button = $("<button>", {
+    class: "btn btn-primary",
+    id: "modal-button"
+  }).text("Cancel");
+  const submit = $("<button>", {
+    class: "btn btn-primary",
+    id: "modal-submit"
+  }).text("Confirm");
+
+  // append and render the elements
+  $("#main").prepend(modalFade);
+  modalFade.append(modalDiaglogue);
+  modalDiaglogue.append(modalContent);
+  modalContent.append(modalHeader, modalprefooter);
+  modalHeader.append(modalTitle);
+  modalprefooter.append(button, submit);
+
+  // listen when to close the modal
+  listenForModalClick();
+
+  // listen for form submission
+  $("#modal-submit").click(() => {
+    callback();
+  });
+};
+
 // function to create a cateogry
 const createCategory = () => {
-  renderModal("Create Category", 2, 1);
-  // TODO CHANGE ID PARAMETER TO USER'S ID (THIRD PARAMETER) FOR RENDER MODAL
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+
+  renderModal("Create Category", userId);
 };
 
 // function to create an expense
 const createExpense = () => {
-  renderModal("Create Expense", 3, 1);
-  // TODO CHANGE ID PARAMETER TO USER'S ID (THIRD PARAMETER) FOR RENDER MODAL
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+
+  renderModal("Create Expense", userId);
 };
 
 /**
@@ -46,26 +91,29 @@ const renderDropdown = elementId => {
  */
 const renderModalFormFields = (type, elementId, text) => {
   // create the elements
-  const form = $("<form>");
-  const formGroup = $("<div>", { class: "form-group" });
+  const div = $("<div>");
+  const inputGroup = $("<div>", { class: "input-group" });
   const label = $("<label>", { for: type }).text(type);
-  const input = $("<input>", { type: "text", class: "form-control", id: elementId }).val(text);
-  form.append(formGroup);
-  formGroup.append(label, input);
+  const input = $("<input>", {
+    type: "text",
+    class: "input-group-text text-left",
+    id: elementId
+  }).val(text);
+  div.append(inputGroup);
+  inputGroup.append(label, input);
 
-  return form;
+  return div;
 };
 
 /**
  * function to render the modal
  * @param {string} title the title to go in the modal
- * @param {integer} num case number (0: edit expense, 1: edit category, 2: create category, 3: create expense)
  * @param {string} userId the id of the the user
- * @param {object} obj the object containing required fields for expense/category
+ * @param {object} obj the object containing required fields for preforming crud operations on the table
  */
-const renderModal = (title, num, userId, obj) => {
+const renderModal = (title, userId, obj) => {
   // create the elements
-  const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
+  const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
   const modalContent = $("<div>", { class: "modal-content" });
   const modalHeader = $("<div>", { class: "modal-header" });
@@ -81,42 +129,6 @@ const renderModal = (title, num, userId, obj) => {
     id: "modal-submit"
   }).text("Submit");
 
-  // determine what to render in the modal body
-  switch (num) {
-    case 0:
-      // render categories and append it to .modal-body
-      getBudgetCategories(userId, ".modal-body", obj.categoryValue);
-      modalBody.append(
-        renderModalFormFields("Description", "modal-description", obj.description),
-        renderModalFormFields("Amount", "modal-amount", obj.amount)
-      ); // render form fields with prefilled text
-      break;
-    case 1:
-      modalBody.append(
-        renderModalFormFields("Category Name", "modal-name", obj.categoryValue),
-        renderModalFormFields("Goal", "modal-goal", obj.goalValue)
-      ); // render form fields with prefilled text
-      break;
-    case 2:
-      modalBody.append(
-        renderModalFormFields("Category Name", "modal-category", ""),
-        renderModalFormFields("Goal", "modal-goal", "")
-      );
-      break;
-    case 3:
-      // render categories and append it to .modal-body if they're making an expense
-      getBudgetCategories(userId, ".modal-body");
-      modalBody.append(
-        renderModalFormFields("Description", "modal-description", ""),
-        renderModalFormFields("Amount", "modal-amount", "")
-      );
-    case 4:
-      modalBody.append(renderModalFormFields("Income", "modal-income", obj.userIncome));
-      break;
-    default:
-      break;
-  }
-
   // append and render the elements
   $("#main").prepend(modalFade);
   modalFade.append(modalDiaglogue);
@@ -125,44 +137,73 @@ const renderModal = (title, num, userId, obj) => {
   modalHeader.append(modalTitle);
   modalprefooter.append(button, submit);
 
+  renderModalContent(title, userId, obj, modalBody);
+
   // listen when to close the modal
   listenForModalClick();
 
   // listen for form submission
   $("#modal-submit").click(() => {
-    // determine what to the submit button does
-    switch (num) {
-      case 0:
-        // grab the form fields from the modal
-        const description = $("#modal-description").val();
-        const amount = parseFloat($("#modal-amount").val());
-        const category = $("#categories option:selected").attr("categoryId");
-        updateExpense(obj.editId, description, amount, category);
-        break;
-      case 1:
-        // grab the form fields from the modal
-        const name = $("#modal-name").val();
-        const goal = $("#modal-goal").val();
-        updateCategory(obj.editId, name, goal);
-        break;
-      case 2:
-        const categoryName = $("#modal-category").val();
-        const categoryGoal = $("#modal-goal").val();
-        postCategory(userId, categoryName, categoryGoal);
-        break;
-      case 3:
-        const newDescription = $("#modal-description").val();
-        const newAmount = $("#modal-amount").val();
-        const newCategory = $("#categories option:selected").attr("categoryId");
-        postExpense(newAmount, newDescription, newCategory);
-        break;
-      case 4:
-        const income = $("#modal-income").val();
-        updateUserIncome(userId, income);
-      default:
-        break;
-    }
+    listenForModalSubmission(title, userId, obj);
   });
+};
+
+/**
+ * function to render the modal form and append it to the modal
+ * @param {string} title the title to go in the modal
+ * @param {string} userId the id of the the user
+ * @param {object} obj the object containing required fields for preforming crud operations on the table
+ * @param {object} modalBody the object to append this to
+ */
+const renderModalContent = (title, userId, obj, modalBody) => {
+  // determine the form to render in the modal body
+  switch (title) {
+    case "Edit Expense":
+      // render categories and append it to .modal-body
+      getCategories(userId, ".modal-body", obj.categoryValue);
+
+      // render form fields with prefilled text
+      modalBody.append(
+        renderModalFormFields("Description", "modal-description", obj.description),
+        renderModalFormFields("Amount", "modal-amount", obj.amount)
+      );
+      break;
+
+    case "Edit Category":
+      // render form fields with prefilled text
+      modalBody.append(
+        renderModalFormFields("Category Name", "modal-name", obj.categoryValue),
+        renderModalFormFields("Goal", "modal-goal", obj.goalValue)
+      );
+      break;
+
+    case "Create Category":
+      // render form fields with prefilled text
+      modalBody.append(
+        renderModalFormFields("Category Name", "modal-category", ""),
+        renderModalFormFields("Goal", "modal-goal", "")
+      );
+      break;
+
+    case "Create Expense":
+      getCategories(userId, ".modal-body");
+
+      // render form fields with prefilled text
+      modalBody.append(
+        renderModalFormFields("Description", "modal-description", ""),
+        renderModalFormFields("Amount", "modal-amount", "")
+      );
+      break;
+
+    case "Edit Income":
+      // render form fields with prefilled text
+      console.log("obj.userIncome :", obj.userIncome);
+      modalBody.append(renderModalFormFields("Income", "modal-income", obj.userIncome));
+      break;
+
+    default:
+      break;
+  }
 };
 
 // function to close the modal
@@ -174,52 +215,107 @@ const listenForModalClick = () => {
   $("#modal-button").click(() => {
     $("#modal").remove();
   });
-
-  // when the user clicks anywhere outside of the modal, close modal
-  window.onclick = e => {
-    if (e.target == modal) {
-      $("#modal").remove();
-    }
-  };
 };
 
-// function to listen for clicks on the edit button
+/**
+ * function to determine what the submit button does base on the option passed in
+ * @param {string} option determines which case and what submit does
+ * @param {string} userId the id of the the user
+ * @param {object} obj the object containing required fields for expense/category
+ */
+const listenForModalSubmission = (option, userId, obj) => {
+  // determine what to the submit button does
+  switch (option) {
+    case "Edit Expense":
+      // grab the form fields from the modal
+      const description = $("#modal-description").val();
+      const amount = parseFloat($("#modal-amount").val());
+      const category = $("#categories option:selected").attr("categoryId");
+      updateExpense(obj.editId, description, amount, category);
+      break;
+
+    case "Edit Category":
+      // grab the form fields from the modal
+      const name = $("#modal-name").val();
+      const goal = parseFloat($("#modal-goal").val());
+      updateCategory(obj.editId, name, goal);
+      break;
+
+    case "Create Category":
+      const categoryName = $("#modal-category").val();
+      const categoryGoal = parseFloat($("#modal-goal").val());
+      postCategory(userId, categoryName, categoryGoal);
+      break;
+
+    case "Create Expense":
+      // grab the form fields from the modal
+      const expenseDescription = $("#modal-description").val();
+      const expenseAmount = parseFloat($("#modal-amount").val());
+      const expenseCategory = $("#categories option:selected").attr("categoryId");
+      postExpense(expenseAmount, expenseDescription, expenseCategory);
+      break;
+
+    case "Edit Income":
+      // grab the form fields from the modal
+      const income = parseFloat($("#modal-income").val());
+      updateUserIncome(userId, income);
+
+    default:
+      break;
+  }
+};
+
+// function to pass current data to a modal
 function editExpenseClicked() {
-  // grab data from the expense
   const editId = parseInt($(this).attr("editId")); // get the edit button id
   const description = $(`.description-${editId}`).text(); // get the description
-  const amount = $(`.amount-${editId}`).text(); // get the amount
-  const userId = parseInt($(this).attr("......")); // TODO: dynamically get the correct ID
+  const amount = parseFloat($(`.amount-${editId}`).text()); // get the amount
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
   const categoryValue = $(this).attr("categoryValue"); // get the category text
 
-  // render the modal using the data
-  renderModal("Edit Expense", 0, 1, { description, amount, categoryValue, editId }); // TODO: set third parameter to userId
+  renderModal("Edit Expense", userId, { description, amount, categoryValue, editId });
 }
 
-// function to listen for clicks on the delete button
+// function to pass current data to a modal
 function deleteExpenseClicked() {
   const deleteId = parseInt($(this).attr("deleteId"));
-  deleteExpense(deleteId);
+  renderConfirmationModal("Are you sure you want to delete the Expense?", () => {
+    deleteExpense(deleteId);
+  });
+
+  // deleteExpense(deleteId);
 }
 
-// function to listen for clicks on the edit button
+// function to pass current data to a modal
 function editCategoryClicked() {
   const editId = parseInt($(this).attr("editId")); // get the edit button id
   const categoryValue = $(this).attr("categoryValue"); // get the category text
-  const goalValue = $(this).attr("goalValue"); // get the goal value
-  renderModal("Edit Category", 1, 1, { categoryValue, goalValue, editId });
+  const goalValue = parseFloat($(this).attr("goalValue")); // get the goal value
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+
+  renderModal("Edit Category", userId, { categoryValue, goalValue, editId });
 }
 
-// function to listen for clicks on the delete button
+// function to pass current data to a modal
 function deleteCategoryClicked() {
   const deleteId = parseInt($(this).attr("deleteId"));
-  deleteCategory(deleteId);
+  renderConfirmationModal("Are you sure you want to delete the category?", () => {
+    deleteCategory(deleteId);
+  });
 }
 
+// function to pass current data to a modal
 function editIncomeClicked() {
-  const userId = parseInt($(this).attr("userId"));
-  const userIncome = parseInt($(this).attr("userIncome"));
-  renderModal("Edit Income", 4, 1, { userId, userIncome });
+  const userIncome = parseFloat($(this).attr("userIncome"));
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+
+  renderModal("Edit Income", userId, { userId, userIncome });
 }
 
 $(document).ready(() => {
