@@ -12,7 +12,7 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
   });
 
-  app.get("/budget/:userId", function(req, res) {
+  app.get("/budget/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/budget.html"));
   });
 
