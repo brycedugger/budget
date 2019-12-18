@@ -19,9 +19,9 @@ View live demo [here]().
 
 - **John** - [doanja](https://github.com/doanja)
 - **Elsa** - [bengueb](https://github.com/bengueb)
-- **Bryce** - [brycedugger]https://github.com/brycedugger)
-- **JC** - [miserablepop]https://github.com/miserablepop)
-- **Stephanie** - [SNHoff53]https://github.com/SNHoff53)
+- **Bryce** - [brycedugger](https://github.com/brycedugger)
+- **JC** - [miserablepop](https://github.com/miserablepop)
+- **Stephanie** - [SNHoff53](https://github.com/SNHoff53)
 
 See also the list of [contributors](https://github.com/doanja/project-2/graphs/contributors?from=2019-12-01&to=2019-12-17&type=a) who participated in this project.
 
