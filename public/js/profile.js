@@ -40,9 +40,10 @@ const parseFormData = () => {
   const firstName = $(".value-for-fname").val();
   const lastName = $(".value-for-lname").val();
   const email = $(".value-for-email").val();
-  const pwd = $(".value-for-pwd").val();
 
-  updateUser(userId, firstName, lastName, email);
+  renderConfirmationModal("Confirm Update", () => {
+    updateUser(userId, firstName, lastName, email);
+  });
 };
 
 // function to render the submit button
