@@ -25,7 +25,7 @@ function renderExpenseRow(expenseData, categoryName) {
   const td = $("<td>").text("-");
   const tdExpenseAmount = $("<td>", { class: "amount-" + expenseData.id }).text(expenseData.amount);
   const editButton = $("<div>", {
-    class: "btn btn-primary mx-1 mt-2 float-right text-white edit-button ",
+    class: "btn btn-primary mx-1 mt-2 float-right text-white edit-button",
     editId: expenseData.id,
     categoryValue: categoryName
   }).text("Edit");
