@@ -1,12 +1,11 @@
 // API REQUESTS
 
 /**
- * // function to render categories and expenses
+ * function to render categories and expenses
  * @param {number} userId the user's id
  */
 const getCategoriesAll = userId => {
   axios.get(`/api/category/all/${userId}`).then(res => {
-    // TODO: pass the user's ID in the URL
     let grandTotal = 0;
     let goalTotal = 0;
     res.data.forEach(row => {

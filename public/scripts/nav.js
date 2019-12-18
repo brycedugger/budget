@@ -1,3 +1,9 @@
+/**
+ * function to render settings icon
+ * @param {string} page the name of the route
+ * @param {number} userId the user's id
+ * @param {string} parentElement the parent element's name to append this to
+ */
 const renderSettingsLink = (page, userId, parentElement) => {
   const li = $("<li>");
   const a = $("<a>", { href: `/${page}/${userId}` });
