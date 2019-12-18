@@ -52,9 +52,10 @@ const renderTotals = (categoryTotal, expenseTotal) => {
   const tdCategoryGoalTotal = $("<td>").text("$" + categoryTotal);
   const tdExpenseTotal = $("<td>").text("$" + expenseTotal);
   const tdOverUnder = $("<td>").text("$" + parseFloat(overUnder).toFixed(2));
+  const tdBlank = $("<td>").text("");
 
   $("#main").append(tr);
-  tr.append(tdCategoryName, tdCategoryGoalTotal, tdExpenseTotal, tdOverUnder);
+  tr.append(tdCategoryName, tdCategoryGoalTotal, tdExpenseTotal, tdOverUnder, tdBlank);
 };
 
 /**
@@ -64,15 +65,17 @@ const renderTotals = (categoryTotal, expenseTotal) => {
 const renderRemainderRow = remainderData => {
   const tr = $("<tr>");
   const tdIncomeLeft = $("<td>").text("Income Left");
-
+  const tdBlank0 = $("<td>").text("");
   const tdRemainder = $("<td>").text(
     remainderData.remainder === null
       ? "N/A"
       : "$" + (parseFloat(remainderData.income) - parseFloat(remainderData.remainder)).toFixed(2)
   );
+  const tdBlank1 = $("<td>").text("");
+  const tdBlank2 = $("<td>").text("");
 
   $("#main").append(tr);
-  tr.append(tdIncomeLeft, tdRemainder);
+  tr.append(tdIncomeLeft, tdBlank0, tdRemainder, tdBlank1, tdBlank2);
 };
 
 $(document).ready(() => {

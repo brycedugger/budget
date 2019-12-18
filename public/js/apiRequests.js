@@ -200,7 +200,7 @@ const getBudgetCategoriesTotals = userId => {
         expenseTotal += parseFloat(expense.amount);
       });
     });
-    renderTotals(categoryTotal, expenseTotal.toFixed(2));
+    renderTotals(parseFloat(categoryTotal).toFixed(2), expenseTotal.toFixed(2));
     getRemainder(userId);
   });
 };
