@@ -6,7 +6,6 @@ module.exports = function(app, passport) {
      If the user has valid login credentials, send them to the dashboard page.
      Otherwise the user will be sent an error */
   app.post("/signin", passport.authenticate("local"), function(req, res) {
-    console.log(req.user.id);
     res.redirect("/dashboard/" + req.user.id);
   });
 
