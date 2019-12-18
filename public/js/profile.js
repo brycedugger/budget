@@ -41,7 +41,7 @@ const parseFormData = () => {
   const lastName = $(".value-for-lname").val();
   const email = $(".value-for-email").val();
 
-  renderConfirmationModal("Confirm Update", () => {
+  renderConfirmationModal('Click "Confirm" to Update', () => {
     updateUser(userId, firstName, lastName, email);
   });
 };
