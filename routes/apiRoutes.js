@@ -1,40 +1,38 @@
 var db = require("../models");
+var passport = require("../config/passport/passport");
 
 module.exports = function(app, passport) {
-  app.post(
-    "/signup",
-    passport.authenticate("local-signup", {
-      successRedirect: "/",
-      failureRedirect: "/signup"
+  /* Using the passport.authenticate middleware with our local strategy.
+     If the user has valid login credentials, send them to the dashboard page.
+     Otherwise the user will be sent an error */
+  app.post("/signin", passport.authenticate("local"), function(req, res) {
+    res.redirect("/dashboard/" + req.user.id);
+  });
+
+  /* Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
+     how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
+     otherwise send back an error */
+  app.post("/signup", function(req, res) {
+    db.User.create({
+      email: req.body.email,
+      pwd: req.body.password,
+      firstName: req.body.firstname,
+      lastName: req.body.lastname,
+      userName: req.body.username
     })
-  );
-  // app.post("/api/accounts", (req, res) => {
-  //   const { accountNumber, fundsAvailable, UserId } = req.body;
-  //   db.BankingAccount.create({
-  //     accountNumber,
-  //     fundsAvailable,
-  //     UserId
-  //   })
-  //     .then(newAcc => {
-  //       res.status(200).json(newAcc);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       res.status(400).json({ error: err });
-  //     });
-  // });
-  // app.post("/api/profile", (req, res) => {
-  //   const { username, password } = req.body;
-  //   db.Profile.create({
-  //     username,
-  //     password
-  //   })
-  //     .then(newProfile => {
-  //       res.status(200).json(newProfile);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       res.status(400).json({ error: err });
-  //     });
-  // });
+      .then(function(result) {
+        res.redirect("/login/");
+        console.log(result.id);
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.json(err);
+      });
+  });
+
+  // Route for logging user out
+  app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/login");
+  });
 };
