@@ -1,3 +1,42 @@
+/**
+ * function to render a confirmation modal when delete is clicked
+ * @param {string} title the title to go in the modal
+ * @param {function} callback the function to be executed when submit is clicked
+ */
+const renderConfirmationModal = (title, callback) => {
+  // create the elements
+  const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
+  const modalDiaglogue = $("<div>", { class: "modal-dialog" });
+  const modalContent = $("<div>", { class: "modal-content" });
+  const modalHeader = $("<div>", { class: "modal-header" });
+  const modalTitle = $("<h5>", { class: "modal-title text-primary" }).text(title);
+  const modalprefooter = $("<div>", { class: "modal-footer" });
+  const button = $("<button>", {
+    class: "btn btn-primary",
+    id: "modal-button"
+  }).text("Cancel");
+  const submit = $("<button>", {
+    class: "btn btn-primary",
+    id: "modal-submit"
+  }).text("Confirm");
+
+  // append and render the elements
+  $("#main").prepend(modalFade);
+  modalFade.append(modalDiaglogue);
+  modalDiaglogue.append(modalContent);
+  modalContent.append(modalHeader, modalprefooter);
+  modalHeader.append(modalTitle);
+  modalprefooter.append(button, submit);
+
+  // listen when to close the modal
+  listenForModalClick();
+
+  // listen for form submission
+  $("#modal-submit").click(() => {
+    callback();
+  });
+};
+
 // function to create a cateogry
 const createCategory = () => {
   const userId = parseInt(
@@ -74,7 +113,7 @@ const renderModalFormFields = (type, elementId, text) => {
  */
 const renderModal = (title, userId, obj) => {
   // create the elements
-  const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
+  const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
   const modalContent = $("<div>", { class: "modal-content" });
   const modalHeader = $("<div>", { class: "modal-header" });
@@ -242,7 +281,11 @@ function editExpenseClicked() {
 // function to pass current data to a modal
 function deleteExpenseClicked() {
   const deleteId = parseInt($(this).attr("deleteId"));
-  deleteExpense(deleteId);
+  renderConfirmationModal("Are you sure you want to delete the Expense?", () => {
+    deleteExpense(deleteId);
+  });
+
+  // deleteExpense(deleteId);
 }
 
 // function to pass current data to a modal
@@ -260,7 +303,9 @@ function editCategoryClicked() {
 // function to pass current data to a modal
 function deleteCategoryClicked() {
   const deleteId = parseInt($(this).attr("deleteId"));
-  deleteCategory(deleteId);
+  renderConfirmationModal("Are you sure you want to delete the category?", () => {
+    deleteCategory(deleteId);
+  });
 }
 
 // function to pass current data to a modal

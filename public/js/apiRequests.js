@@ -182,6 +182,7 @@ const getBudgetCategories = userId => {
       });
       renderCategoryRow(category, categoryTotal.toFixed(2));
     });
+    getBudgetCategoriesTotals(userId);
   });
 };
 
@@ -200,6 +201,7 @@ const getBudgetCategoriesTotals = userId => {
       });
     });
     renderTotals(categoryTotal, expenseTotal.toFixed(2));
+    getRemainder(userId);
   });
 };
 

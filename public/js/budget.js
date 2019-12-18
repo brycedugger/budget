@@ -66,7 +66,9 @@ const renderRemainderRow = remainderData => {
   const tdIncomeLeft = $("<td>").text("Income Left");
 
   const tdRemainder = $("<td>").text(
-    "$" + (parseFloat(remainderData.income) - parseFloat(remainderData.remainder)).toFixed(2)
+    remainderData.remainder === null
+      ? "N/A"
+      : "$" + (parseFloat(remainderData.income) - parseFloat(remainderData.remainder)).toFixed(2)
   );
 
   $("#main").append(tr);
@@ -80,6 +82,4 @@ $(document).ready(() => {
 
   getIncome(userId);
   getBudgetCategories(userId);
-  getBudgetCategoriesTotals(userId);
-  getRemainder(userId);
 });
