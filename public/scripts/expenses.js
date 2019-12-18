@@ -1,8 +1,42 @@
+// API REQUESTS
+
+/**
+ * // function to render categories and expenses
+ * @param {number} userId the user's id
+ */
+const getCategoriesAll = userId => {
+  axios.get(`/api/category/all/${userId}`).then(res => {
+    // TODO: pass the user's ID in the URL
+    let grandTotal = 0;
+    let goalTotal = 0;
+    res.data.forEach(row => {
+      let total = 0;
+      goalTotal += parseFloat(row.goal);
+      row.Expenses.forEach(expense => {
+        total += parseFloat(expense.amount);
+      });
+      grandTotal += total;
+      renderCategoryRow(row, total.toFixed(2));
+      row.Expenses.forEach(expense => {
+        total += parseFloat(expense.amount);
+        renderExpenseRow(expense, row.name);
+      });
+    });
+
+    renderTotalExpenses(grandTotal.toFixed(2), goalTotal.toFixed(2));
+  }),
+    err => {
+      console.log(err);
+    };
+};
+
+// RENDER FUNCTIONS
+
 /**
  * function to render the total expenses of all categories
  * @param {number} totalExpensesValue the total expense
  */
-function appendTotalExpenses(totalExpensesValue, totalExpenseGoal) {
+const renderTotalExpenses = (totalExpensesValue, totalExpenseGoal) => {
   const tr = $("<tr>");
   const tdTotalExpenses = $("<td>").text("Total of Goals & Expenses:");
   const tdTotalExpenseAmount = $("<td>").text(totalExpensesValue);
@@ -10,14 +44,14 @@ function appendTotalExpenses(totalExpensesValue, totalExpenseGoal) {
 
   $("#table").append(tr);
   tr.append(tdTotalExpenses, tdTotalExpenseGoal, tdTotalExpenseAmount);
-}
+};
 
 /**
  * function to render an expense row
  * @param {object} expenseData the expense object
  * @param {number} categoryName the name of the category
  */
-function renderExpenseRow(expenseData, categoryName) {
+const renderExpenseRow = (expenseData, categoryName) => {
   const tr = $("<tr>");
   const tdExpenseName = $("<td>", { class: "description-" + expenseData.id }).text(
     expenseData.description
@@ -37,14 +71,14 @@ function renderExpenseRow(expenseData, categoryName) {
   // append to html
   $("#table").append(tr);
   tr.append(tdExpenseName, td, tdExpenseAmount, deleteButton, editButton);
-}
+};
 
 /**
  * function to render category rows
  * @param {object} categoryData an object that contains the category data from the response
  * @param {number} totalExpenseCat the total expense of the category
  */
-function renderCategoryRow(categoryData, totalExpenseCat) {
+const renderCategoryRow = (categoryData, totalExpenseCat) => {
   const tBody = $("<tbody>");
   const tr = $("<tr>", { class: "bg-primary text-white" });
   const tdCategoryName = $("<td>", { class: "bold" }).text(categoryData.name);
@@ -70,7 +104,7 @@ function renderCategoryRow(categoryData, totalExpenseCat) {
     categoryDeleteButton,
     categoryEditButton
   );
-}
+};
 
 $(document).ready(() => {
   const userId = parseInt(
