@@ -95,7 +95,6 @@
 
 .bold {
   font-weight: bold;
-  background-color: #004d40;
 }
 
 .btn{
@@ -123,3 +122,7 @@
 i:hover {
   cursor: pointer;
 } */
+
+#margin-profile {
+  margin-bottom: 20px;
+}
