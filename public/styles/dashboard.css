@@ -76,4 +76,17 @@ img {
     background-color: #004d40;
 }
 
+.footer-copyright,
+.page-footer {
+  background-color: #004d40 !important;
+  color: whitesmoke;
+}
+
+#footer-body {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
 
