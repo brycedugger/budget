@@ -1,20 +1,19 @@
-//we import passport packages required for authentication
+// Importing passport packages required for authentication
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
-//
-//We will need the models folder to check passport agains
+
+// Importing models
 var db = require("../../models");
-//
-// Telling passport we want to use a Local Strategy. In other words,
-//we want login with a username/email and password
+
+// Using Local Strategy for username/password login
 passport.use(
   new LocalStrategy(
-    // Our user will sign in using an email, rather than a "username"
+    // User will sign in using username.
     {
       usernameField: "username"
     },
     function(username, password, done) {
-      // When a user tries to sign in this code runs
+      // When a user tries to sign in this runs
       db.User.findOne({
         where: {
           username: username
@@ -38,7 +37,7 @@ passport.use(
     }
   )
 );
-//
+
 // In order to help keep authentication state across HTTP requests,
 // Sequelize needs to serialize and deserialize the user
 passport.serializeUser(function(user, cb) {
@@ -48,122 +47,6 @@ passport.serializeUser(function(user, cb) {
 passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
-//
+
 // Exporting our configured passport
 module.exports = passport;
-
-// Old code
-/////////////////////////////////////////////////////////////////////
-// // Module for bcrypt
-// var bCrypt = require("bcrypt-nodejs");
-
-// module.exports = function(passport, user) {
-//   var User = user;
-//   var LocalStrategy = require("passport-local").Strategy;
-
-//   // Serialize User
-//   passport.serializeUser(function(user, done) {
-//     done(null, user.id);
-//   });
-
-//   // Deserialize User
-//   passport.deserializeUser(function(id, done) {
-//     User.findByPk(id).then(function(user) {
-//       if (user) {
-//         done(null, user.get());
-//       } else {
-//         done(user.errors, null);
-//       }
-//     });
-//   });
-
-//   // Local Signup
-//   passport.use(
-//     "local-signup",
-//     new LocalStrategy(
-//       {
-//         usernameField: "email",
-//         passwordField: "password",
-//         passReqToCallback: true // allows to pass back the entire request to the callback
-//       },
-//       function(req, email, password, done) {
-//         var generateHash = function(password) {
-//           return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-//         };
-
-//         User.findOne({
-//           where: {
-//             email: email
-//           }
-//         }).then(function(user) {
-//           if (user) {
-//             return done(null, false, {
-//               message: "That email is already taken"
-//             });
-//           } else {
-//             var userPassword = generateHash(password);
-//             var data = {
-//               email: email,
-//               pwd: userPassword,
-//               firstName: req.body.firstname,
-//               lastName: req.body.lastname,
-//               userName: req.body.username
-//             };
-//             User.create(data).then(function(newUser, created) {
-//               if (!newUser) {
-//                 return done(null, false);
-//               }
-//               if (newUser) {
-//                 return done(null, newUser);
-//               }
-//             });
-//           }
-//         });
-//       }
-//     )
-//   );
-//   // Local Signin
-//   passport.use(
-//     "local-signin",
-//     new LocalStrategy(
-//       {
-//         usernameField: "username",
-//         passwordField: "password",
-//         passReqToCallback: true
-//       },
-//       function(req, username, password, done) {
-//         var User = user;
-//         var isValidPassword = function(userpass, password) {
-//           return bCrypt.compareSync(password, userpass);
-//         };
-//         User.findOne({
-//           where: {
-//             username: username
-//           }
-//         })
-//           .then(function(user) {
-//             if (!user) {
-//               return done(null, false, {
-//                 message: "User does not exist"
-//               });
-//             }
-
-//             if (!isValidPassword(password)) {
-//               return done(null, false, {
-//                 message: "Incorrect password"
-//               });
-//             }
-
-//             var userInfo = user.get();
-//             return done(null, userInfo);
-//           })
-//           .catch(function(err) {
-//             console.log("Error:", err);
-//             return done(null, false, {
-//               message: "Something went wrong with the sign in."
-//             });
-//           });
-//       }
-//     )
-//   );
-// };
