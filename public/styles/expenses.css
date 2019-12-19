@@ -121,6 +121,12 @@
 .header{
   background-color: #004d40;
 }
+
+img{
+  width:auto;
+  height: 100px;
+  align-items: center;
+}
 /* i {
   margin-top: 0.25em;
   border: 1px solid red;
