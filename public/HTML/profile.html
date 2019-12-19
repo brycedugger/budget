@@ -13,7 +13,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
 
     <!-- custom stylesheets -->
-    <link rel="stylesheet" href="../styles/expenses.css">
     <link rel="stylesheet" href="../styles/dashboardstyle.css">
     <link rel="stylesheet" href="../styles/modal.css">
 
@@ -49,58 +48,20 @@
 </div>
 
 <body>
-    <div class="container mb-2">
+    <div class="container mb-2" id="main">
 
         <hr>
 
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label class="col-lg-3 control-label">First name:</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="text" value="" id="fname">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Last name:</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="text" value="" id="lname">
-                </div>
-            </div>
+        <!-- this is where the form is being rendered -->
+        <form class="form-horizontal" role="form" id="form">
 
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Email:</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="text" value="" id="email">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-3 control-label">Username:</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="text" value="" id="username">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-3 control-label">Password:</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="password" value="" id="pwd">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-3 control-label"></label>
-                <div class="col-md-8">
-                    <input type="reset" class="btn btn-default" value="Cancel" id="cancel-button">
-                    <input type="button" class="btn btn-primary" value="Save Changes" userId="1" id="save-button">
-                </div>
-            </div>
         </form>
     </div>
 
 
     <footer id="footer-body">
         <div class="footer-copyright text-center">
-          © 2019 Copyright. All rights reserved.
+            © 2019 Copyright. All rights reserved.
         </div>
     </footer>
 
@@ -115,10 +76,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
     <!-- custom scripts -->
-    <script type="text/javascript" src="../js/apiRequests.js"></script>
-    <script type="text/javascript" src="../js/expenses.js"></script>
-    <script type="text/javascript" src="../js/modal.js"></script>
-    <script type="text/javascript" src="../js/nav.js"></script>
+    <script type="text/javascript" src="../scripts/profile.js"></script>
+    <script type="text/javascript" src="../scripts/nav.js"></script>
+    <script type="text/javascript" src="../scripts/modal.js"></script>
 
 </body>
 

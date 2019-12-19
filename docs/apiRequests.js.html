@@ -1,14 +1,32 @@
-const updateUserIncome = (id, income) => {
-  // make put request to update a single category
-  axios.put(`/api/user/income/${id}`, { income }).then(res => {
-    location.reload();
-  }),
-    err => {
-      console.log(err);
-    };
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: apiRequests.js</title>
 
-/**
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: apiRequests.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * function update a category
  * @param {number} id the id of the category
  * @param {string} name the description of the category
@@ -130,89 +148,26 @@ const postExpense = (amount, description, CategoryId) => {
       console.log(err);
     };
 };
+</code></pre>
+        </article>
+    </section>
 
-// function to render categories and expenses
-const getCategoriesAll = userId => {
-  axios.get(`/api/category/all/${userId}`).then(res => {
-    // TODO: pass the user's ID in the URL
-    let grandTotal = 0;
-    let goalTotal = 0;
-    res.data.forEach(row => {
-      let total = 0;
-      goalTotal += parseFloat(row.goal);
-      row.Expenses.forEach(expense => {
-        total += parseFloat(expense.amount);
-      });
-      grandTotal += total;
-      renderCategoryRow(row, total.toFixed(2));
-      row.Expenses.forEach(expense => {
-        total += parseFloat(expense.amount);
-        renderExpenseRow(expense, row.name);
-      });
-    });
 
-    appendTotalExpenses(grandTotal.toFixed(2), goalTotal.toFixed(2));
-  }),
-    err => {
-      console.log(err);
-    };
-};
 
-/**
- * function to calculate and render the income
- * @param {number} userId the user's id
- */
-const getIncome = userId => {
-  axios.get(`/api/user/${userId}`).then(res => {
-    renderIncomeRow(res.data);
-  });
-};
 
-/**
- * function to get all category and expense totals
- * @param {number} userId the user's id
- */
-const getBudgetCategories = userId => {
-  axios.get(`/api/category/all/${userId}`).then(res => {
-    res.data.forEach(category => {
-      let categoryTotal = 0;
-      // calculate the sum of expenses for each category
-      category.Expenses.forEach(expense => {
-        categoryTotal += parseFloat(expense.amount);
-      });
-      renderCategoryRow(category, categoryTotal.toFixed(2));
-    });
-    getBudgetCategoriesTotals(userId);
-  });
-};
+</div>
 
-/**
- * function to get total category goal and total expense
- * @param {number} userId the user's id
- */
-const getBudgetCategoriesTotals = userId => {
-  let expenseTotal = 0;
-  let categoryTotal = 0;
-  axios.get(`/api/category/all/${userId}`).then(res => {
-    res.data.forEach(category => {
-      categoryTotal += parseFloat(category.goal);
-      category.Expenses.forEach(expense => {
-        expenseTotal += parseFloat(expense.amount);
-      });
-    });
-    renderTotals(parseFloat(categoryTotal).toFixed(2), expenseTotal.toFixed(2));
-    getRemainder(userId);
-  });
-};
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#deleteCategory">deleteCategory</a></li><li><a href="global.html#deleteExpense">deleteExpense</a></li><li><a href="global.html#getBudgetCategories">getBudgetCategories</a></li><li><a href="global.html#getBudgetCategoriesTotals">getBudgetCategoriesTotals</a></li><li><a href="global.html#getCategories">getCategories</a></li><li><a href="global.html#getCategoriesAll">getCategoriesAll</a></li><li><a href="global.html#getIncome">getIncome</a></li><li><a href="global.html#getRemainder">getRemainder</a></li><li><a href="global.html#getTime">getTime</a></li><li><a href="global.html#getUserInfo">getUserInfo</a></li><li><a href="global.html#listenForModalSubmission">listenForModalSubmission</a></li><li><a href="global.html#parseFormData">parseFormData</a></li><li><a href="global.html#postCategory">postCategory</a></li><li><a href="global.html#postExpense">postExpense</a></li><li><a href="global.html#renderCategoryRow">renderCategoryRow</a></li><li><a href="global.html#renderConfirmationModal">renderConfirmationModal</a></li><li><a href="global.html#renderDropdown">renderDropdown</a></li><li><a href="global.html#renderDropdownCategories">renderDropdownCategories</a></li><li><a href="global.html#renderExpenseRow">renderExpenseRow</a></li><li><a href="global.html#renderIncomeRow">renderIncomeRow</a></li><li><a href="global.html#renderModal">renderModal</a></li><li><a href="global.html#renderModalContent">renderModalContent</a></li><li><a href="global.html#renderModalFormFields">renderModalFormFields</a></li><li><a href="global.html#renderNavLinks">renderNavLinks</a></li><li><a href="global.html#renderRemainderRow">renderRemainderRow</a></li><li><a href="global.html#renderSettingsLink">renderSettingsLink</a></li><li><a href="global.html#renderTotalExpenses">renderTotalExpenses</a></li><li><a href="global.html#renderTotals">renderTotals</a></li><li><a href="global.html#trigger">trigger</a></li><li><a href="global.html#updateCategory">updateCategory</a></li><li><a href="global.html#updateExpense">updateExpense</a></li><li><a href="global.html#updateUser">updateUser</a></li><li><a href="global.html#updateUserIncome">updateUserIncome</a></li><li><a href="global.html#value">value</a></li></ul>
+</nav>
 
-/**
- * function to calculate and render the remainder
- * @param {number} userId the user's id
- */
-const getRemainder = userId => {
-  axios.get(`/api/remainder/${userId}`).then(res => {
-    res.data.forEach(remainder => {
-      renderRemainderRow(remainder);
-    });
-  });
-};
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Dec 18 2019 12:41:03 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

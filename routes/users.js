@@ -38,17 +38,18 @@ module.exports = function(app) {
 
   // update a single user
   app.put("/api/user/:id", (req, res) => {
-    const { firstName, lastName, username, pwd, email, income } = req.body;
+    const { firstName, lastName, email } = req.body;
+
+    console.log("firstName :", firstName);
+    console.log("lastName :", lastName);
+    console.log("email :", email);
 
     // needs validation for updated fields on front end
     db.User.update(
       {
         firstName,
         lastName,
-        username,
-        pwd,
-        email,
-        income
+        email
       },
       {
         where: { id: req.params.id }

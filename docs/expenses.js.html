@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: expenses.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: expenses.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// API REQUESTS
+
+/**
+ * function to render categories and expenses
+ * @param {number} userId the user's id
+ */
+const getCategoriesAll = userId => {
+  axios.get(`/api/category/all/${userId}`).then(res => {
+    let grandTotal = 0;
+    let goalTotal = 0;
+    res.data.forEach(row => {
+      let total = 0;
+      goalTotal += parseFloat(row.goal);
+      row.Expenses.forEach(expense => {
+        total += parseFloat(expense.amount);
+      });
+      grandTotal += total;
+      renderCategoryRow(row, total.toFixed(2));
+      row.Expenses.forEach(expense => {
+        total += parseFloat(expense.amount);
+        renderExpenseRow(expense, row.name);
+      });
+    });
+
+    renderTotalExpenses(grandTotal.toFixed(2), goalTotal.toFixed(2));
+  }),
+    err => {
+      console.log(err);
+    };
+};
+
+// RENDER FUNCTIONS
+
+/**
+ * function to render the total expenses of all categories
+ * @param {number} totalExpensesValue the total expense
+ */
+const renderTotalExpenses = (totalExpensesValue, totalExpenseGoal) => {
+  const tr = $("&lt;tr>");
+  const tdTotalExpenses = $("&lt;td>").text("Total of Goals &amp; Expenses:");
+  const tdTotalExpenseAmount = $("&lt;td>").text(totalExpensesValue);
+  const tdTotalExpenseGoal = $("&lt;td>").text(totalExpenseGoal);
+
+  $("#table").append(tr);
+  tr.append(tdTotalExpenses, tdTotalExpenseGoal, tdTotalExpenseAmount);
+};
+
+/**
+ * function to render an expense row
+ * @param {object} expenseData the expense object
+ * @param {number} categoryName the name of the category
+ */
+const renderExpenseRow = (expenseData, categoryName) => {
+  const tr = $("&lt;tr>");
+  const tdExpenseName = $("&lt;td>", { class: "description-" + expenseData.id }).text(
+    expenseData.description
+  );
+  const td = $("&lt;td>").text("-");
+  const tdExpenseAmount = $("&lt;td>", { class: "amount-" + expenseData.id }).text(expenseData.amount);
+  const editButton = $("&lt;div>", {
+    class: "btn btn-primary mx-1 mt-2 float-right text-white edit-button",
+    editId: expenseData.id,
+    categoryValue: categoryName
+  }).text("Edit");
+  const deleteButton = $("&lt;div>", {
+    class: "btn btn-primary mx-1 mt-2 float-right text-white delete-button",
+    deleteId: expenseData.id
+  }).text("Del.");
+
+  // append to html
+  $("#table").append(tr);
+  tr.append(tdExpenseName, td, tdExpenseAmount, deleteButton, editButton);
+};
+
+/**
+ * function to render category rows
+ * @param {object} categoryData an object that contains the category data from the response
+ * @param {number} totalExpenseCat the total expense of the category
+ */
+const renderCategoryRow = (categoryData, totalExpenseCat) => {
+  const tBody = $("&lt;tbody>");
+  const tr = $("&lt;tr>", { class: "bg-primary text-white" });
+  const tdCategoryName = $("&lt;td>", { class: "bold" }).text(categoryData.name);
+  const tdCategoryGoal = $("&lt;td>").text(categoryData.goal);
+  const tdCategoryTotal = $("&lt;td>").text(totalExpenseCat);
+  const categoryEditButton = $("&lt;div>", {
+    class: "btn btn-white mx-1 mt-2 float-right edit-category-button",
+    editId: categoryData.id,
+    categoryValue: categoryData.name,
+    goalValue: categoryData.goal
+  }).text("Edit");
+  const categoryDeleteButton = $("&lt;div>", {
+    class: "btn btn-white mx-1 mt-2 float-right delete-category-button",
+    deleteId: categoryData.id
+  }).text("Del.");
+
+  // append to html
+  $("#table").append(tBody, tr);
+  tr.append(
+    tdCategoryName,
+    tdCategoryGoal,
+    tdCategoryTotal,
+    categoryDeleteButton,
+    categoryEditButton
+  );
+};
+
+$(document).ready(() => {
+  const userId = parseInt(
+    window.location.href.split("/")[window.location.href.split("/").length - 1]
+  );
+  getCategoriesAll(userId);
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#deleteCategory">deleteCategory</a></li><li><a href="global.html#deleteExpense">deleteExpense</a></li><li><a href="global.html#getBudgetCategories">getBudgetCategories</a></li><li><a href="global.html#getBudgetCategoriesTotals">getBudgetCategoriesTotals</a></li><li><a href="global.html#getCategories">getCategories</a></li><li><a href="global.html#getCategoriesAll">getCategoriesAll</a></li><li><a href="global.html#getIncome">getIncome</a></li><li><a href="global.html#getRemainder">getRemainder</a></li><li><a href="global.html#getTime">getTime</a></li><li><a href="global.html#getUserInfo">getUserInfo</a></li><li><a href="global.html#listenForModalSubmission">listenForModalSubmission</a></li><li><a href="global.html#parseFormData">parseFormData</a></li><li><a href="global.html#postCategory">postCategory</a></li><li><a href="global.html#postExpense">postExpense</a></li><li><a href="global.html#renderCategoryRow">renderCategoryRow</a></li><li><a href="global.html#renderConfirmationModal">renderConfirmationModal</a></li><li><a href="global.html#renderDropdown">renderDropdown</a></li><li><a href="global.html#renderDropdownCategories">renderDropdownCategories</a></li><li><a href="global.html#renderExpenseRow">renderExpenseRow</a></li><li><a href="global.html#renderIncomeRow">renderIncomeRow</a></li><li><a href="global.html#renderModal">renderModal</a></li><li><a href="global.html#renderModalContent">renderModalContent</a></li><li><a href="global.html#renderModalFormFields">renderModalFormFields</a></li><li><a href="global.html#renderNavLinks">renderNavLinks</a></li><li><a href="global.html#renderRemainderRow">renderRemainderRow</a></li><li><a href="global.html#renderSettingsLink">renderSettingsLink</a></li><li><a href="global.html#renderTotalExpenses">renderTotalExpenses</a></li><li><a href="global.html#renderTotals">renderTotals</a></li><li><a href="global.html#trigger">trigger</a></li><li><a href="global.html#updateCategory">updateCategory</a></li><li><a href="global.html#updateExpense">updateExpense</a></li><li><a href="global.html#updateUser">updateUser</a></li><li><a href="global.html#updateUserIncome">updateUserIncome</a></li><li><a href="global.html#value">value</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Dec 18 2019 12:41:03 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

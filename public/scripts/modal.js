@@ -4,6 +4,7 @@
  * @param {function} callback the function to be executed when submit is clicked
  */
 const renderConfirmationModal = (title, callback) => {
+  console.log("render confirmation modal called");
   // create the elements
   const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
