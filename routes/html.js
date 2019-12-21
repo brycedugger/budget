@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   app.get("/text", function(req, res) {
     // res.redirect("/signup");
-    res.sendFile(test.html);
+    res.send(__dirname);
   });
 
   app.get("/dashboard/", function(req, res) {
