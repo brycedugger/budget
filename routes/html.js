@@ -9,6 +9,11 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
 
+  app.get("/text", function(req, res) {
+    // res.redirect("/signup");
+    res.sendFile(text.txt);
+  });
+
   app.get("/dashboard/", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
   });
