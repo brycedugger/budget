@@ -1,50 +1,43 @@
 var path = require("path");
 
 // Requiring our custom middleware for checking if a user is logged in
-// var isAuthenticated = require("../config/middleware/isAuthenticated");
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
-    // res.redirect("/signup");
-    // res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
-    res.sendFile(path.join(__dirname, "../public/HTML/test.html"));
+    res.redirect("/signup");
   });
 
-  app.get("/text", function(req, res) {
-    // res.redirect("/signup");
-    res.send(path.join(__dirname, "../public/HTML/budget.html"));
+  app.get("/dashboard/:userId", isAuthenticated, function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
   });
 
-  app.get("/dashboard/", function(req, res) {
-    res.sendFile("/HTML/dashboard.html");
-  });
-
-  app.get("/budget/", function(req, res) {
+  app.get("/budget/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/budget.html"));
   });
 
-  app.get("/expenses/", function(req, res) {
+  app.get("/expenses/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/expenses.html"));
   });
 
-  app.get("/profile/", function(req, res) {
+  app.get("/profile/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/profile.html"));
   });
 
   app.get("/login", function(req, res) {
     // Checking if user is authenticated. If so, by pass the login page
-    // if (req.user) {
-    //   res.redirect("/dashboard" + req.user.id);
-    // }
+    if (req.user) {
+      res.redirect("/" + req.user.id);
+    }
     res.sendFile(path.join(__dirname, "../public/HTML/login.html"));
   });
 
   app.get("/signup", function(req, res) {
     // Checking if user is authenticated. If so, by pass the signup page
-    // if (req.user) {
-    //   res.redirect("/dashboard" + req.user.id);
-    // }
-    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
+    if (req.user) {
+      res.redirect("/" + req.user.id);
+    }
+    res.sendFile(path.join(__dirname, "../public/HTML/test.html"));
   });
 
   // Render 404 page for any unmatched routes
