@@ -6,16 +6,16 @@ var path = require("path");
 module.exports = function(app) {
   app.get("/", function(req, res) {
     // res.redirect("/signup");
-    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/signin.html"));
   });
 
   app.get("/text", function(req, res) {
     // res.redirect("/signup");
-    res.send(path.join(__dirname, "../public/HTML/signup.html"));
+    res.send(path.join(__dirname, "../public/HTML/budget.html"));
   });
 
   app.get("/dashboard/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
+    res.sendFile("/HTML/dashboard.html");
   });
 
   app.get("/budget/", function(req, res) {
