@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   app.get("/text", function(req, res) {
     // res.redirect("/signup");
-    res.send(__dirname);
+    res.send(path.join(__dirname, "../public/HTML/signup.html"));
   });
 
   app.get("/dashboard/", function(req, res) {
