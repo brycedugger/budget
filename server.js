@@ -1,5 +1,4 @@
 require("dotenv").config();
-process.env.PWD = process.cwd();
 var express = require("express");
 
 var db = require("./models");
@@ -10,7 +9,7 @@ var PORT = process.env.PORT || 4000;
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(process.env.PWD + "/public"));
+app.use(express.static("public"));
 
 // Module for authentication
 var passport = require("passport");

@@ -9,19 +9,19 @@ module.exports = function(app) {
   });
 
   app.get("/dashboard/:userId", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(process.env.PWD, "../public/HTML/dashboard.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
   });
 
   app.get("/budget/:userId", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(process.env.PWD, "../public/HTML/budget.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/budget.html"));
   });
 
   app.get("/expenses/:userId", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(process.env.PWD, "../public/HTML/expenses.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/expenses.html"));
   });
 
   app.get("/profile/:userId", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(process.env.PWD, "../public/HTML/profile.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/profile.html"));
   });
 
   app.get("/login", function(req, res) {
@@ -29,7 +29,7 @@ module.exports = function(app) {
     if (req.user) {
       res.redirect("/dashboard" + req.user.id);
     }
-    res.sendFile(path.join(process.env.PWD, "../public/HTML/login.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/login.html"));
   });
 
   app.get("/signup", function(req, res) {
@@ -37,11 +37,11 @@ module.exports = function(app) {
     if (req.user) {
       res.redirect("/dashboard" + req.user.id);
     }
-    res.sendFile(path.join(process.env.PWD, "../public/HTML/signup.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
-    res.sendFile(path.join(process.env.PWD, "../public/HTML/404.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/404.html"));
   });
 };
