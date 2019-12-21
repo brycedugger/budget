@@ -5,7 +5,8 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
-    res.redirect("/signup");
+    // res.redirect("/signup");
+    res.send("this is the / route");
   });
 
   app.get("/dashboard/:userId", isAuthenticated, function(req, res) {
@@ -42,6 +43,6 @@ module.exports = function(app) {
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
+    res.send("this page is not found * route");
   });
 };
