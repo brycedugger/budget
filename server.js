@@ -30,7 +30,8 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 // Static directory
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 // Routes
 require("./routes/api")(app, passport);
@@ -48,10 +49,10 @@ if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
 }
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("public"));
-  syncOptions.force = false;
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("public"));
+//   syncOptions.force = false;
+// }
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
