@@ -30,8 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 // Static directory
-// app.use(express.static("public"));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
 
 // Routes
 require("./routes/api")(app, passport);
