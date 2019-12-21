@@ -42,6 +42,6 @@ module.exports = function(app) {
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/HTML/404.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
 };

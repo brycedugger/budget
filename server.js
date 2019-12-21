@@ -23,7 +23,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // For Passport
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true })); // session secret
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -44,6 +46,11 @@ var syncOptions = { force: false };
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("public"));
+  syncOptions.force = false;
 }
 
 // Starting the server, syncing our models ------------------------------------/
