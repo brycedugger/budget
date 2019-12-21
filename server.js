@@ -1,4 +1,5 @@
 require("dotenv").config();
+process.env.PWD = process.cwd();
 var express = require("express");
 
 var db = require("./models");
