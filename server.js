@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fs = require("fs");
 var express = require("express");
 
 var db = require("./models");
@@ -56,7 +57,12 @@ if (process.env.NODE_ENV === "test") {
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
   app.listen(PORT, function() {
-    console.log("dirname:", __dirname);
+    fs.writeFile("text.txt", __dirname, function(err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("The file was saved!");
+    });
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
