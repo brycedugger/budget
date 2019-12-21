@@ -37,7 +37,7 @@ module.exports = function(app) {
     if (req.user) {
       res.redirect("/dashboard" + req.user.id);
     }
-    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/404.html"));
   });
 
   // Render 404 page for any unmatched routes
