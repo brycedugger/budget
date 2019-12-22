@@ -5,9 +5,7 @@ var path = require("path");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
-    // res.redirect("/signup");
-    // res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
-    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
+    res.redirect("/signup");
   });
 
   app.get(
