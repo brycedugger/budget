@@ -10,6 +10,7 @@ module.exports = function(app) {
 
   app.get("/dashboard/:userId", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
+    // res.send("this is a test");
   });
 
   app.get("/budget/:userId", isAuthenticated, function(req, res) {
@@ -27,7 +28,7 @@ module.exports = function(app) {
   app.get("/login", function(req, res) {
     // Checking if user is authenticated. If so, by pass the login page
     if (req.user) {
-      res.redirect("/" + req.user.id);
+      res.redirect("/dashboard/" + req.user.id);
     }
     res.sendFile(path.join(__dirname, "../public/HTML/login.html"));
   });
@@ -35,7 +36,7 @@ module.exports = function(app) {
   app.get("/signup", function(req, res) {
     // Checking if user is authenticated. If so, by pass the signup page
     if (req.user) {
-      res.redirect("/" + req.user.id);
+      res.redirect("/dashboard/" + req.user.id);
     }
     res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
