@@ -9,7 +9,8 @@ module.exports = function(app) {
   });
 
   app.get("/dashboard/:userId", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
+    // res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
+    res.send("this is a test");
   });
 
   app.get("/budget/:userId", isAuthenticated, function(req, res) {
