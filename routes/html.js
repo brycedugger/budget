@@ -41,7 +41,7 @@ module.exports = function(app) {
     // if (req.user) {
     //   res.redirect("/dashboard" + req.user.id);
     // }
-    res.sendFile(path.join(__dirname, "../public/HTML/login.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/b.html"));
   });
 
   app.get("/signup", function(req, res) {
