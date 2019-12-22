@@ -5,7 +5,8 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
-    res.redirect("/signup");
+    // res.redirect("/signup");
+    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
 
   app.get("/dashboard/:userId", isAuthenticated, function(req, res) {
