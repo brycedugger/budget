@@ -7,7 +7,7 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     // res.redirect("/signup");
     // res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
-    res.sendFile(path.join(__dirname, "../public/HTML/a.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
 
   app.get(
@@ -51,7 +51,7 @@ module.exports = function(app) {
     // if (req.user) {
     //   res.redirect("/dashboard" + req.user.id);
     // }
-    res.sendFile(path.join(__dirname, "../public/HTML/a.html"));
+    res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
 
   // Render 404 page for any unmatched routes
