@@ -6,32 +6,33 @@ var path = require("path");
 module.exports = function(app) {
   app.get("/", function(req, res) {
     // res.redirect("/signup");
+    // res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
     res.sendFile(path.join(__dirname, "../public/HTML/signup.html"));
   });
 
   app.get(
-    "/dashboard/:userId",
+    "/dashboard/",
     /* isAuthenticated, */ function(req, res) {
       res.sendFile(path.join(__dirname, "../public/HTML/dashboard.html"));
     }
   );
 
   app.get(
-    "/budget/:userId",
+    "/budget/",
     /* isAuthenticated, */ function(req, res) {
       res.sendFile(path.join(__dirname, "../public/HTML/budget.html"));
     }
   );
 
   app.get(
-    "/expenses/:userId",
+    "/expenses/",
     /* isAuthenticated, */ function(req, res) {
       res.sendFile(path.join(__dirname, "../public/HTML/expenses.html"));
     }
   );
 
   app.get(
-    "/profile/:userId",
+    "/profile/",
     /* isAuthenticated, */ function(req, res) {
       res.sendFile(path.join(__dirname, "../public/HTML/profile.html"));
     }
