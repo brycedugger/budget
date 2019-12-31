@@ -2,97 +2,79 @@
 <html lang="en">
 
 <head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
-
-    <!--Import materialize.css-->
-    <link rel="stylesheet" href="../styles/materialize.min.css">
-
-    <!-- custom style sheets -->
-    <link rel="stylesheet" href="../styles/dashboard.css">
-    <link rel="stylesheet" href="../styles/login-signup.css">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- custom style sheets -->
+    <link rel="stylesheet" href="../styles/login-signup.css">
+
     <title>Sign-Up</title>
 </head>
 
 <body>
-    <nav class="nav-extended">
-        <div class="nav-wrapper">
-            <span id="nav-icon" class="brand-logo"></i>Moolah</span>
-        </div>
-        <div class="nav-content">
-            <ul class="tabs">
-                <li class="tab"><a href="login">Login</a></li>
-                <li class="tab"><a href="signup">Sign-Up</a></li>
-
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container md-2">
-        <div class="row">
-            <form class="col s12" id="signup" name="signup" method="post" action="/signup">
-                <div class="row">
-                    <div class="input-field">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="icon_prefix" type="text" class="validate" name="firstname">
-                        <label for="icon_prefix">First Name</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col-lg-3 control-label">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="icon_prefix" type="text" class="validate" name="lastname">
-                        <label for="icon_prefix">Last Name</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field">
-                        <i class="material-icons prefix">email</i>
-                        <input id="icon_prefix" type="text" class="validate" name="email">
-                        <label for="icon_prefix">Email</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field">
-                        <i class="material-icons prefix">person_outline</i>
-                        <input id="icon_prefix" type="text" class="validate" name="username">
-                        <label for="icon_prefix">Username<label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="icon_prefix" type="password" class="validate" name="password">
-                        <label for="icon_prefix">Password<label>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-            </form>
-        </div>
+    <div class="logo-container">
+        <p id="nav-icon" class="brand-logo"></i>Moolah</p>
     </div>
 
+    <div class="body-container">
+        <div class="form-container">
+            <p id="motto">Financial peace of mind is just around the corner..</p>
+            <!-- sign in form -->
+            <div class="wrap bg-white p-3 mx-auto rounded">
+                <form id="signup" name="signup" method="post" action="/signup">
+                    <div class=" form-group">
+                        <label for="username">Username</label>
+                        <input type="username" class="form-control" name="username" placeholder="Enter email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter Email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">First Name</label>
+                        <input type="text" class="form-control" name="firstName" placeholder="First Name" id="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="text">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" placeholder="Last Name" id="lastName">
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit" name="action">Submit</button>
+                    <a href="/sign" class="btn-link">Already have an account? Login here.</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    
     <footer id="footer-body">
         <div class="footer-copyright text-center">
-
             © 2019 Copyright. All rights reserved.
-
         </div>
     </footer>
+    </div>
 
-    <script type="text/javascript" src="../scripts/materialize.min.js"></script>
+            <!-- Optional JavaScript -->
+    <!-- jQuery first, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
