@@ -9,7 +9,7 @@
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
     
     <!-- Bootstrap CSS -->
@@ -21,41 +21,35 @@
 
     <title>Moolah</title>
 </head>
-
 <body>
-    <div class="logo-container">
-        <p id="nav-icon" class="brand-logo"></i>Moolah</p>
-    </div>
     <!-- main -->
-    <div class="body-container">
-        <div class="form-container">
-            <p id="motto">Financial peace of mind is just around the corner..</p>
-            <!-- sign in form -->
-            <div class="wrap bg-white p-3 mx-auto rounded">
-                <form id="signin" name="signin" method="post" action="/signin" id="login-form">
-                    <div class=" form-group">
-                        <label for="username">Username</label>
-                        <input type="username" class="form-control" name="username" placeholder="Username" id="username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Password" id="password">
-                    </div>
-                    <button class="btn btn-primary w-100" type="submit" name="action" id="login-button">Log In</button>
-                    <a href="/signup" class="btn-link">New to Moolah? Sign-up now.</a>
-                </form>
-            </div>
+    <div class="form-container mb-5">
+        <p id="name"></i>MOOLAH</p>
+        <p id="motto">Financial peace of mind is just around the corner..</p>
+        <!-- sign in form -->
+        <div class="wrap bg-white p-3 mx-auto rounded">
+            <form id="signin" name="signin" method="post" action="/signin" id="login-form">
+                <div class=" form-group">
+                    <label for="username">Username</label>
+                    <input type="username" class="form-control" name="username" placeholder="Username" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+                </div>
+                <button class="btn btn-primary w-100" type="submit" name="action" id="login-button">Log In</button>
+                <a href="/signup" class="btn-link">New to Moolah? Sign-up now.</a>
+            </form>
         </div>
     </div>
-    
-    
+
+
     <footer id="footer-body">
         <div class="footer-copyright text-center">
             © 2019 Copyright. All rights reserved.
         </div>
     </footer>
     </div>
-
 
         <!-- Optional JavaScript -->
     <!-- jQuery first, then Bootstrap JS -->
