@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
-
-  <!--Import materialize.css-->
-  <link rel="stylesheet" href="../styles/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
 
   <!-- Latest compiled and minified CSS & JS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
@@ -16,59 +19,61 @@
   <link rel="stylesheet" href="../styles/expenses.css">
   <link rel="stylesheet" href="../styles/modal.css">
 
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Expenses</title>
+
 </head>
 
-<nav class="nav-extended">
-  <div class="nav-wrapper">
-    <span id="nav-icon" class="brand-logo"></i>Moolah</span>
-    <ul class="right hide-on-med-and-down">
-
-    </ul>
-  </div>
-  <div class="nav-content">
-    <ul class="tabs">
-
-    </ul>
+<nav class="navbar navbar-light bg-light static-top shadow">
+  <div class="container">
+    <p class="navbar-brand">MOOLAH</p>
+      <ul class="nav justify-content-end">
+          <!-- info from nav.js here -->
+      </ul>
+    </div>
   </div>
 </nav>
 
-<div class="nav-content">
-  <span class="title">Expenses</span>
-</div>
+<div class="navbar-extend mb-5"></div>
 
 <body>
+
+  <p id="name"></i>EXPENSES</p>
+
   <div class="container" id="main">
-    <div class="table-container m-2">
-      <table class="highlight" class="expenses-spending">
-        <thead>
-          <tr>
-            <th class="spending-header">Spending</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="table">
-          <!-- information from script here -->
-        </tbody>
-      </table>
-      <div class="my-5 text-center">
-        <div class="btn btn-primary text-white create-category"><i class="material-icons right">add</i>Create Category
-        </div>
-        <div class="btn btn-primary text-white create-expense"><i class="material-icons right">add</i>Create Expense
+    <div class="card border-0 shadow my-5">
+      <div class="card-body p-3">
+
+            <table class="table">
+              <thead>
+                <tr class="table-color">
+                  <th scope="col">Description</th>
+                  <th scope="col">Goal</th>
+                  <th scope="col">Expenses</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody id="table">
+                <!-- information from script here -->
+              </tbody>
+            </table>
+            <div class="my-2 text-center">
+              <div class="btn btn-primary text-white create-category">Create Category
+              </div>
+              <div class="btn btn-primary text-white create-expense">Create Expense
+              </div>
+            </div>
+
         </div>
       </div>
     </div>
+  </div>
 
     <footer id="footer-body">
+      <div class="navbar-extend"></div>
       <div class="footer-copyright text-center">
         © 2019 Copyright. All rights reserved.
       </div>
     </footer>
-
-    <!--JavaScript at end of body for optimized loading-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <!-- bootstrap -->
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -82,6 +87,8 @@
     <script type="text/javascript" src="../scripts/expenses.js"></script>
     <script type="text/javascript" src="../scripts/modal.js"></script>
     <script type="text/javascript" src="../scripts/nav.js"></script>
+
+
 </body>
 
 </html>

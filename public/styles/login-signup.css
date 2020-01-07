@@ -8,15 +8,12 @@ body {
 
 #name {
   margin: 0 auto;
-  /* color: #004d40 !important; */
   color: white !important;
   font-weight: bold;
-  /* font-size: 60px; */
   font-size: 70px;
   font-family: 'Pacifico', cursive;
   text-align: center;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  /* background-color: whitesmoke; */
 }
 
 #motto {
@@ -43,6 +40,23 @@ body {
   margin-bottom: 5px;
 }
 
+.btn{
+  margin: 8px 0px 8px 0px;
+  color: whitesmoke;
+  background-color: #004d40;
+  border-color: #004d40;
+}
+
+.btn:hover, 
+.btn:focus, 
+.btn:active, 
+.btn.active, 
+.open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #008f77;
+  border-color: #008f77;
+}
+
 .footer-copyright,
 .page-footer {
   background-color: #004d40 !important;
@@ -55,9 +69,4 @@ body {
   bottom: 0;
   width: 100%;
   text-align: right;
-}
-
-.btn{
-    background-color: #004d40;
-    margin: 8px 0px 8px 0px;
 }

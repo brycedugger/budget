@@ -1,37 +1,70 @@
 /* Custom Stylesheet */
 
-.nav-extended {
-  color: #424242 !important;
-  background-color: whitesmoke !important;
+body { 
+  background: url(../assets/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
 }
 
-.nav-content {
-  margin-top: 30px;
+.navbar {
+  color: whitesmoke !important;
+  background-color: #004d40 !important;
 }
 
-#profile-icon {
-  color: #004d40 !important;
-  font-size: 30px;
-  margin-top: 20px;
-  margin-right: 40px;
-  font-weight: 30px;
+.navbar-brand {
+  color: whitesmoke !important;
+  font-family: 'Pacifico', cursive;
+  margin: 0;
 }
 
-#nav-icon {
-  margin-top: 20px;
-  margin-left: 30px;
-  color: #004d40 !important;
+.nav-link {
+  color: whitesmoke !important;
+  background-color: #004d40 !important;
+  padding: 5px;
+}
+
+.navbar-extend{
+  width:100%;
+  height:3px;
+  background-color: whitesmoke;
+}
+
+#name {
+  margin: 0 auto;
+  color: white !important;
   font-weight: bold;
-  font-size: 60px;
-  font-family: "Amatic SC", cursive;
+  font-size: 45px;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-.title {
-  color: #004d40 !important;
-  font-family: "Amatic SC", cursive;
-  font-size: 50px;
-  font-weight: bold;
-  margin-left: 80px;
+.table-color {
+  color: whitesmoke;
+  background-color: #004d40;
+}
+
+#text {
+  padding-top: 19px !important;
+  padding-bottom: 19px !important;
+}
+
+.btn-primary {
+  color: whitesmoke;
+  background-color: #004d40;
+  border-color: #004d40;
+}
+
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active, 
+.btn-primary.active, 
+.open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #008f77;
+  border-color: #008f77;
 }
 
 .footer-copyright,
@@ -46,95 +79,4 @@
   bottom: 0;
   width: 100%;
   text-align: right;
-}
-
-.tabs .tab a {
-  color: #b2dfdb !important;
-  font-weight: bolder;
-  font-family: "Amatic SC", cursive;
-  font-size: 29px;
-}
-
-.table-container {
-  margin-left: 80px;
-  margin-right: 120px;
-  
-}
-
-.expense-category-name,
-.expense-category-total,
-.expense-total,
-.expense-total-amount {
-  font-weight: bold;
-  font-size: 16px;
-  color:whitesmoke !important;
-  background-color: #004d40 !important;
-}
-
-.spending-header {
-  font-size: 20px;
-  color: #b2dfdb !important;
- 
-}
-
-.category-amount,
-.category-description {
-
-  align-content: center;
-  background-color: #004d40 !important;
-}
-
-.create-expense-button,
-.edit-expense-button {
-  margin-left: 20px;
-  background-color: #b2dfdb;
-}
-
-.waves-effect .waves-light btn {
-  margin-left: 30px;
-  background-color: #004d40;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.btn{
-  background-color: #004d40;
-}
-
-#goal{
-  background-color: #004d40;
-}
-
-.bg-primary {
-  background-color: #004d40;
-}
-.text-white {
-  background-color: #004d40;
-}
-.expense-category-name{
-  background-color: #004d40;
-}
-
-.header{
-  background-color: #004d40;
-}
-
-img{
-  width:auto;
-  height: 100px;
-  align-items: center;
-}
-/* i {
-  margin-top: 0.25em;
-  border: 1px solid red;
-}
-
-i:hover {
-  cursor: pointer;
-} */
-
-#margin-profile {
-  margin-bottom: 20px;
 }
