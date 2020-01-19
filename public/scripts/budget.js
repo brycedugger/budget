@@ -80,10 +80,10 @@ const getRemainder = userId => {
     res.data.forEach(remainder => {
       renderRemainderRow(remainder);
     });
-  }),
-    err => {
+  })
+    .catch(err => {
       console.log(err);
-    };
+    });
 };
 
 // RENDER FUNCTIONS
