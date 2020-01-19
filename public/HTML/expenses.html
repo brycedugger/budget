@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,7 +16,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
 
   <!-- custom stylesheets -->
-  <link rel="stylesheet" href="../styles/expenses.css">
+  <link rel="stylesheet" href="../styles/expenses-budget.css">
   <link rel="stylesheet" href="../styles/modal.css">
 
   <title>Expenses</title>
@@ -26,67 +26,71 @@
 <nav class="navbar navbar-light bg-light static-top shadow">
   <div class="container">
     <p class="navbar-brand">MOOLAH</p>
-      <ul class="nav justify-content-end">
-          <!-- info from nav.js here -->
-      </ul>
-    </div>
+    <ul class="nav justify-content-end">
+      <!-- nav.js info populates here -->
+    </ul>
   </div>
 </nav>
 
-<div class="navbar-extend mb-5"></div>
+<div class="navbar-extend"></div>
 
 <body>
+  <div id="page-container">
+    <p class="pt-3" id="name"></i>EXPENSES</p>
 
-  <p id="name"></i>EXPENSES</p>
-
-  <div class="container" id="main">
-    <div class="card border-0 shadow my-5">
-      <div class="card-body p-3">
-
-            <table class="table">
-              <thead>
-                <tr class="table-color">
-                  <th scope="col">Description</th>
-                  <th scope="col">Goal</th>
-                  <th scope="col">Expenses</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody id="table">
-                <!-- information from script here -->
-              </tbody>
-            </table>
-            <div class="my-2 text-center">
-              <div class="btn btn-primary text-white create-category">Create Category
-              </div>
-              <div class="btn btn-primary text-white create-expense">Create Expense
-              </div>
+    <div class="container" id="main">
+      <div class="card border-0 shadow mt-3 mb-5">
+        <div class="card-body p-3">
+          <div class="mb-3 text-center">
+            <div class="btn btn-primary text-white create-category">Create Category
             </div>
+            <div class="btn btn-primary text-white create-expense">Create Expense
+            </div>
+          </div>
 
+          <table class="table">
+            <thead>
+              <tr class="table-color">
+                <th scope="col">Description</th>
+                <th scope="col">Goal</th>
+                <th scope="col">Expenses</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody id="table">
+              <!-- expenses.js info populates here -->
+            </tbody>
+          </table>
+          <div class="mb-2 text-center">
+            <div class="btn btn-primary text-white create-category">Create Category
+            </div>
+            <div class="btn btn-primary text-white create-expense">Create Expense
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-    <footer id="footer-body">
-      <div class="navbar-extend"></div>
-      <div class="footer-copyright text-center">
-        © 2019 Copyright. All rights reserved.
-      </div>
-    </footer>
+  <div class="footer-body">
+    <div class="navbar-extend"></div>
+    <div class="footer-copyright text-center">
+      © 2019 Copyright. All rights reserved.
+    </div>
+  </div>
 
-    <!-- bootstrap -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- bootstrap -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <!-- axios -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <!-- axios -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
-    <!-- custom scripts -->
-    <script type="text/javascript" src="../scripts/apiRequests.js"></script>
-    <script type="text/javascript" src="../scripts/expenses.js"></script>
-    <script type="text/javascript" src="../scripts/modal.js"></script>
-    <script type="text/javascript" src="../scripts/nav.js"></script>
+  <!-- custom scripts -->
+  <script type="text/javascript" src="../scripts/apiRequests.js"></script>
+  <script type="text/javascript" src="../scripts/expenses.js"></script>
+  <script type="text/javascript" src="../scripts/modal.js"></script>
+  <script type="text/javascript" src="../scripts/nav.js"></script>
 
 
 </body>

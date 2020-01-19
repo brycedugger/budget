@@ -1,11 +1,32 @@
 /* Custom Stylesheet */
 
-body { 
+* {
+  box-sizing: border-box;
+ }
+ *:before,
+ *:after {
+  box-sizing: border-box;
+ }
+ html,
+ body {
+  height: 100%;
+  position: relative;
+ }
+
+#page-container { 
   background: url(../assets/background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
+
+  min-height: calc(100vh - 99px); /* margin + footer heights roughly */
+  position: relative;
+
+  overflow: hidden;
+  display: block;
+  padding-bottom: 25.4px; /* must be same size as footer */
+  
 }
 
 .navbar {
@@ -74,9 +95,7 @@ body {
 }
 
 #footer-body {
-  position: fixed;
-  left: 0;
+  position: absolute;
   bottom: 0;
   width: 100%;
-  text-align: right;
 }

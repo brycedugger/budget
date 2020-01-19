@@ -94,16 +94,19 @@ const getRemainder = userId => {
  */
 const renderIncomeRow = userData => {
   const tr = $("<tr>");
-  const tdIncomeHeader = $("<th>").text("Income");
-  const tdIncome = $("<td>").text("$" + userData.income);
+  const tdIncomeHeader = $("<td>", { id: "text" }).text("Income:");
+  const tdIncome = $("<td>", { id: "text" }).text("$" + userData.income);
+  const tdBtn = $("<td>");
   const editButton = $("<div>", {
-    class: "btn btn-white text-white mx-1 mt-2 edit-income-button",
+    class: "btn btn-primary edit-income-button",
+    // "btn btn-white text-white mx-1 mt-2 edit-income-button"
     userId: userData.id,
     userIncome: userData.income
   }).text("Edit");
 
   $("#income").append(tr);
-  tr.append(tdIncomeHeader, tdIncome, editButton);
+  tr.append(tdIncomeHeader, tdIncome, tdBtn);
+  tdBtn.append(editButton);
 };
 
 /**
@@ -113,21 +116,24 @@ const renderIncomeRow = userData => {
  */
 const renderCategoryRow = (categoryData, totalExpenseCat) => {
   const overUnder = categoryData.goal - totalExpenseCat;
-  const tr = $("<tr>");
-  const tdCategoryName = $("<td>").text(categoryData.name);
-  const tdCategoryGoal = $("<td>").text("$" + categoryData.goal);
-  const tdCategoryTotal = $("<td>").text("$" + totalExpenseCat);
-  const tdOverUnder = $("<td>").text("$" + parseFloat(overUnder).toFixed(2));
+  const tr = $("<tr>", { class: "table-primary" });
+  const tdCategoryName = $("<td>", { class: "font-weight-bold", id: "text" }).text(categoryData.name);
+  const tdCategoryGoal = $("<td>", { id: "text" }).text("$" + categoryData.goal);
+  const tdCategoryTotal = $("<td>", { id: "text" }).text("$" + totalExpenseCat);
+  const tdOverUnder = $("<td>", { id: "text" }).text("$" + parseFloat(overUnder).toFixed(2));
+  const tdBtn = $("<td>");
   const editButton = $("<div>", {
-    class: "btn btn-white mx-1 mt-2 edit-category-button",
+    class: "btn btn-primary edit-category-button",
+    // "btn btn-white mx-1 mt-2 edit-category-button"
     editId: categoryData.id,
     categoryId: categoryData.id,
     categoryValue: categoryData.name,
     goalValue: categoryData.goal
   }).text("Edit");
 
-  $("#main").append(tr);
-  tr.append(tdCategoryName, tdCategoryGoal, tdCategoryTotal, tdOverUnder, editButton);
+  $("#table").append(tr);
+  tr.append(tdCategoryName, tdCategoryGoal, tdCategoryTotal, tdOverUnder, tdBtn);
+  tdBtn.append(editButton);
 };
 
 /**
@@ -138,13 +144,13 @@ const renderCategoryRow = (categoryData, totalExpenseCat) => {
 const renderTotals = (categoryTotal, expenseTotal) => {
   const overUnder = categoryTotal - expenseTotal;
   const tr = $("<tr>");
-  const tdCategoryName = $("<td>").text("Totals");
-  const tdCategoryGoalTotal = $("<td>").text("$" + categoryTotal);
-  const tdExpenseTotal = $("<td>").text("$" + expenseTotal);
-  const tdOverUnder = $("<td>").text("$" + parseFloat(overUnder).toFixed(2));
-  const tdBlank = $("<td>").text("");
+  const tdCategoryName = $("<td>", { id: "text" }).text("Totals:");
+  const tdCategoryGoalTotal = $("<td>", { id: "text" }).text("$" + categoryTotal);
+  const tdExpenseTotal = $("<td>", { id: "text" }).text("$" + expenseTotal);
+  const tdOverUnder = $("<td>", { id: "text" }).text("$" + parseFloat(overUnder).toFixed(2));
+  const tdBlank = $("<td>", { id: "text" }).text("");
 
-  $("#main").append(tr);
+  $("#table").append(tr);
   tr.append(tdCategoryName, tdCategoryGoalTotal, tdExpenseTotal, tdOverUnder, tdBlank);
 };
 
@@ -154,9 +160,9 @@ const renderTotals = (categoryTotal, expenseTotal) => {
  */
 const renderRemainderRow = remainderData => {
   const tr = $("<tr>");
-  const tdIncomeLeft = $("<td>").text("Income Left");
+  const tdIncomeR = $("<td>", { id: "text" }).text("Income Remaining:");
   const tdBlank0 = $("<td>").text("");
-  const tdRemainder = $("<td>").text(
+  const tdRemainder = $("<td>", { id: "text" }).text(
     remainderData.remainder === null
       ? "N/A"
       : "$" + (parseFloat(remainderData.income) - parseFloat(remainderData.remainder)).toFixed(2)
@@ -164,8 +170,8 @@ const renderRemainderRow = remainderData => {
   const tdBlank1 = $("<td>").text("");
   const tdBlank2 = $("<td>").text("");
 
-  $("#main").append(tr);
-  tr.append(tdIncomeLeft, tdBlank0, tdRemainder, tdBlank1, tdBlank2);
+  $("#table").append(tr);
+  tr.append(tdIncomeR, tdBlank0, tdRemainder, tdBlank1, tdBlank2);
 };
 
 $(document).ready(() => {

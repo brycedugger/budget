@@ -6,7 +6,7 @@
 const renderConfirmationModal = (title, callback) => {
   console.log("render confirmation modal called");
   // create the elements
-  const modalFade = $("<div>", { id: "modal" }).css("z-index", 50);
+  const modalFade = $("<div>", { id: "modal" }).css("z-index", 5);
   const modalDiaglogue = $("<div>", { class: "modal-dialog" });
   const modalContent = $("<div>", { class: "modal-content" });
   const modalHeader = $("<div>", { class: "modal-header" });
@@ -64,7 +64,7 @@ const createExpense = () => {
 const renderDropdownCategories = (text, elementId) => {
   // create the element
   return $("<option>", {
-    class: `text-dark bg-light`,
+    class: `text-dark btn-light`,
     categoryId: elementId,
     value: text
   }).text(text);
@@ -78,7 +78,7 @@ const renderDropdownCategories = (text, elementId) => {
 const renderDropdown = elementId => {
   // create the element
   return $("<select>", {
-    class: "form-control w-100 mt-3 bg-primary text-white",
+    class: "form-control w-100 mt-3 btn-primary text-white",
     id: elementId
   });
 };
@@ -93,11 +93,11 @@ const renderDropdown = elementId => {
 const renderModalFormFields = (type, elementId, text) => {
   // create the elements
   const div = $("<div>");
-  const inputGroup = $("<div>", { class: "input-group" });
+  const inputGroup = $("<div>", { class: "form-group" });
   const label = $("<label>", { for: type }).text(type);
   const input = $("<input>", {
     type: "text",
-    class: "input-group-text text-left",
+    class: "form-control",
     id: elementId
   }).val(text);
   div.append(inputGroup);

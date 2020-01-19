@@ -38,8 +38,8 @@ const getCategoriesAll = userId => {
 const renderTotalExpenses = (totalExpensesValue, totalExpenseGoal) => {
   const tr = $("<tr>");
   const tdTotalExpenses = $("<td>").text("Total of Goals & Expenses:");
-  const tdTotalExpenseAmount = $("<td>").text(totalExpensesValue);
-  const tdTotalExpenseGoal = $("<td>").text(totalExpenseGoal);
+  const tdTotalExpenseAmount = $("<td>").text("$" + totalExpensesValue);
+  const tdTotalExpenseGoal = $("<td>").text("$" + totalExpenseGoal);
   const tdBlank = $("<td>").text("  ");
 
   $("#table").append(tr);
@@ -57,7 +57,7 @@ const renderExpenseRow = (expenseData, categoryName) => {
     expenseData.description
   );
   const td = $("<td>", { id: "text" }).text("-");
-  const tdExpenseAmount = $("<td>", { class: "amount-" + expenseData.id, id: "text" }).text(expenseData.amount);
+  const tdExpenseAmount = $("<td>", { class: "amount-" + expenseData.id, id: "text" }).text("$" + expenseData.amount);
   const tdBtn = $("<td>");
   const editButton = $("<div>", {
     class: "btn btn-primary mr-1 float-right edit-button",
@@ -84,8 +84,8 @@ const renderCategoryRow = (categoryData, totalExpenseCat) => {
   const tBody = $("<tbody>");
   const tr = $("<tr>", { class: "table-primary" });
   const tdCategoryName = $("<td>", { class: "font-weight-bold", id: "text" }).text(categoryData.name);
-  const tdCategoryGoal = $("<td>", { id: "text" }).text(categoryData.goal);
-  const tdCategoryTotal = $("<td>", { id: "text" }).text(totalExpenseCat);
+  const tdCategoryGoal = $("<td>", { id: "text" }).text("$" + categoryData.goal);
+  const tdCategoryTotal = $("<td>", { id: "text" }).text("$" + totalExpenseCat);
   const tdBtn = $("<td>");
   const categoryEditButton = $("<div>", {
     class: "btn btn-primary mr-1 float-right edit-category-button",

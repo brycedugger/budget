@@ -11,12 +11,19 @@ const renderNavLinks = (title, page, userId, parentElement) => {
   $(parentElement).append(li);
   li.append(a);
 };
+const renderLogout = (title, parentElement) => {
+  const li = $("<li>", { class: "nav-item" });
+  const a = $("<a>", {class: "nav-link", href: "/logout"}).text(title);
+  $(parentElement).append(li);
+  li.append(a);
+};
 
 $(document).ready(() => {
   const userId = window.location.href.split("/")[window.location.href.split("/").length - 1];
 
-  renderNavLinks("Home", "dashboard", userId, ".nav");
+  // renderNavLinks("Home", "dashboard", userId, ".nav");
   renderNavLinks("Expenses", "expenses", userId, ".nav");
   renderNavLinks("Budget", "budget", userId, ".nav");
   renderNavLinks("Profile", "profile", userId, ".nav");
+  renderLogout("Logout", ".nav");
 });

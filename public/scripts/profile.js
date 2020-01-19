@@ -5,8 +5,12 @@
  * @param {string} lastName the user's last name
  * @param {string} email the user's email
  */
-const updateUser = (userId, firstName, lastName, email) => {
-  axios.put(`/api/user/${userId}`, { firstName, lastName, email }).then(res => {
+const updateUser = (userId, username,
+  //  password, 
+   email, firstName, lastName) => {
+  axios.put(`/api/user/${userId}`, { username, 
+    // password, 
+    email, firstName, lastName }).then(res => {
     location.reload();
   }),
     err => {
@@ -20,9 +24,11 @@ const updateUser = (userId, firstName, lastName, email) => {
  */
 const getUserInfo = userId => {
   axios.get(`/api/user/${userId}`).then(res => {
+    renderFormField("Username:", "text", "uname", res.data.userName);
+    // renderFormField("Password:", "text", "password", res.data.pwd);
+    renderFormField("Email:", "text", "email", res.data.email);
     renderFormField("First name:", "text", "fname", res.data.firstName);
     renderFormField("Last name:", "text", "lname", res.data.lastName);
-    renderFormField("Email:", "text", "email", res.data.email);
     renderSubmitButton();
   }),
     err => {
@@ -37,12 +43,16 @@ const parseFormData = () => {
   const userId = parseInt(
     window.location.href.split("/")[window.location.href.split("/").length - 1]
   );
+  const username = $(".value-for-uname").val();
+  // const password = $(".value-for-password").val();
+  const email = $(".value-for-email").val();
   const firstName = $(".value-for-fname").val();
   const lastName = $(".value-for-lname").val();
-  const email = $(".value-for-email").val();
 
   renderConfirmationModal('Click "Confirm" to Update', () => {
-    updateUser(userId, firstName, lastName, email);
+    updateUser(userId, username, 
+      // password, 
+      email, firstName, lastName);
   });
 };
 
@@ -50,10 +60,10 @@ const parseFormData = () => {
 const renderSubmitButton = () => {
   // create html elements
   const formGroup = $("<div>", { class: "form-group" });
-  const col = $("<div>", { class: "col-lg-8" });
+  const col = $("<div>");
   const input = $("<input>", {
     type: "button",
-    class: "btn btn-primary",
+    class: "btn btn-primary w-100",
     value: "Submit",
     id: "submit-button"
   });
@@ -67,8 +77,8 @@ const renderSubmitButton = () => {
 const renderFormField = (text, type, valueType, value) => {
   // create html elements
   const formGroup = $("<div>", { class: "form-group" });
-  const label = $("<label>", { class: "col-lg-3 control-label" }).text(text);
-  const col = $("<div>", { class: "col-lg-8" });
+  const label = $("<label>").text(text);
+  const col = $("<div>");
   const input = $("<input>", { class: "form-control value-for-" + valueType, type: type }).val(
     value
   );

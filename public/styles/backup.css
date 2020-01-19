@@ -19,10 +19,10 @@
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-  
-    min-height: calc(100vh - 99px); /* margin + footer heights roughly */
+
+    min-height: 100vh;
     position: relative;
-  
+
     overflow: hidden;
     display: block;
     padding-bottom: 25.4px; /* must be same size as footer */
@@ -51,7 +51,7 @@
     height:3px;
     background-color: whitesmoke;
   }
-
+  
   #name {
     margin: 0 auto;
     color: white !important;
@@ -61,7 +61,17 @@
     text-align: center;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
-
+  
+  .table-color {
+    color: whitesmoke;
+    background-color: #004d40;
+  }
+  
+  #text {
+    padding-top: 19px !important;
+    padding-bottom: 19px !important;
+  }
+  
   .btn-primary {
     color: whitesmoke;
     background-color: #004d40;
@@ -85,7 +95,9 @@
   }
   
   #footer-body {
+    
     position: absolute;
-    bottom: 0;
-    width: 100%;
+ bottom: 0;
+ width: 100%;
   }
+  
